@@ -10,8 +10,8 @@ class editProfilController extends Controller
     public function index()
     {
         $profil = [
-            'nama' => 'Faiz Syafiq',
-            'email' => 'faiz@example.com',
+            'nama' => 'Faiz Syafiq Nabily',
+            'email' => 'faiz@gmail.com',
             'telepon' => '08123456789',
             'alamat' => 'Ciamis, Jawa Barat'
         ];
