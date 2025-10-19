@@ -4,39 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Property</title>
-    <link rel="stylesheet" href="{{ asset('css/addPropertyPTW.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/editPropertyPTW.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="container">
-    <!-- Sidebar -->
     <aside class="sidebar">
-        <div class="profile">
-            <img src="{{ asset($owner['photo']) }}" alt="Owner Photo">
-            <h3>{{ $owner['name'] }}</h3>
-            <p>{{ $owner['title'] }}</p>
+        <div> <div class="profile">
+                <img src="{{ asset($owner['photo']) }}" alt="Owner Photo">
+                <h3>{{ $owner['name'] }}</h3>
+                <p>{{ $owner['title'] }}</p>
+            </div>
+            <nav>
+                <a href="{{ route('dashboard.ptw') }}">Dashboard</a>
+                <a href="#">Revenue</a>
+                <a href="{{ route('properties.ptw') }}" class="active">Properties</a>
+                <a href="#">Tickets</a>
+                <a href="#">Help Centre</a>
+            </nav>
         </div>
-        <hr>
-        <nav>
-            <a href="{{ route('dashboard.ptw') }}">Dashboard</a>
-            <a href="#">Revenue</a>
-            <a href="{{ route('properties.ptw') }}" class="active">Properties</a>
-            <a href="#">Tickets</a>
-            <a href="#">Help Centre</a>
-        </nav>
         <a href="#" class="logout">Log Out</a>
     </aside>
 
-    <!-- Main Content -->
     <main class="content">
         <header class="navbar">
             <h2>Welcome back to dashboard!</h2>
             <div class="navbar-logos">
-                <img src="{{ asset('images/logo-wanderlust.png') }}" alt="Logo">
-                <img src="{{ asset('images/logo-ministry.png') }}" alt="Logo">
+                <img src="{{ asset('images/logo-wanderlust.png') }}" alt="Logo" height="40">
+                <img src="{{ asset('images/logo-ministry.png') }}" alt="Logo" height="40">
             </div>
         </header>
 
-        <!-- Form Section -->
         <section class="form-section">
             <h2 class="form-title">Edit Property</h2>
 
@@ -99,20 +99,5 @@
     </main>
 </div>
 
-<style>
-.delete-btn {
-    background-color: #D9534F;
-    color: white;
-    font-weight: bold;
-    padding: 12px 25px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-family: 'Poppins', sans-serif;
-}
-.delete-btn:hover {
-    background-color: #C9302C;
-}
-</style>
 </body>
 </html>
