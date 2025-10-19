@@ -9,6 +9,9 @@ use App\Http\Controllers\DashboardPTWController;
 use App\Http\Controllers\PropertyPTWController;
 use App\Http\Controllers\AddPropertyPTWController;
 use App\Http\Controllers\EditPropertyPTWController;
+use App\Http\Controllers\TempatWisataController;
+use App\Http\Controllers\PropertiController;
+
 
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('home');
 Route::get('/edit-profil', [ProfilController::class, 'edit'])->name('profil.edit');
@@ -23,6 +26,7 @@ Route::get('/homeWisatawan', function () {
     return redirect('/home');
 });
 
+Route::get('/lokasi', [TempatWisataController::class, 'show'])->name('lokasi.show');
 Route::get('/dashboard-ptw', [DashboardPTWController::class, 'index'])->name('dashboard.ptw');
 Route::get('/properties-ptw', [PropertyPTWController::class, 'index'])->name('properties.ptw');
 Route::get('/add-property-ptw', [AddPropertyPTWController::class, 'index'])->name('add.property.ptw');
@@ -30,3 +34,4 @@ Route::post('/add-property-ptw', [AddPropertyPTWController::class, 'store'])->na
 Route::get('/edit-property-ptw/{id}', [EditPropertyPTWController::class, 'edit'])->name('edit.property.ptw');
 Route::post('/edit-property-ptw/{id}', [EditPropertyPTWController::class, 'update'])->name('update.property.ptw');
 Route::delete('/delete-property-ptw/{id}', [EditPropertyPTWController::class, 'destroy'])->name('delete.property.ptw');
+Route::get('/lokasi/{id}', [PropertiController::class, 'show']);
