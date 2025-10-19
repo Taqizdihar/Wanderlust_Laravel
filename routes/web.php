@@ -1,10 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\LoginController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\editProfilController;
+use App\Http\Controllers\DashboardPTWController;
 
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('home');
 Route::get('/edit-profil', [ProfilController::class, 'edit'])->name('profil.edit');
