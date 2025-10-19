@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class DashboardPTWController extends Controller
-{
+class DashboardPTWController extends Controller {
+    
     public function index()
     {
         $owner = [
