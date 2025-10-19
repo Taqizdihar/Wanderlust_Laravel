@@ -11,6 +11,8 @@ use App\Http\Controllers\AddPropertyPTWController;
 use App\Http\Controllers\EditPropertyPTWController;
 use App\Http\Controllers\TempatWisataController;
 use App\Http\Controllers\PropertiController;
+use App\Http\Controllers\LokasiController;
+use App\Http\Controllers\ProfilController;
 
 
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('home');
