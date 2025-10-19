@@ -14,18 +14,11 @@ use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\DestinasiController;
 
 
-<<<<<<< HEAD
-Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/editProfil', [editProfilController::class, 'index'])->name('editProfil');
-Route::post('/updateProfil', [editProfilController::class, 'update'])->name('updateProfil');
-Route::get('/lokasi', [TempatWisataController::class, 'show'])->name('lokasi.show');
-=======
 //untuk autentikasi
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('home');
 Route::post('/login/auth', [LoginController::class, 'authenticate'])->name('login.auth');
 
 //untuk pemilik tempat wisata (PTW)
->>>>>>> d7a62f445edf106be526a20805b6f424048df228
 Route::get('/dashboard-ptw', [DashboardPTWController::class, 'index'])->name('dashboard.ptw');
 Route::get('/properties-ptw', [PropertyPTWController::class, 'index'])->name('properties.ptw');
 Route::get('/add-property-ptw', [AddPropertyPTWController::class, 'index'])->name('add.property.ptw');
