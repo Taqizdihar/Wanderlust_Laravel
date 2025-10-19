@@ -18,8 +18,7 @@ use App\Http\Controllers\ProfilController;
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('home');
 Route::get('/edit-profil', [ProfilController::class, 'edit'])->name('profil.edit');
 Route::post('/edit-profil', [ProfilController::class, 'update'])->name('profil.update');    
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/editProfil', [editProfilController::class, 'index'])->name('editProfil');
 
 Route::post('/updateProfil', [editProfilController::class, 'update'])->name('updateProfil');
