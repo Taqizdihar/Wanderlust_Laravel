@@ -26,11 +26,6 @@ Route::post('/add-property-ptw', [AddPropertyPTWController::class, 'store'])->na
 Route::get('/edit-property-ptw/{id}', [EditPropertyPTWController::class, 'edit'])->name('edit.property.ptw');
 Route::post('/edit-property-ptw/{id}', [EditPropertyPTWController::class, 'update'])->name('update.property.ptw');
 Route::delete('/delete-property-ptw/{id}', [EditPropertyPTWController::class, 'destroy'])->name('delete.property.ptw');
-<<<<<<< HEAD
-Route::get('/lokasi/{id}', [LokasiController::class, 'show']);
-Route::get('/', [DestinasiController::class, 'index']);
-=======
->>>>>>> d7a62f445edf106be526a20805b6f424048df228
 
 //untuk wisatawan
 Route::get('/edit-profil', [ProfilController::class, 'edit'])->name('profil.edit');
