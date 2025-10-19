@@ -14,10 +14,18 @@ use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\DestinasiController;
 
 
+<<<<<<< HEAD
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/editProfil', [editProfilController::class, 'index'])->name('editProfil');
 Route::post('/updateProfil', [editProfilController::class, 'update'])->name('updateProfil');
 Route::get('/lokasi', [TempatWisataController::class, 'show'])->name('lokasi.show');
+=======
+//untuk autentikasi
+Route::get('/', [LoginController::class, 'showLoginForm'])->name('home');
+Route::post('/login/auth', [LoginController::class, 'authenticate'])->name('login.auth');
+
+//untuk pemilik tempat wisata (PTW)
+>>>>>>> d7a62f445edf106be526a20805b6f424048df228
 Route::get('/dashboard-ptw', [DashboardPTWController::class, 'index'])->name('dashboard.ptw');
 Route::get('/properties-ptw', [PropertyPTWController::class, 'index'])->name('properties.ptw');
 Route::get('/add-property-ptw', [AddPropertyPTWController::class, 'index'])->name('add.property.ptw');
@@ -25,9 +33,22 @@ Route::post('/add-property-ptw', [AddPropertyPTWController::class, 'store'])->na
 Route::get('/edit-property-ptw/{id}', [EditPropertyPTWController::class, 'edit'])->name('edit.property.ptw');
 Route::post('/edit-property-ptw/{id}', [EditPropertyPTWController::class, 'update'])->name('update.property.ptw');
 Route::delete('/delete-property-ptw/{id}', [EditPropertyPTWController::class, 'destroy'])->name('delete.property.ptw');
+<<<<<<< HEAD
 Route::get('/lokasi/{id}', [LokasiController::class, 'show']);
 Route::get('/', [DestinasiController::class, 'index']);
+=======
+>>>>>>> d7a62f445edf106be526a20805b6f424048df228
 
+//untuk wisatawan
+Route::get('/edit-profil', [ProfilController::class, 'edit'])->name('profil.edit');
+Route::post('/edit-profil', [ProfilController::class, 'update'])->name('profil.update');    
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/editProfil', [editProfilController::class, 'index'])->name('editProfil');
+Route::post('/updateProfil', [editProfilController::class, 'update'])->name('updateProfil');
 Route::get('/homeWisatawan', function () {
     return redirect('/home');
 });
+
+//untuk administrator
+Route::get('/lokasi', [TempatWisataController::class, 'show'])->name('lokasi.show');
+Route::get('/lokasi/{id}', [PropertiController::class, 'show']);
