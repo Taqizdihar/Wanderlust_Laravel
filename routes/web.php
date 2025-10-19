@@ -15,6 +15,8 @@ use App\Http\Controllers\LokasiController;
 
 
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('home');
+Route::post('/login/auth', [LoginController::class, 'authenticate'])->name('login.auth');
+
 Route::get('/edit-profil', [ProfilController::class, 'edit'])->name('profil.edit');
 Route::post('/edit-profil', [ProfilController::class, 'update'])->name('profil.update');    
 Route::get('/home', [HomeController::class, 'index'])->name('home');

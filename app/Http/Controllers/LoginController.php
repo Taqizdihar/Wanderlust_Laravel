@@ -11,30 +11,27 @@ class LoginController extends Controller {
         return view('login');
     }
 
-    public function login(Request $request)
+    public function authenticate(Request $request)
     {
-        $request->validate([
-            'username' => 'required|string',
-            'password' => 'required|string',
-        ]);
+        $username = $request->input('username');
+        $password = $request->input('password');
 
-        $credentials = $request->only('username', 'password');
+        $user = GlobalData::checkLogin($username, $password);
 
-        if (Auth::attempt($credentials)) {
-            return redirect()->intended('/dashboard'); 
+        if ($user) {
+
+            switch ($user['role']) {
+                case 'admin':
+                    return redirect()->route('dashboard.admin');
+                case 'ptw':
+                    return redirect()->route('dashboard.ptw');
+                case 'tourist':
+                    return redirect()->route('home.tourist');
+                default:
+                    return redirect()->route('login')->with('error', 'Role tidak dikenali!');
+            }
+        } else {
+            return redirect()->route('login')->with('error', 'Username atau password salah!');
         }
-
-        return back()->withErrors([
-            'login_error' => 'Username atau password salah.',
-        ])->onlyInput('username');
-    }
-
-    public function logout(Request $request)
-    {
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return redirect('/login');
     }
 }
