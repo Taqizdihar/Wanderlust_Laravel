@@ -11,6 +11,7 @@ use App\Http\Controllers\EditPropertyPTWController;
 use App\Http\Controllers\TempatWisataController;
 use App\Http\Controllers\PropertiController;
 use App\Http\Controllers\LokasiController;
+use App\Http\Controllers\DestinasiController;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -25,6 +26,7 @@ Route::get('/edit-property-ptw/{id}', [EditPropertyPTWController::class, 'edit']
 Route::post('/edit-property-ptw/{id}', [EditPropertyPTWController::class, 'update'])->name('update.property.ptw');
 Route::delete('/delete-property-ptw/{id}', [EditPropertyPTWController::class, 'destroy'])->name('delete.property.ptw');
 Route::get('/lokasi/{id}', [LokasiController::class, 'show']);
+Route::get('/', [DestinasiController::class, 'index']);
 
 Route::get('/homeWisatawan', function () {
     return redirect('/home');
