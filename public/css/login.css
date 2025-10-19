@@ -1,7 +1,7 @@
 body {
     font-family: 'Inter', sans-serif;
     background: linear-gradient(to right, #55c5ff, #c8ebff);
-    height: 100vh;
+    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,6 +12,7 @@ body {
     justify-content: center;
     align-items: center;
     width: 100%;
+    margin-top: 50px;
 }
 
 .login-box {

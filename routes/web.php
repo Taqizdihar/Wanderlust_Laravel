@@ -15,6 +15,8 @@ Route::get('/editProfil', [editProfilController::class, 'index'])->name('editPro
 
 Route::post('/updateProfil', [editProfilController::class, 'update'])->name('updateProfil');
 
-Route::get('/', function () {
+Route::get('/homeWisatawan', function () {
     return redirect('/home');
 });
+
+Route::get('/dashboard-ptw', [DashboardPTWController::class, 'index'])->name('dashboard.ptw');

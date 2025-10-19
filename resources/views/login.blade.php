@@ -36,7 +36,6 @@
 
             <div class="logo">
                 <img src="{{ asset('images/logo.png') }}" alt="Wanderlust">
-                <p><strong>Wanderlust</strong><br>Wanderings for Wonders</p>
             </div>
         </div>
     </div>
