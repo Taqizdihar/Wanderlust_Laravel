@@ -12,14 +12,10 @@
             <h1>Sign In</h1>
             <p class="subtitle">Welcome Back, Traveler</p>
 
-            @if($errors->has('login_error'))
-                <div class="error">{{ $errors->first('login_error') }}</div>
-            @endif
-
-            <form method="POST" action="{{ url('/login') }}">
+            <form method="POST" action="{{ route('login.auth') }}">
                 @csrf
                 <label>Username</label>
-                <input type="text" name="username" value="{{ old('username') }}" required>
+                <input type="text" name="username" required>
 
                 <label>Password</label>
                 <input type="password" name="password" required>
@@ -31,7 +27,7 @@
 
             <p class="signup-text">
                 Don’t have an account?
-                <a href="/register">Sign up</a>
+                <a href="#">Sign up</a>
             </p>
 
             <div class="logo">

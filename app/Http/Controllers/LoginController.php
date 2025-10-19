@@ -16,7 +16,7 @@ class LoginController extends Controller {
         $username = $request->input('username');
         $password = $request->input('password');
 
-        $user = GlobalData::checkLogin($username, $password);
+        $user = GlobalArray::checkLogin($username, $password);
 
         if ($user) {
 
