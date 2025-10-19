@@ -6,17 +6,35 @@ use Illuminate\Http\Request;
 
 class LokasiController extends Controller
 {
-    public function index()
+    public function show($id)
     {
-        // Data lokasi wisata disimpan dalam array (simulasi)
-        $lokasi = [
-            ['id' => 1, 'nama' => 'Pantai Kuta', 'kota' => 'Bali'],
-            ['id' => 2, 'nama' => 'Candi Borobudur', 'kota' => 'Magelang'],
-            ['id' => 3, 'nama' => 'Gunung Bromo', 'kota' => 'Probolinggo'],
-            ['id' => 4, 'nama' => 'Danau Toba', 'kota' => 'Sumatera Utara'],
-            ['id' => 5, 'nama' => 'Raja Ampat', 'kota' => 'Papua Barat'],
+        // Contoh data dummy (tanpa database)
+        $profile = [
+            'user_id' => 1,
+            'nama' => 'Riska',
         ];
 
-        return view('lokasi', compact('lokasi'));
+        // Data lokasi berdasarkan id
+        $dataLokasi = [
+            'tempatwisata_id' => $id,
+            'nama_lokasi' => 'Pantai Indah',
+            'jenis_wisata' => 'Wisata Alam',
+            'waktu_buka' => '08:00',
+            'waktu_tutup' => '17:00',
+            'deskripsi' => 'Pantai indah dengan pasir putih dan ombak tenang.',
+            'nomor_pic' => 'PIC-00987',
+            'surat_izin' => 'surat_izin.pdf',
+            'status' => 'pending',
+        ];
+
+        // Contoh foto (bisa kamu sesuaikan)
+        $fotos = [
+            'foto1.jpg',
+            'foto2.jpg',
+            'foto3.jpg',
+        ];
+
+        // Kirim data ke view
+        return view('lokasiDetail', compact('profile', 'dataLokasi', 'fotos'));
     }
 }
