@@ -20,7 +20,7 @@
                 <nav>
                     <a href="{{ route('dashboard.ptw') }}" class="active">Dashboard</a>
                     <a href="#">Revenue</a>
-                    <a href="#">Properties</a>
+                    <a href="{{ route('properties.ptw') }}">Properties</a>
                     <a href="#">Tickets</a>
                     <a href="#">Help Centre</a>
                 </nav>

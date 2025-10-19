@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\editProfilController;
 use App\Http\Controllers\DashboardPTWController;
+use App\Http\Controllers\PropertyPTWController;
 
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('home');
 Route::get('/edit-profil', [ProfilController::class, 'edit'])->name('profil.edit');
@@ -21,3 +22,4 @@ Route::get('/homeWisatawan', function () {
 });
 
 Route::get('/dashboard-ptw', [DashboardPTWController::class, 'index'])->name('dashboard.ptw');
+Route::get('/properties-ptw', [PropertyPTWController::class, 'index'])->name('properties.ptw');
