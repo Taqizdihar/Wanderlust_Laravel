@@ -187,3 +187,17 @@ nav a.active {
 .save-btn:hover {
     background-color: #2568D0;
 }
+
+.delete-btn {
+    background-color: #D9534F;
+    color: white;
+    font-weight: bold;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+}
+.delete-btn:hover {
+    background-color: #C9302C;
+}

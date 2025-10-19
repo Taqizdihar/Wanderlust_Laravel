@@ -4,39 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add New Property</title>
-    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/addPropertyPTW.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="container">
-    <!-- Sidebar -->
     <aside class="sidebar">
-        <div class="profile">
-            <img src="{{ asset($owner['photo']) }}" alt="Owner Photo">
-            <h3>{{ $owner['name'] }}</h3>
-            <p>{{ $owner['title'] }}</p>
+        <div>
+            <div class="profile">
+                <img src="{{ asset($owner['photo']) }}" alt="Owner Photo">
+                <h3>{{ $owner['name'] }}</h3>
+                <p>{{ $owner['title'] }}</p>
+            </div>
+            <nav>
+                <a href="{{ route('dashboard.ptw') }}">Dashboard</a>
+                <a href="#">Revenue</a>
+                <a href="{{ route('properties.ptw') }}" class="active">Properties</a>
+                <a href="#">Tickets</a>
+                <a href="#">Help Centre</a>
+            </nav>
         </div>
-        <hr>
-        <nav>
-            <a href="{{ route('dashboard.ptw') }}">Dashboard</a>
-            <a href="#">Revenue</a>
-            <a href="{{ route('properties.ptw') }}" class="active">Properties</a>
-            <a href="#">Tickets</a>
-            <a href="#">Help Centre</a>
-        </nav>
         <a href="#" class="logout">Log Out</a>
     </aside>
 
-    <!-- Main Content -->
     <main class="content">
         <header class="navbar">
             <h2>Welcome back to dashboard!</h2>
-            <div class="logo-right">
+            <div class="navbar-logos">
                 <img src="{{ asset('images/logo-wanderlust.png') }}" alt="Logo" height="40">
                 <img src="{{ asset('images/logo-ministry.png') }}" alt="Logo" height="40">
             </div>
         </header>
 
-        <!-- Form Section -->
         <section class="form-section">
             <h2 class="form-title">Add New Property</h2>
 
@@ -92,69 +93,5 @@
     </main>
 </div>
 
-<style>
-/* Form Section */
-.form-section {
-    padding: 40px;
-}
-.form-title {
-    text-align: center;
-    color: #006F80;
-    margin-bottom: 25px;
-}
-.property-form {
-    background-color: #4DB5C3;
-    padding: 25px 30px;
-    border-radius: 10px;
-    color: white;
-    width: 80%;
-    margin: 0 auto;
-}
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-.form-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-}
-.input-group {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-}
-.input-group.full {
-    width: 100%;
-}
-.input-group label {
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-.input-group input,
-.input-group select,
-.input-group textarea {
-    padding: 10px;
-    border-radius: 6px;
-    border: none;
-    outline: none;
-    font-size: 14px;
-}
-.save-btn {
-    background-color: #3183FF;
-    color: white;
-    font-weight: bold;
-    padding: 12px 25px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    display: block;
-    margin: 20px auto 0;
-}
-.save-btn:hover {
-    background-color: #2568D0;
-}
-</style>
 </body>
 </html>

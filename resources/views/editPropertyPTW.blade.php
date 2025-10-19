@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Property</title>
+    <link rel="stylesheet" href="{{ asset('css/addPropertyPTW.css') }}">
+</head>
+<body>
+<div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="profile">
+            <img src="{{ asset($owner['photo']) }}" alt="Owner Photo">
+            <h3>{{ $owner['name'] }}</h3>
+            <p>{{ $owner['title'] }}</p>
+        </div>
+        <hr>
+        <nav>
+            <a href="{{ route('dashboard.ptw') }}">Dashboard</a>
+            <a href="#">Revenue</a>
+            <a href="{{ route('properties.ptw') }}" class="active">Properties</a>
+            <a href="#">Tickets</a>
+            <a href="#">Help Centre</a>
+        </nav>
+        <a href="#" class="logout">Log Out</a>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="content">
+        <header class="navbar">
+            <h2>Welcome back to dashboard!</h2>
+            <div class="navbar-logos">
+                <img src="{{ asset('images/logo-wanderlust.png') }}" alt="Logo">
+                <img src="{{ asset('images/logo-ministry.png') }}" alt="Logo">
+            </div>
+        </header>
+
+        <!-- Form Section -->
+        <section class="form-section">
+            <h2 class="form-title">Edit Property</h2>
+
+            <form action="{{ route('update.property.ptw', $property['id']) }}" method="POST" enctype="multipart/form-data" class="property-form">
+                @csrf
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label>Property Name</label>
+                            <input type="text" name="name" value="{{ $property['name'] }}" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Category</label>
+                            <select name="category" required>
+                                <option value="Nature" {{ $property['category'] == 'Nature' ? 'selected' : '' }}>Nature</option>
+                                <option value="Historical" {{ $property['category'] == 'Historical' ? 'selected' : '' }}>Historical</option>
+                                <option value="Adventure" {{ $property['category'] == 'Adventure' ? 'selected' : '' }}>Adventure</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="input-group full">
+                        <label>Property Address</label>
+                        <input type="text" name="address" value="{{ $property['address'] }}" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label>Open Time</label>
+                            <input type="time" name="open_time" value="{{ $property['open_time'] }}" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Close Time</label>
+                            <input type="time" name="close_time" value="{{ $property['close_time'] }}" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group full">
+                        <label>Property Description</label>
+                        <textarea name="description" rows="4" required>{{ $property['description'] }}</textarea>
+                    </div>
+
+                    <div class="input-group full">
+                        <label>Upload Image</label>
+                        <input type="file" name="image">
+                    </div>
+
+                    <div class="form-row" style="justify-content: space-between; align-items: center;">
+                        <form action="{{ route('delete.property.ptw', $property['id']) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this property?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="delete-btn">Delete</button>
+                        </form>
+
+                        <button type="submit" class="save-btn">Edit</button>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </main>
+</div>
+
+<style>
+.delete-btn {
+    background-color: #D9534F;
+    color: white;
+    font-weight: bold;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+}
+.delete-btn:hover {
+    background-color: #C9302C;
+}
+</style>
+</body>
+</html>

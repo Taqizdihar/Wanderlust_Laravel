@@ -40,7 +40,9 @@
 
         <section class="property-list">
             <div class="top-bar">
-                <button class="add-btn">+ Add New Property</button>
+                <a href="{{ route('add.property.ptw') }}">
+                    <button class="add-btn">+ Add New Property</button>
+                </a>
                 <input type="text" class="search-box" placeholder="Search Property...">
                 <select class="category-filter">
                     <option value="">Category</option>
@@ -58,7 +60,9 @@
                             <h3>{{ $property['name'] }}</h3>
                             <p>{{ $property['hours'] }} | {{ $property['category'] }}</p>
                         </div>
-                        <button class="action-btn">Actions</button>
+                        <a href="{{ route('edit.property.ptw', 1) }}">
+                            <button class="action-btn">Actions</button>
+                        </a>
                     </div>
                 @endforeach
             </div>
