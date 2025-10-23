@@ -21,6 +21,9 @@ class DashboardPTWController extends Controller{
             [
                 'id' => 1,
                 'name' => 'The Fairy Tale Land',
+                'start_hour' => '08:00',
+                'end_hour' => '18:00',
+                'category' => 'Theme Park',
                 'revenue' => 35000000,
                 'visitors' => 1200,
                 'tickets_sold' => 450,
@@ -29,6 +32,9 @@ class DashboardPTWController extends Controller{
             [
                 'id' => 2,
                 'name' => 'The Ancient Temple',
+                'start_hour' => '09:00',
+                'end_hour' => '16:00',
+                'category' => 'Historical Site',
                 'revenue' => 42000000,
                 'visitors' => 1800,
                 'tickets_sold' => 600,
