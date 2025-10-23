@@ -34,6 +34,8 @@ class DashboardPTWController extends Controller{
             ],
         ];
 
+        session(['properties' => $properties]);
+
         $summary = [
             'total_properties' => count($properties),
             'total_revenue' => array_sum(array_column($properties, 'revenue')),
