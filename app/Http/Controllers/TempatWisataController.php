@@ -3,36 +3,33 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class TempatWisataController extends Controller
 {
-    public function show()
+    public function show($id_lokasi)
     {
-        // Simulasi data profil (nggak pake login)
-        $profile = [
-            'nama' => 'Riska Bakri',
-            'email' => 'riska@example.com'
-        ];
+        // Ambil ID user dari session
+        $userId = Session::get('user_id');
 
-        // Simulasi data lokasi
-        $dataLokasiList = [
-            [
-                'nama' => 'Gunung Bromo',
-                'lokasi' => 'Jawa Timur',
-                'rating' => 4.8
-            ],
-            [
-                'nama' => 'Raja Ampat',
-                'lokasi' => 'Papua Barat',
-                'rating' => 4.9
-            ],
-            [
-                'nama' => 'Tanah Lot',
-                'lokasi' => 'Bali',
-                'rating' => 4.7
-            ]
-        ];
+        // Ambil data user
+        $profile = DB::table('user')->where('user_id', $userId)->first();
 
-        return view('lokasi', compact('profile', 'dataLokasiList'));
+        // Ambil data tempat wisata
+        $dataLokasi = DB::table('tempatwisata')->where('tempatwisata_id', $id_lokasi)->first();
+
+        // Ambil data foto wisata
+        $fotos = DB::table('fotowisata')
+            ->where('tempatwisata_id', $id_lokasi)
+            ->orderBy('urutan')
+            ->pluck('link_foto');
+
+        // Kirim data ke view
+        return view('admin.properti-detail', [
+            'profile' => $profile,
+            'dataLokasi' => $dataLokasi,
+            'fotos' => $fotos,
+        ]);
     }
 }
