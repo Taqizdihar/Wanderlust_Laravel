@@ -65,7 +65,7 @@ class LoginController extends Controller {
                 case 'ptw':
                     return redirect()->route('dashboard.ptw');
                 case 'tourist':
-                    return redirect()->route('home.tourist');
+                    return redirect()->route('home');
                 default:
                     return redirect()->route('login')->with('error', 'Role tidak dikenali!');
             }
