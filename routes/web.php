@@ -17,6 +17,7 @@ use App\Http\Controllers\DestinasiController;
 //untuk autentikasi
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('home');
 Route::post('/login/auth', [LoginController::class, 'authenticate'])->name('login.auth');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 //untuk pemilik tempat wisata (PTW)
 Route::get('/dashboard-ptw', [DashboardPTWController::class, 'index'])->name('dashboard.ptw');

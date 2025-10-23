@@ -14,9 +14,9 @@
     <aside class="sidebar">
         <div> 
             <div class="profile">
-                <img src="{{ asset($owner['photo']) }}" alt="Owner Photo">
-                <h3>{{ $owner['name'] }}</h3>
-                <p>{{ $owner['title'] }}</p>
+                <img src="{{ asset('images/profiles/' . $user['pp']) }}" alt="Owner Photo">
+                <h3>{{ $user['name'] }}</h3>
+                <p>Property Manager</p>
             </div>
             <nav>
                 <a href="{{ route('dashboard.ptw') }}">Dashboard</a>

@@ -13,9 +13,9 @@
     <div class="container">
         <aside class="sidebar">
             <div> <div class="profile">
-                    <img src="{{ asset('images/profiles/'.$user['pp']) }}" alt="Owner Photo">
+                    <img src="{{ asset('images/profiles/' . $user['pp']) }}" alt="Owner Photo">
                     <h3>{{ $user['name'] }}</h3>
-                    <p>Minister of Tourism</p>
+                    <p>Property Manager</p>
                 </div>
                 <nav>
                     <a href="{{ route('dashboard.ptw') }}" class="active">Dashboard</a>
@@ -25,7 +25,7 @@
                     <a href="#">Help Centre</a>
                 </nav>
             </div>
-            <a href="#" class="logout">Log Out</a>
+            <a href="{{ route('logout') }}" class="logout">Log Out</a>
         </aside>
 
         <main class="content">
@@ -41,22 +41,22 @@
                 <div class="cards">
                     <div class="card">
                         <h4>Properties</h4>
-                        <p class="number"></p>
+                        <p class="number">{{ $summary['total_properties'] }}</p>
                     </div>
 
                     <div class="card">
                         <h4>Total Tickets Sold</h4>
-                        <p class="number"></p>
+                        <p class="number">{{ $summary['total_tickets'] }}</p>
                     </div>
 
                     <div class="card">
                         <h4>Revenue</h4>
-                        <p class="number"></p>
+                        <p class="number">Rp. {{ $summary['total_revenue'] }}</p>
                     </div>
 
                     <div class="card">
                         <h4>Visitors</h4>
-                        <p class="number"></p>
+                        <p class="number">{{ $summary['total_visitors'] }}</p>
                     </div>
                 </div>
             </section>

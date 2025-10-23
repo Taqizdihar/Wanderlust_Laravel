@@ -8,29 +8,17 @@ class PropertyPTWController extends Controller
 {
     public function index()
     {
-        // Data pemilik (sama seperti di dashboard)
-        $owner = [
-            'name' => 'M. Alnilam Lambda',
-            'title' => 'Minister of Tourism',
-            'photo' => 'images/owner.jpg',
-        ];
+        $user = session('user');
+        $properties = session('properties', []);
 
-        // Data properti (sementara dalam array)
-        $properties = [
-            [
-                'name' => 'The Fairy Tale Land',
-                'hours' => '08:00 - 20:00',
-                'category' => 'Nature',
-                'image' => 'images/fairy-tale-land.jpg'
-            ],
-            [
-                'name' => 'The Ancient Temple',
-                'hours' => '09:00 - 18:00',
-                'category' => 'Historical',
-                'image' => 'images/ancient-temple.jpg'
-            ],
-        ];
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Silakan Login Terlebih dahulu');
+        }
 
-        return view('propertiesPTW', compact('owner', 'properties'));
+        if ($user['role'] !== 'ptw') {
+            return redirect()->route('login')->with('error', 'Anda tidak memiliki akses ke halaman ini.');
+        }
+
+        return view('propertiesPTW', compact('user', 'properties'));
     }
 }
