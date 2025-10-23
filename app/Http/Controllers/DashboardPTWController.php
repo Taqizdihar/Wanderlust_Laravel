@@ -24,6 +24,7 @@ class DashboardPTWController extends Controller{
                 'revenue' => 35000000,
                 'visitors' => 1200,
                 'tickets_sold' => 450,
+                'image' => 'fantasyland.jpg',
             ],
             [
                 'id' => 2,
@@ -31,6 +32,7 @@ class DashboardPTWController extends Controller{
                 'revenue' => 42000000,
                 'visitors' => 1800,
                 'tickets_sold' => 600,
+                'image' => 'ancienttemple.jpg',
             ],
         ];
 

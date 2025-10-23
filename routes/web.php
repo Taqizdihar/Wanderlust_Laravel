@@ -15,12 +15,12 @@ use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\DestinasiController;
 
 
-//untuk autentikasi
-Route::get('/', [LoginController::class, 'showLoginForm'])->name('home');
+//untuk autentikasi - umum
+Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login/auth', [LoginController::class, 'authenticate'])->name('login.auth');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-//untuk pemilik tempat wisata (PTW)
+//untuk pemilik tempat wisata (PTW) - Taqi
 Route::get('/dashboard-ptw', [DashboardPTWController::class, 'index'])->name('dashboard.ptw');
 Route::get('/properties-ptw', [PropertyPTWController::class, 'index'])->name('properties.ptw');
 Route::get('/add-property-ptw', [AddPropertyPTWController::class, 'index'])->name('add.property.ptw');
@@ -29,7 +29,7 @@ Route::get('/edit-property-ptw/{id}', [EditPropertyPTWController::class, 'edit']
 Route::post('/edit-property-ptw/{id}', [EditPropertyPTWController::class, 'update'])->name('update.property.ptw');
 Route::delete('/delete-property-ptw/{id}', [EditPropertyPTWController::class, 'destroy'])->name('delete.property.ptw');
 
-//untuk wisatawan
+//untuk wisatawan - Faiz
 Route::get('/edit-profil', [ProfilController::class, 'edit'])->name('profil.edit');
 Route::post('/edit-profil', [ProfilController::class, 'update'])->name('profil.update');    
 Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -39,7 +39,7 @@ Route::get('/homeWisatawan', function () {
     return redirect('/home');
 });
 
-//untuk administrator
+//untuk administrator - Riska
 Route::get('/lokasi', [TempatWisataController::class, 'show'])->name('lokasi.show');
 Route::get('/lokasi/{id}', [PropertiController::class, 'show']);
 Route::get('/lokasi', [TempatWisataController::class, 'show']);
