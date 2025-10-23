@@ -55,7 +55,7 @@
             <div class="property-cards">
                 @foreach ($properties as $property)
                     <div class="property-card">
-                        <img src="{{ asset($property['image']) }}" alt="{{ $property['name'] }}">
+                        <img src="{{ asset('images/Properties/' . $properties['image']) }}" alt="{{ $properties['name'] }}">
                         <div class="property-info">
                             <h3>{{ $property['name'] }}</h3>
                             <p>{{ $property['hours'] }} | {{ $property['category'] }}</p>
