@@ -13,7 +13,7 @@
     <div class="container">
         <aside class="sidebar">
             <div> <div class="profile">
-                    <img src="#" alt="Owner Photo">
+                    <img src="{{ asset('images/profiles/'.$user['pp']) }}" alt="Owner Photo">
                     <h3>{{ $user['name'] }}</h3>
                     <p>Minister of Tourism</p>
                 </div>

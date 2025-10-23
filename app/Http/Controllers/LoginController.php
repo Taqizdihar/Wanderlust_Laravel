@@ -14,7 +14,8 @@ class LoginController extends Controller {
             'password' => 'alnilam123',
             'email' => 'alnilam@wanderlust.com',
             'phone' => '+6281234567890',
-            'role' => 'ptw'
+            'role' => 'ptw',
+            'pp' => 'ptw-1.jpg'
         ],
         [
             'id' => 2,
@@ -23,7 +24,8 @@ class LoginController extends Controller {
             'password' => 'admin123',
             'email' => 'azura@wanderlust.com',
             'phone' => '+6282234567891',
-            'role' => 'admin'
+            'role' => 'admin',
+            'pp' => 'admin-1.jpg'
         ],
         [
             'id' => 3,
@@ -32,7 +34,8 @@ class LoginController extends Controller {
             'password' => 'tourist123',
             'email' => 'sena@example.com',
             'phone' => '+6283234567892',
-            'role' => 'tourist'
+            'role' => 'tourist',
+            'pp' => 'tourist-1.jpg'
         ],
     ];
 
