@@ -55,10 +55,10 @@
             <div class="property-cards">
                 @foreach ($properties as $property)
                     <div class="property-card">
-                        <img src="{{ asset('images/Properties/' . $properties['image']) }}" alt="{{ $properties['name'] }}">
+                        <img src="{{ asset('images/Properties/' . $property['image']) }}" alt="{{ $property['name'] }}">
                         <div class="property-info">
                             <h3>{{ $property['name'] }}</h3>
-                            <p>{{ $property['hours'] }} | {{ $property['category'] }}</p>
+                            <p>{{ $property['start_hour'] }} - {{ $property['end_hour'] }} | {{ $property['category'] }}</p>
                         </div>
                         <a href="{{ route('edit.property.ptw', 1) }}">
                             <button class="action-btn">Actions</button>
