@@ -33,6 +33,7 @@ Route::delete('/delete-property-ptw/{id}', [EditPropertyPTWController::class, 'd
 Route::get('/edit-profil', [editProfilController::class, 'index'])->name('editProfil');
 Route::post('/updateProfil', [editProfilController::class, 'update'])->name('updateProfil');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/editProfil', [editProfilController::class, 'index'])->name('editProfil');
 Route::get('/homeWisatawan', function () {
     return redirect('/home');
 });

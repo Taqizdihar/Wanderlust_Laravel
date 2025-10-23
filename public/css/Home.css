@@ -34,6 +34,7 @@ body {
 }
 
 .logo-text .subtitle {
+  display: block;
   font-size: 10px;
   color: #fff;
 }
@@ -176,4 +177,59 @@ body {
 
 .card-button:hover {
   background-color: #0056b3;
+}
+
+.footer {
+  background-color: #0077cc;
+  color: white;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+footer-top {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+}
+
+.footer-links {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 12px 32px;
+  text-align: left;
+  justify-content: flex-end;
+}
+
+footer-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.footer-center {
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
 }
