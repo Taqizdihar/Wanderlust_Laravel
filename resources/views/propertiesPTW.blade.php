@@ -26,7 +26,7 @@
                 <a href="#">Help Centre</a>
             </nav>
         </div>
-        <a href="#" class="logout">Log Out</a>
+        <a href="{{ route('logout') }}" class="logout">Log Out</a>
     </aside>
 
     <main class="content">
