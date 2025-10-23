@@ -11,6 +11,7 @@ use App\Http\Controllers\EditPropertyPTWController;
 use App\Http\Controllers\TempatWisataController;
 use App\Http\Controllers\PropertiController;
 use App\Http\Controllers\LokasiController;
+use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\DestinasiController;
 
 
@@ -41,3 +42,4 @@ Route::get('/homeWisatawan', function () {
 //untuk administrator
 Route::get('/lokasi', [TempatWisataController::class, 'show'])->name('lokasi.show');
 Route::get('/lokasi/{id}', [PropertiController::class, 'show']);
+Route::get('/lokasi', [TempatWisataController::class, 'show']);

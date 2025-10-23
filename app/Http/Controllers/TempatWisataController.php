@@ -6,62 +6,33 @@ use Illuminate\Http\Request;
 
 class TempatWisataController extends Controller
 {
-    public function show($id)
+    public function show()
     {
-        // Simulasi user login
+        // Simulasi data profil (nggak pake login)
         $profile = [
-            'user_id' => 1,
             'nama' => 'Riska Bakri',
-            'email' => 'riska@example.com',
+            'email' => 'riska@example.com'
         ];
 
         // Simulasi data lokasi
         $dataLokasiList = [
-            1 => [
-                'tempatwisata_id' => 1,
-                'nama_lokasi' => 'Pantai Indah',
-                'jenis_wisata' => 'Wisata Alam',
-                'waktu_buka' => '08:00',
-                'waktu_tutup' => '17:00',
-                'deskripsi' => 'Pantai dengan pasir putih dan air jernih, cocok untuk liburan keluarga.',
-                'nomor_pic' => 'PIC12345',
-                'surat_izin' => 'izin_pantai.pdf',
-                'status' => 'pending',
+            [
+                'nama' => 'Gunung Bromo',
+                'lokasi' => 'Jawa Timur',
+                'rating' => 4.8
             ],
-            2 => [
-                'tempatwisata_id' => 2,
-                'nama_lokasi' => 'Gunung Merdeka',
-                'jenis_wisata' => 'Pendakian',
-                'waktu_buka' => '06:00',
-                'waktu_tutup' => '18:00',
-                'deskripsi' => 'Gunung dengan jalur pendakian ramah pemula dan pemandangan indah.',
-                'nomor_pic' => 'PIC67890',
-                'surat_izin' => 'izin_gunung.pdf',
-                'status' => 'active',
+            [
+                'nama' => 'Raja Ampat',
+                'lokasi' => 'Papua Barat',
+                'rating' => 4.9
             ],
-        ];
-
-        // Simulasi foto
-        $fotoList = [
-            1 => [
-                'foto1.jpg',
-                'foto2.jpg',
-                'foto3.jpg'
-            ],
-            2 => [
-                'gunung1.jpg',
-                'gunung2.jpg'
+            [
+                'nama' => 'Tanah Lot',
+                'lokasi' => 'Bali',
+                'rating' => 4.7
             ]
         ];
 
-        // Ambil data berdasarkan id
-        $dataLokasi = $dataLokasiList[$id] ?? null;
-        $fotos = $fotoList[$id] ?? [];
-
-        if (!$dataLokasi) {
-            abort(404, 'Lokasi tidak ditemukan');
-        }
-
-        return view('lokasi.detail', compact('profile', 'dataLokasi', 'fotos'));
+        return view('lokasi', compact('profile', 'dataLokasiList'));
     }
 }
