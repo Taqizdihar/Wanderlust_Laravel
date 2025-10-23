@@ -18,7 +18,7 @@ class AddPropertyPTWController extends Controller
             return redirect()->route('login')->with('error', 'Anda tidak memiliki akses ke halaman ini.');
         }
         
-        return view('AddPropertyPTW');
+        return view('AddPropertyPTW', compact('user'));
     }
 
     public function store(Request $request) {
