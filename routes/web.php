@@ -12,6 +12,7 @@ use App\Http\Controllers\TempatWisataController;
 use App\Http\Controllers\PropertiController;
 use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\PencarianController;
 
 
 //untuk autentikasi - umum
@@ -35,6 +36,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/homeWisatawan', function () {
     return redirect('/home');
 });
+Route::get('/pencarian', [PencarianController::class, 'index'])->name('pencarian');
 
 //untuk administrator
 Route::get('/admin/properti/{id_lokasi}', [TempatWisataController::class, 'show'])->name('admin.properti.show');

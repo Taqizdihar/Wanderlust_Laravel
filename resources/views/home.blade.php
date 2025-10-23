@@ -6,6 +6,8 @@
     <title>Home</title>
 
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+    {{-- Font Awesome untuk ikon pencarian dan user --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
@@ -18,16 +20,24 @@
             </div>
         </div>
 
-        <div class="search-bar">
-            <input type="text" placeholder="Cari destinasi wisata...">
-            <i class="search-icon fas fa-search"></i>
-        </div>
+        {{-- 🔍 Form pencarian yang terhubung ke halaman Pencarian --}}
+        <form action="{{ route('pencarian') }}" method="GET" class="search-bar">
+            <input 
+                type="text" 
+                name="kataKunci" 
+                placeholder="Cari destinasi wisata..." 
+                required
+            >
+            <button type="submit" class="search-button">
+                <i class="search-icon fas fa-search"></i>
+            </button>
+        </form>
 
         <div class="nav-links">
             <a href="#">Beranda</a>
             <a href="#">Destinasi</a>
             <a href="#">Tentang</a>
-            <a href="{{ route('profil.edit') }}">
+            <a href="{{ route('editProfil') }}">
                 <div class="profile-icon">
                     <i class="fas fa-user"></i>
                 </div>
