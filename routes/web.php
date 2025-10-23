@@ -12,6 +12,7 @@ use App\Http\Controllers\TempatWisataController;
 use App\Http\Controllers\PropertiController;
 use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\PencarianController;
 
 
 //untuk autentikasi - umum
@@ -32,9 +33,11 @@ Route::delete('/delete-property-ptw/{id}', [EditPropertyPTWController::class, 'd
 Route::get('/edit-profil', [editProfilController::class, 'index'])->name('editProfil');
 Route::post('/updateProfil', [editProfilController::class, 'update'])->name('updateProfil');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/editProfil', [editProfilController::class, 'index'])->name('editProfil');
 Route::get('/homeWisatawan', function () {
     return redirect('/home');
 });
+Route::get('/pencarian', [PencarianController::class, 'index'])->name('pencarian');
 
 //untuk administrator
 Route::get('/admin/properti/{id_lokasi}', [TempatWisataController::class, 'show'])->name('admin.properti.show');
