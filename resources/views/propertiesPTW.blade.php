@@ -60,7 +60,7 @@
                             <h3>{{ $property['name'] }}</h3>
                             <p>{{ $property['start_hour'] }} - {{ $property['end_hour'] }} | {{ $property['category'] }}</p>
                         </div>
-                        <a href="{{ route('edit.property.ptw', 1) }}">
+                        <a href="{{ route('edit.property.ptw', $property['id']) }}">
                             <button class="action-btn">Actions</button>
                         </a>
                     </div>

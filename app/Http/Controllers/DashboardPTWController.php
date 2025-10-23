@@ -27,6 +27,8 @@ class DashboardPTWController extends Controller{
                 'revenue' => 35000000,
                 'visitors' => 1200,
                 'tickets_sold' => 450,
+                'address' => 'Jl. Merpati No. 5, Wonderland City',
+                'description' => 'A magical theme park filled with fairy tale characters and enchanting rides.',
                 'image' => 'fantasyland.jpg',
             ],
             [
@@ -38,6 +40,8 @@ class DashboardPTWController extends Controller{
                 'revenue' => 42000000,
                 'visitors' => 1800,
                 'tickets_sold' => 600,
+                'address' => 'Jl. Candi No. 10, Heritage Town',
+                'description' => 'Explore the mysteries of an ancient temple with rich history and stunning architecture.',
                 'image' => 'ancienttemple.jpg',
             ],
         ];

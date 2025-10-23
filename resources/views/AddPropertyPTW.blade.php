@@ -68,11 +68,11 @@
                     <div class="form-row">
                         <div class="input-group">
                             <label>Open Time</label>
-                            <input type="time" name="open_time" required>
+                            <input type="time" name="start_hour" required>
                         </div>
                         <div class="input-group">
                             <label>Close Time</label>
-                            <input type="time" name="close_time" required>
+                            <input type="time" name="end_hour" required>
                         </div>
                     </div>
 
@@ -83,7 +83,7 @@
 
                     <div class="input-group full">
                         <label>Upload Image</label>
-                        <input type="file" name="image" required>
+                        <input type="file" name="image">
                     </div>
 
                     <button type="submit" class="save-btn">Save</button>

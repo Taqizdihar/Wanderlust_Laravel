@@ -35,6 +35,8 @@ class AddPropertyPTWController extends Controller
             'revenue' => 0,
             'visitors' => 0,
             'tickets_sold' => 0,
+            'address' => $request->input('address'),
+            'description' => $request->input('description'),
             'image' => $request->input('image'),
         ];
 

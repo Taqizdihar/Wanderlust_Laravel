@@ -27,7 +27,7 @@ Route::get('/add-property-ptw', [AddPropertyPTWController::class, 'index'])->nam
 Route::post('/add-property-ptw', [AddPropertyPTWController::class, 'store'])->name('store.property.ptw');
 Route::get('/edit-property-ptw/{id}', [EditPropertyPTWController::class, 'edit'])->name('edit.property.ptw');
 Route::post('/edit-property-ptw/{id}', [EditPropertyPTWController::class, 'update'])->name('update.property.ptw');
-Route::delete('/delete-property-ptw/{id}', [EditPropertyPTWController::class, 'destroy'])->name('delete.property.ptw');
+Route::post('/delete-property-ptw/{id}', [EditPropertyPTWController::class, 'destroy'])->name('delete.property.ptw');
 
 //untuk wisatawan - Faiz
 Route::get('/edit-profil', [editProfilController::class, 'index'])->name('editProfil');
