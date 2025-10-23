@@ -13,7 +13,7 @@
 <body>
     <header class="main-header">
         <div class="logo-container">
-            <img src="{{ asset('images/logo.png') }}" alt="Logo" class="logo">
+            <img src="{{ asset('/images/Logos/Wanderlust Logo Circle.png') }}" alt="Logo" class="logo">
             <div class="logo-text">
                 <span class="title">Wanderlust</span>
                 <span class="subtitle">Wanderings For Wonders</span>
