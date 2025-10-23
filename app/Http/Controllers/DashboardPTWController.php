@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 
 class DashboardPTWController extends Controller{
 
-    public function index()
-    {
-        return view('dashboardPTW');
+    public function index() {
+        $user = GlobalArray::getUserById(2);
+
+        return view('dashboardPTW', compact('user'));
     }
 }

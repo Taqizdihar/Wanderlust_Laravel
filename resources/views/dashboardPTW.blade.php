@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard PTW - Wanderlust</title>
+    <title>Dashboard</title>
     <link rel="stylesheet" href="{{ asset('css/dashboardPTW.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,9 +13,9 @@
     <div class="container">
         <aside class="sidebar">
             <div> <div class="profile">
-                    <img src="{{ asset($owner['photo']) }}" alt="Owner Photo">
-                    <h3>{{ $owner['name'] }}</h3>
-                    <p>{{ $owner['title'] }}</p>
+                    <img src="#" alt="Owner Photo">
+                    <h3>{{ $user['name'] }}</h3>
+                    <p>Minister of Tourism</p>
                 </div>
                 <nav>
                     <a href="{{ route('dashboard.ptw') }}" class="active">Dashboard</a>
@@ -41,22 +41,22 @@
                 <div class="cards">
                     <div class="card">
                         <h4>Properties</h4>
-                        <p class="number">{{ $summary['properties'] }}</p>
+                        <p class="number"></p>
                     </div>
 
                     <div class="card">
                         <h4>Total Tickets Sold</h4>
-                        <p class="number">{{ $summary['tickets_sold'] }}</p>
+                        <p class="number"></p>
                     </div>
 
                     <div class="card">
                         <h4>Revenue</h4>
-                        <p class="number">Rp. {{ $summary['revenue'] == 0 ? '-' : number_format($summary['revenue']) }}</p>
+                        <p class="number"></p>
                     </div>
 
                     <div class="card">
                         <h4>Visitors</h4>
-                        <p class="number">{{ $summary['visitors'] }} visitors</p>
+                        <p class="number"></p>
                     </div>
                 </div>
             </section>
