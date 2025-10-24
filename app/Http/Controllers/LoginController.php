@@ -43,8 +43,7 @@ class LoginController extends Controller {
         return view('login');
     }
 
-    public function authenticate(Request $request)
-    {
+    public function authenticate(Request $request) {
         $username = $request->input('username');
         $password = $request->input('password');
 
