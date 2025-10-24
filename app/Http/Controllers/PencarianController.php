@@ -22,7 +22,7 @@ class PencarianController extends Controller
             ['tempatwisata_id' => 7, 'nama_lokasi' => 'Tebing Breksi', 'deskripsi' => 'Destinasi wisata unik hasil tambang batu yang kini jadi tempat spot foto ikonik.', 'sumir' => 'Wisata alam dan budaya yang populer di Jogja.', 'link_foto' => 'tebingbreksi.jpg'],
             ['tempatwisata_id' => 8, 'nama_lokasi' => 'Malioboro', 'deskripsi' => 'Jalan legendaris di pusat kota Yogyakarta yang dipenuhi toko dan pedagang.', 'sumir' => 'Pusat belanja dan kuliner khas Jogja.', 'link_foto' => 'malioboro.jpg'],
 
-            ['tempatwisata_id' => 9, 'nama_lokasi' => 'Tanah Lot', 'deskripsi' => 'Pura di atas batu karang dengan pemandangan matahari terbenam yang memukau.', 'sumir' => 'Spot sunset paling ikonik di Bali.', 'link_foto' => 'tanahlot.jpg'],
+            ['tempatwisata_id' => 9, 'nama_lokasi' => 'Tanah Lot', 'deskripsi' => 'Pura di atas batu karang dengan pemandangan matahari terbenam yang memukau.', 'sumir' => 'Spot sunset paling ikonik di Bali.', 'link_foto' => 'tanah_lot.jpg'],
             ['tempatwisata_id' => 10, 'nama_lokasi' => 'Ubud Monkey Forest', 'deskripsi' => 'Hutan alami dengan ratusan monyet dan nuansa spiritual khas Bali.', 'sumir' => 'Wisata alam sekaligus budaya di jantung Bali.', 'link_foto' => 'monkeyforest.jpg'],
             ['tempatwisata_id' => 11, 'nama_lokasi' => 'Pantai Kuta', 'deskripsi' => 'Pantai paling populer di Bali untuk menikmati sunset dan surfing.', 'sumir' => 'Surga bagi pencinta pantai dan ombak.', 'link_foto' => 'kuta.jpg'],
             ['tempatwisata_id' => 12, 'nama_lokasi' => 'Pura Ulun Danu Beratan', 'deskripsi' => 'Pura indah di tepi Danau Beratan Bedugul, Bali Utara.', 'sumir' => 'Pemandangan menenangkan dengan udara sejuk pegunungan.', 'link_foto' => 'ulundanu.jpg'],
@@ -36,7 +36,8 @@ class PencarianController extends Controller
         $hasilPencarian = array_filter($dataTempatWisata, function ($item) use ($kataKunci) {
             return stripos($item['nama_lokasi'], $kataKunci) !== false ||
                    stripos($item['deskripsi'], $kataKunci) !== false ||
-                   stripos($item['sumir'], $kataKunci) !== false;
+                   stripos($item['sumir'], $kataKunci) !== false ||
+                   stripos($item['link_foto'], $kataKunci) !== false;
         });
 
         return view('pencarian', [
