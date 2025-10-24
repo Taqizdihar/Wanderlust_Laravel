@@ -65,7 +65,7 @@ class EditPropertyPTWController extends Controller {
 
         session(['properties' => $properties]);
 
-        return redirect()->route('properties.ptw')->with('success', 'Properti berhasil diperbarui.');
+        return redirect()->route('properties.ptw');
     }
 
     public function destroy($id) {
