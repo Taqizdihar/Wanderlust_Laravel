@@ -31,12 +31,18 @@
         <a href="#">Destinasi</a>
         <a href="#">Tentang</a>
         <a href="{{ route('editProfil') }}">
-            <div class="profile-icon"><i class="fas fa-user"></i></div>
-        </a>
+    <div class="profile-icon">
+        @if(Auth::check() && Auth::user()->foto_profil)
+            <img src="{{ asset('images/profiles/' . Auth::user()->foto_profil) }}" alt="Foto Profil">
+        @else
+            <i class="fas fa-user"></i>
+        @endif
+    </div>
+</a>
+
     </div>
 </header>
 
-<!-- DESTINASI POPULER -->
 <h2 class="section-title">Destinasi Populer</h2>
 <div class="card-gallery">
     @foreach ($populer as $item)
@@ -53,12 +59,11 @@
     @endforeach
 </div>
 
-<!-- REKOMENDASI DESTINASI -->
 <h2 class="section-title">Rekomendasi Destinasi</h2>
 <div class="card-gallery">
     @foreach ($rekomendasi as $item)
     <div class="cards-destination">
-        <div class="card-images" style="background-image: url('{{ asset('images/'.$item['foto']) }}');">
+        <div class="card-images" style="background-image: url('{{ asset('images/Images/'  . $item['foto']) }}');">
             <h4>{{ $item['nama'] }}</h4>
         </div>
         <div class="destination-content">
