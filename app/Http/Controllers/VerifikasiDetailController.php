@@ -25,7 +25,7 @@ class VerifikasiDetailController extends Controller
         return view('verifikasi_detail', compact('data_wisata'));
     }
 
-    // punya ika
+    // punya ikaa gemaz imoeddd
     public function updateStatus(Request $request, $id)
     {
         $newStatus = $request->input('status');

@@ -39,6 +39,6 @@ class TempatWisataController extends Controller
                 $wisata['status'] = $request->session()->get($statusKey);
             }
         }
-        return view('tempat_wisata', compact('data_wisata'));     
+        return view('tempat_wisata', compact('data_wisata'));
     }
 }
