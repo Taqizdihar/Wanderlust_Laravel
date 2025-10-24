@@ -62,21 +62,21 @@ class EditPropertyPTWController extends Controller {
                 break;
             }
         }
-
+ 
         session(['properties' => $properties]);
 
         return redirect()->route('properties.ptw');
     }
 
     public function destroy($id) {
-    $properties = session('properties', []);
+        $properties = session('properties', []);
 
-    $properties = array_filter($properties, function ($property) use ($id) {
-        return $property['id'] != (int) $id;
-    });
+        $properties = array_filter($properties, function ($property) use ($id) {
+            return $property['id'] != (int) $id;
+        });
 
-    session(['properties' => array_values($properties)]);
+        session(['properties' => array_values($properties)]);
 
-    return redirect()->route('properties.ptw');
+        return redirect()->route('properties.ptw');
     }
 }
