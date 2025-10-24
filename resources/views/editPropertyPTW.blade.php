@@ -87,7 +87,7 @@
 
                     <div class="form-row" style="justify-content: space-between; align-items: center;">
                         
-                        <button type="submit" class="save-btn">Edit</button>
+                        <button type="submit" class="save-btn">Save</button>
                     </div>
                 </div>
             </form>
