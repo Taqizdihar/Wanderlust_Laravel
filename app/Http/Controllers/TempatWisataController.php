@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 class TempatWisataController extends Controller
 {
+    // punya ikaa gemaz imoeddd
+    
     public function index(Request $request)
     {
         $data_wisata = [
@@ -31,14 +33,12 @@ class TempatWisataController extends Controller
                 'status' => 'Pending'
             ]
         ];
-
         foreach ($data_wisata as &$wisata) {
             $statusKey = 'status_wisata.' . $wisata['id'];
             if ($request->session()->has($statusKey)) {
                 $wisata['status'] = $request->session()->get($statusKey);
             }
         }
-
         return view('tempat_wisata', compact('data_wisata'));
     }
 }
