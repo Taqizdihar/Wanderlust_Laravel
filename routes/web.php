@@ -11,15 +11,8 @@ use App\Http\Controllers\EditPropertyPTWController;
 use App\Http\Controllers\TempatWisataController;
 use App\Http\Controllers\PropertiController;
 use App\Http\Controllers\LokasiController;
-<<<<<<< HEAD
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\VerifikasiDetailController; // IMPORT Controller BARU
-
-
-=======
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\PencarianController;
->>>>>>> ed670790da7ce6c9a4369a97d1b9df2244397e08
 
 
 //untuk autentikasi - umum
