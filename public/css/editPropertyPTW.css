@@ -44,10 +44,9 @@ body {
 .profile p {
     margin: 0;
     font-size: 0.9rem;
-    color: #bfe9ef; /* Warna putih yang sedikit redup */
+    color: #bfe9ef;
 }
 
-/* Navigasi Sidebar */
 nav a {
     display: block;
     color: white;
@@ -61,16 +60,14 @@ nav a {
 }
 
 nav a:hover {
-    background-color: #005f6b; /* Warna hover sedikit lebih gelap */
+    background-color: #005f6b;
 }
 
-/* Link aktif di sidebar */
 nav a.active {
     background-color: #005f6b;
     font-weight: 600;
 }
 
-/* Link Logout */
 .logout {
     display: block;
     color: white;
@@ -86,15 +83,13 @@ nav a.active {
     background-color: #005f6b;
 }
 
-/* --- Konten Utama --- */
 .content {
-    flex: 1; /* Mengisi sisa ruang */
+    flex: 1;
     background-color: #fff;
 }
 
-/* Navbar di atas konten */
 .navbar {
-    background-color: #2FB3C6; /* Warna teal muda */
+    background-color: #2FB3C6;
     color: white;
     padding: 20px 30px;
     display: flex;
@@ -111,17 +106,34 @@ nav a.active {
 .navbar-logos {
     display: flex;
     align-items: center;
-    gap: 20px; /* Jarak antar logo */
+    gap: 20px;
 }
 
 .navbar-logos img {
-    height: 40px; /* Sesuaikan ukuran logo */
+    height: 40px;
 }
-
-/* --- BAGIAN 2: CSS KHUSUS HALAMAN "EDIT PROPERTY" --- */
 
 .form-section {
     padding: 40px;
+}
+
+.back-btn {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 8px 16px;
+    background-color: #f0f0f0;
+    color: #333;
+    text-decoration: none;
+    border-radius: 6px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+    border: 1px solid #ddd;
+    transition: background-color 0.2s;
+}
+
+.back-btn:hover {
+    background-color: #e0e0e0;
 }
 
 .form-title {

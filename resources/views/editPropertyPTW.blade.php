@@ -25,7 +25,7 @@
                 <a href="#">Help Centre</a>
             </nav>
         </div>
-        <a href="{{ route('logout') }}" class="logout">Log Out</a>
+        <a href="{{ route('logout') }}" class="logout" onclick="return confirm('Are you sure you want to log out?')">Log Out</a>
     </aside>
 
     <main class="content">
@@ -38,6 +38,7 @@
         </header>
 
         <section class="form-section">
+            <a href="javascript:history.back()" class="back-btn">&larr; Go Back</a>
             <h2 class="form-title">Edit Property</h2>
 
             <form action="{{ route('update.property.ptw', $property['id']) }}" method="POST" enctype="multipart/form-data" class="property-form">
@@ -91,7 +92,7 @@
                 </div>
             </form>
             <div class="form-row">
-                <form action="{{ route('delete.property.ptw', $property['id']) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus properti ini?')" style="margin-top: 15px;">
+                <form action="{{ route('delete.property.ptw', $property['id']) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this property?')" style="margin-top: 15px;">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="delete-btn">🗑 Delete Property</button>

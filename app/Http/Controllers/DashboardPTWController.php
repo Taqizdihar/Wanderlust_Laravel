@@ -8,6 +8,7 @@ class DashboardPTWController extends Controller{
 
     public function index() {
         $user = session('user');
+        
 
         if (!$user) {
             return redirect()->route('login')->with('error', 'Silakan Login Terlebih dahulu');

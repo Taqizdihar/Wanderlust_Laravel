@@ -10,19 +10,17 @@ body {
     min-height: 100vh;
 }
 
-/* --- Sidebar --- */
 .sidebar {
-    width: 280px; /* Lebar sidebar */
-    background-color: #007C91; /* Warna teal tua */
+    width: 280px;
+    background-color: #007C91;
     color: white;
     padding: 30px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Mendorong logout ke bawah */
-    box-sizing: border-box; /* Agar padding tidak menambah lebar */
+    justify-content: space-between;
+    box-sizing: border-box;
 }
 
-/* Profil di Sidebar */
 .profile {
     text-align: center;
     margin-bottom: 40px;
@@ -33,7 +31,7 @@ body {
     height: 150px;
     border-radius: 50%;
     object-fit: cover;
-    border: 4px solid white; /* Tambahan border putih seperti di gambar */
+    border: 4px solid white;
     margin-bottom: 15px;
 }
 
@@ -46,10 +44,9 @@ body {
 .profile p {
     margin: 0;
     font-size: 0.9rem;
-    color: #bfe9ef; /* Warna putih yang sedikit redup */
+    color: #bfe9ef;
 }
 
-/* Navigasi Sidebar */
 nav a {
     display: block;
     color: white;
@@ -63,16 +60,14 @@ nav a {
 }
 
 nav a:hover {
-    background-color: #005f6b; /* Warna hover sedikit lebih gelap */
+    background-color: #005f6b;
 }
 
-/* Link aktif di sidebar */
 nav a.active {
     background-color: #005f6b;
     font-weight: 600;
 }
 
-/* Link Logout */
 .logout {
     display: block;
     color: white;
@@ -88,15 +83,13 @@ nav a.active {
     background-color: #005f6b;
 }
 
-/* --- Konten Utama --- */
 .content {
-    flex: 1; /* Mengisi sisa ruang */
+    flex: 1;
     background-color: #fff;
 }
 
-/* Navbar di atas konten */
 .navbar {
-    background-color: #2FB3C6; /* Warna teal muda */
+    background-color: #2FB3C6;
     color: white;
     padding: 20px 30px;
     display: flex;
@@ -113,17 +106,34 @@ nav a.active {
 .navbar-logos {
     display: flex;
     align-items: center;
-    gap: 20px; /* Jarak antar logo */
+    gap: 20px;
 }
 
 .navbar-logos img {
-    height: 40px; /* Sesuaikan ukuran logo */
+    height: 40px;
 }
-
-/* --- BAGIAN 2: CSS KHUSUS HALAMAN "ADD PROPERTY" --- */
 
 .form-section {
     padding: 40px;
+}
+
+.back-btn {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 8px 16px;
+    background-color: #f0f0f0;
+    color: #333;
+    text-decoration: none;
+    border-radius: 6px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+    border: 1px solid #ddd;
+    transition: background-color 0.2s;
+}
+
+.back-btn:hover {
+    background-color: #e0e0e0;
 }
 
 .form-title {
@@ -160,7 +170,7 @@ nav a.active {
 .input-group label {
     font-weight: bold;
     margin-bottom: 5px;
-    font-family: 'Poppins', sans-serif; /* Pastikan font konsisten */
+    font-family: 'Poppins', sans-serif;
 }
 .input-group input,
 .input-group select,
@@ -170,7 +180,7 @@ nav a.active {
     border: none;
     outline: none;
     font-size: 14px;
-    font-family: 'Poppins', sans-serif; /* Pastikan font konsisten */
+    font-family: 'Poppins', sans-serif;
 }
 .save-btn {
     background-color: #3183FF;
@@ -182,7 +192,7 @@ nav a.active {
     cursor: pointer;
     display: block;
     margin: 20px auto 0;
-    font-family: 'Poppins', sans-serif; /* Pastikan font konsisten */
+    font-family: 'Poppins', sans-serif;
 }
 .save-btn:hover {
     background-color: #2568D0;

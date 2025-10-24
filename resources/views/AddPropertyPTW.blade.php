@@ -26,7 +26,7 @@
                 <a href="#">Help Centre</a>
             </nav>
         </div>
-        <a href="{{ route('logout') }}" class="logout">Log Out</a>
+        <a href="{{ route('logout') }}" class="logout" onclick="return confirm('Are you sure you want to log out?')">Log Out</a>
     </aside>
 
     <main class="content">
@@ -39,6 +39,7 @@
         </header>
 
         <section class="form-section">
+            <a href="javascript:history.back()" class="back-btn">&larr; Go Back</a>
             <h2 class="form-title">Add New Property</h2>
 
             <form action="{{ route('store.property.ptw') }}" method="POST" enctype="multipart/form-data" class="property-form">
