@@ -49,7 +49,6 @@ class EditPropertyPTWController extends Controller {
 
                 if ($request->filled('start_hour')) {
                     $property['start_hour'] = $request->input('start_hour');
-
                 } else {
                     $property['start_hour'] = $property['start_hour'];
                 }
