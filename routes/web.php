@@ -42,7 +42,7 @@ Route::get('/homeWisatawan', function () {
 });
 Route::get('/pencarian', [PencarianController::class, 'index'])->name('pencarian');
 
-//untuk administrator
+//untuk administrator ikaa canZ
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.admin');
 Route::get('/tempat-wisata', [TempatWisataController::class, 'index'])->name('tempat-wisata');
 Route::prefix('verifikasi-wisata')->group(function () {
