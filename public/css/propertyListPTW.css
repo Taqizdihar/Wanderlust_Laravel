@@ -1,9 +1,6 @@
-/* --- BAGIAN 1: CSS DARI DASHBOARD (UNTUK LAYOUT, SIDEBAR, NAVBAR) --- */
-
-/* Reset dan Font Dasar */
 body {
     margin: 0;
-    font-family: 'Poppins', sans-serif; /* Mengganti font ke Poppins */
+    font-family: 'Poppins', sans-serif;
     background-color: #fff;
     color: #333;
 }
@@ -13,32 +10,30 @@ body {
     min-height: 100vh;
 }
 
-/* --- Sidebar --- */
 .sidebar {
-    width: 280px; /* Lebar sidebar */
-    background-color: #007C91; /* Warna teal tua */
+    width: 280px;
+    background-color: #007C91;
     color: white;
     padding: 30px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Mendorong logout ke bawah */
-    box-sizing: border-box; /* Agar padding tidak menambah lebar */
+    justify-content: space-between;
+    box-sizing: border-box;
 }
 
-/* Profil di Sidebar */
 .profile {
     text-align: center;
     margin-bottom: 40px;
 }
 
 .profile img {
-    width: 150px; /* Ukuran disamakan */
+    width: 150px;
     height: 150px;
     border-radius: 50%;
     object-fit: cover;
-    border: 4px solid white; /* Tambahan border putih */
+    border: 4px solid white;
     margin-bottom: 15px;
-    display: block; /* Ditambahkan agar margin auto bekerja jika perlu */
+    display: block;
     margin-left: auto;
     margin-right: auto;
 }
@@ -52,16 +47,15 @@ body {
 .profile p {
     margin: 0;
     font-size: 0.9rem;
-    color: #bfe9ef; /* Warna putih yang sedikit redup */
+    color: #bfe9ef;
 }
 
-/* Navigasi Sidebar */
 nav a {
     display: block;
     color: white;
     text-decoration: none;
-    margin-bottom: 10px; /* Margin disamakan */
-    padding: 15px 20px; /* Padding disamakan */
+    margin-bottom: 10px;
+    padding: 15px 20px;
     border-radius: 10px;
     font-size: 1.1rem;
     font-weight: 500;
@@ -69,16 +63,14 @@ nav a {
 }
 
 nav a:hover {
-    background-color: #005f6b; /* Warna hover sedikit lebih gelap */
+    background-color: #005f6b;
 }
 
-/* Link aktif di sidebar */
 nav a.active {
     background-color: #005f6b;
-    font-weight: 600; /* Font-weight disamakan */
+    font-weight: 600;
 }
 
-/* Link Logout */
 .logout {
     display: block;
     color: white;
@@ -94,17 +86,15 @@ nav a.active {
     background-color: #005f6b;
 }
 
-/* --- Konten Utama --- */
 .content {
-    flex: 1; /* Mengisi sisa ruang */
+    flex: 1;
     background-color: #fff;
 }
 
-/* Navbar di atas konten */
 .navbar {
-    background-color: #2FB3C6; /* Warna teal muda */
+    background-color: #2FB3C6;
     color: white;
-    padding: 20px 30px; /* Padding disamakan */
+    padding: 20px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -119,19 +109,15 @@ nav a.active {
 .navbar-logos {
     display: flex;
     align-items: center;
-    gap: 20px; /* Jarak antar logo */
+    gap: 20px;
 }
 
 .navbar-logos img {
-    height: 40px; /* Sesuaikan ukuran logo */
+    height: 70px;
 }
 
-
-/* --- BAGIAN 2: CSS ORIGINAL (KONTEN PROPERTY LIST ANDA) --- */
-/* (CSS ini dipertahankan dari file propertyListPTW.css) */
-
 .property-list {
-    padding: 20px 40px; /* Padding ini spesifik untuk halaman ini */
+    padding: 20px 40px;
 }
 
 .top-bar {
@@ -149,14 +135,14 @@ nav a.active {
     border-radius: 6px;
     cursor: pointer;
     font-weight: bold;
-    font-family: 'Poppins', sans-serif; /* Pastikan font ikut */
+    font-family: 'Poppins', sans-serif;
 }
 
 .search-box, .category-filter {
     padding: 10px;
     border-radius: 6px;
     border: 1px solid #ccc;
-    font-family: 'Poppins', sans-serif; /* Pastikan font ikut */
+    font-family: 'Poppins', sans-serif;
 }
 
 .property-cards {
@@ -195,5 +181,5 @@ nav a.active {
     padding: 8px 16px;
     font-weight: bold;
     cursor: pointer;
-    font-family: 'Poppins', sans-serif; /* Pastikan font ikut */
+    font-family: 'Poppins', sans-serif;
 }

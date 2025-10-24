@@ -26,6 +26,10 @@ class AddPropertyPTWController extends Controller
 
         $newID = count($properties) + 1;
 
+        $file = $request->file('image');
+        $filename = $file->getClientOriginalName();
+        $file->move(public_path('images/properties'), $filename);
+
         $newProperty = [
             'id' => $newID,
             'name' => $request->input('name'),
@@ -37,7 +41,9 @@ class AddPropertyPTWController extends Controller
             'tickets_sold' => 0,
             'address' => $request->input('address'),
             'description' => $request->input('description'),
-            'image' => $request->input('image'),
+            'image' => $filename,
+
+            
         ];
 
         $properties[] = $newProperty;
