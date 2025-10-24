@@ -11,11 +11,11 @@ class AddPropertyPTWController extends Controller
         $user = session('user');
 
         if (!$user) {
-            return redirect()->route('login')->with('error', 'Silakan Login Terlebih dahulu');
+            return redirect()->route('login');
         }
 
         if ($user['role'] !== 'ptw') {
-            return redirect()->route('login')->with('error', 'Anda tidak memiliki akses ke halaman ini.');
+            return redirect()->route('login');
         }
         
         return view('AddPropertyPTW', compact('user'));
@@ -26,9 +26,14 @@ class AddPropertyPTWController extends Controller
 
         $newID = count($properties) + 1;
 
-        $file = $request->file('image');
-        $filename = $file->getClientOriginalName();
-        $file->move(public_path('images/properties'), $filename);
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = $file->getClientOriginalName();
+            $file->move(public_path('images/properties'), $filename);
+            $property['image'] = $filename;
+        } else {
+            $filename = 'default.png';
+        }
 
         $newProperty = [
             'id' => $newID,
