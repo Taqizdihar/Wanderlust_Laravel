@@ -16,7 +16,7 @@
             <div class="card-gallery">
                 @foreach ($hasilPencarian as $hasil)
                     <div class="cards-destination">
-                        <div class="card-images" style="background-image: url('{{ asset('/images/Images/' . $hasilPencarian['link_foto']) }}');">
+                        <div class="card-images" style="background-image: url('{{ asset('/images/Images/' . $hasil['link_foto']) }}');">
                             <h4>{{ $hasil['nama_lokasi'] }}</h4>
                         </div>
                         <div class="destination-content">

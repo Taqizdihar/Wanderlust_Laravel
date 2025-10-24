@@ -42,7 +42,7 @@ class EditProfilController extends Controller
             $request->file('foto')->move(public_path('images'), $namaFile);
             $data['foto'] = $namaFile;
         } else {
-            $data['foto'] = $request->session()->get('foto', 'default.png');
+            $data['foto'] = $request->session()->get('foto', 'foto_profil.jpg');
         }
 
         $request->session()->put('profil', $data);

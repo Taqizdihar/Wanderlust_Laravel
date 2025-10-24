@@ -11,6 +11,9 @@ use App\Http\Controllers\EditPropertyPTWController;
 use App\Http\Controllers\TempatWisataController;
 use App\Http\Controllers\PropertiController;
 use App\Http\Controllers\LokasiController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\VerifikasiDetailController; // IMPORT Controller BARU
+
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\PencarianController;
 
