@@ -11,7 +11,10 @@ use App\Http\Controllers\EditPropertyPTWController;
 use App\Http\Controllers\TempatWisataController;
 use App\Http\Controllers\PropertiController;
 use App\Http\Controllers\LokasiController;
-use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\VerifikasiDetailController; // IMPORT Controller BARU
+
+
 
 
 //untuk autentikasi
@@ -39,4 +42,10 @@ Route::get('/homeWisatawan', function () {
 });
 
 //untuk administrator
-Route::get('/admin/properti/{id_lokasi}', [TempatWisataController::class, 'show'])->name('admin.properti.show');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.admin');
+Route::get('/tempat-wisata', [TempatWisataController::class, 'index'])->name('tempat-wisata');
+Route::prefix('verifikasi-wisata')->group(function () {
+Route::get('/{id}/detail', [VerifikasiDetailController::class, 'showDetail'])->name('verifikasi.detail');
+Route::post('/{id}/update', [VerifikasiDetailController::class, 'updateStatus'])->name('verifikasi.update');
+    
+});

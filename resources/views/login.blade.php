@@ -31,7 +31,7 @@
             </p>
 
             <div class="logo">
-                <img src="{{ asset('images/logo.png') }}" alt="Wanderlust">
+                <img src="{{ asset('images/Logos/Wanderlust Logo Full.png') }}" alt="Wanderlust">
             </div>
         </div>
     </div>

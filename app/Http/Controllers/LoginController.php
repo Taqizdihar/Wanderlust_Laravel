@@ -20,7 +20,7 @@ class LoginController extends Controller {
         [
             'id' => 2,
             'name' => 'Azura Novalight',
-            'username' => 'azura',
+            'username' => 'ikaa',
             'password' => 'admin123',
             'email' => 'azura@wanderlust.com',
             'phone' => '+6282234567891',
@@ -58,16 +58,12 @@ class LoginController extends Controller {
 
         if ($user) {
             session(['user' => $user]);
-
-            switch ($user['role']) {
-                case 'admin':
-                    return redirect()->route('dashboard.admin');
-                case 'ptw':
-                    return redirect()->route('dashboard.ptw');
-                case 'tourist':
-                    return redirect()->route('home.tourist');
-                default:
-                    return redirect()->route('login')->with('error', 'Role tidak dikenali!');
+            if ($user['role'] === 'admin') {
+                return redirect()->route('dashboard.admin');
+            } elseif ($user['role'] === 'ptw') {
+                return redirect()->route('dashboard.ptw');
+            } else {
+                return redirect()->route('home');
             }
         } else {
             return redirect()->route('login')->with('error', 'Username atau password salah!');
