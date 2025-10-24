@@ -8,7 +8,6 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // Destinasi Populer (8 tempat)
         $populer = [
             [
                 'nama' => 'Candi Borobudur',

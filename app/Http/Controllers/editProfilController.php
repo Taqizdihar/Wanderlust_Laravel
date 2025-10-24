@@ -17,7 +17,7 @@ class EditProfilController extends Controller
             'jenis_kelamin' => '',
             'pekerjaan' => '',
             'bio' => '',
-            'foto' => 'default.png',
+            'foto' => 'foto_profil.jpg',
         ]);
 
         return view('editProfil', compact('profil'));
