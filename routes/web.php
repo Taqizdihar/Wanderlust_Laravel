@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\editProfilController;
+use App\Http\Controllers\EditProfilController;
 use App\Http\Controllers\DashboardPTWController;
 use App\Http\Controllers\PropertyPTWController;
 use App\Http\Controllers\AddPropertyPTWController;
@@ -11,18 +11,23 @@ use App\Http\Controllers\EditPropertyPTWController;
 use App\Http\Controllers\TempatWisataController;
 use App\Http\Controllers\PropertiController;
 use App\Http\Controllers\LokasiController;
+<<<<<<< HEAD
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\VerifikasiDetailController; // IMPORT Controller BARU
 
 
+=======
+use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\PencarianController;
+>>>>>>> ed670790da7ce6c9a4369a97d1b9df2244397e08
 
 
-//untuk autentikasi
-Route::get('/', [LoginController::class, 'showLoginForm'])->name('home');
+//untuk autentikasi - umum
+Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login/auth', [LoginController::class, 'authenticate'])->name('login.auth');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-//untuk pemilik tempat wisata (PTW)
+//untuk pemilik tempat wisata (PTW) - Taqi
 Route::get('/dashboard-ptw', [DashboardPTWController::class, 'index'])->name('dashboard.ptw');
 Route::get('/properties-ptw', [PropertyPTWController::class, 'index'])->name('properties.ptw');
 Route::get('/add-property-ptw', [AddPropertyPTWController::class, 'index'])->name('add.property.ptw');
@@ -31,15 +36,15 @@ Route::get('/edit-property-ptw/{id}', [EditPropertyPTWController::class, 'edit']
 Route::post('/edit-property-ptw/{id}', [EditPropertyPTWController::class, 'update'])->name('update.property.ptw');
 Route::delete('/delete-property-ptw/{id}', [EditPropertyPTWController::class, 'destroy'])->name('delete.property.ptw');
 
-//untuk wisatawan
-Route::get('/edit-profil', [ProfilController::class, 'edit'])->name('profil.edit');
-Route::post('/edit-profil', [ProfilController::class, 'update'])->name('profil.update');    
+//untuk wisatawan - Faiz
+Route::get('/edit-profil', [EditProfilController::class, 'index'])->name('editProfil');
+Route::post('/edit-profil', [EditProfilController::class, 'update'])->name('update.profil');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/editProfil', [editProfilController::class, 'index'])->name('editProfil');
-Route::post('/updateProfil', [editProfilController::class, 'update'])->name('updateProfil');
+Route::get('/edit-profil', [EditProfilController::class, 'show'])->name('edit-profil');
 Route::get('/homeWisatawan', function () {
     return redirect('/home');
 });
+Route::get('/pencarian', [PencarianController::class, 'index'])->name('pencarian');
 
 //untuk administrator
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.admin');

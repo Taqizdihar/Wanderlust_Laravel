@@ -13,9 +13,9 @@
 <div class="container">
     <aside class="sidebar">
         <div> <div class="profile">
-                <img src="{{ asset($owner['photo']) }}" alt="Owner Photo">
-                <h3>{{ $owner['name'] }}</h3>
-                <p>{{ $owner['title'] }}</p>
+                <img src="{{ asset('images/profiles/' . $user['pp']) }}" alt="Owner Photo">
+                <h3>{{ $user['name'] }}</h3>
+                <p>Property Manager</p>
             </div>
             <nav>
                 <a href="{{ route('dashboard.ptw') }}">Dashboard</a>
@@ -25,19 +25,20 @@
                 <a href="#">Help Centre</a>
             </nav>
         </div>
-        <a href="#" class="logout">Log Out</a>
+        <a href="{{ route('logout') }}" class="logout" onclick="return confirm('Are you sure you want to log out?')">Log Out</a>
     </aside>
 
     <main class="content">
         <header class="navbar">
             <h2>Welcome back to dashboard!</h2>
             <div class="navbar-logos">
-                <img src="{{ asset('images/logo-wanderlust.png') }}" alt="Logo" height="40">
-                <img src="{{ asset('images/logo-ministry.png') }}" alt="Logo" height="40">
+                <img src="{{ asset('images/Logos/Wanderlust Logo Circle.png') }}" alt="Wanderlust Logo">
+                <img src="{{ asset('images/Logos/kemenpar.png') }}" alt="Logo Partner">
             </div>
         </header>
 
         <section class="form-section">
+            <a href="javascript:history.back()" class="back-btn">&larr; Go Back</a>
             <h2 class="form-title">Edit Property</h2>
 
             <form action="{{ route('update.property.ptw', $property['id']) }}" method="POST" enctype="multipart/form-data" class="property-form">
@@ -66,11 +67,11 @@
                     <div class="form-row">
                         <div class="input-group">
                             <label>Open Time</label>
-                            <input type="time" name="open_time" value="{{ $property['open_time'] }}" required>
+                            <input type="time" name="open_time" value="{{ $property['start_hour'] }}" required>
                         </div>
                         <div class="input-group">
                             <label>Close Time</label>
-                            <input type="time" name="close_time" value="{{ $property['close_time'] }}" required>
+                            <input type="time" name="close_time" value="{{ $property['end_hour'] }}" required>
                         </div>
                     </div>
 
@@ -85,16 +86,18 @@
                     </div>
 
                     <div class="form-row" style="justify-content: space-between; align-items: center;">
-                        <form action="{{ route('delete.property.ptw', $property['id']) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this property?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="delete-btn">Delete</button>
-                        </form>
-
-                        <button type="submit" class="save-btn">Edit</button>
+                        
+                        <button type="submit" class="save-btn">Save</button>
                     </div>
                 </div>
             </form>
+            <div class="form-row">
+                <form action="{{ route('delete.property.ptw', $property['id']) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this property?')" style="margin-top: 15px;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="delete-btn">🗑 Delete Property</button>
+                </form>
+            </div>
         </section>
     </main>
 </div>

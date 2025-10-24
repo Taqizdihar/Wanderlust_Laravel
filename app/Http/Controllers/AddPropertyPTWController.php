@@ -6,23 +6,48 @@ use Illuminate\Http\Request;
 
 class AddPropertyPTWController extends Controller
 {
-    public function index()
-    {
-        $owner = [
-            'name' => 'M. Alnilam Lambda',
-            'title' => 'Minister of Tourism',
-            'photo' => 'images/owner.jpg',
-        ];
+    public function index() {
 
-        return view('addPropertyPTW', compact('owner'));
+        $user = session('user');
+
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Silakan Login Terlebih dahulu');
+        }
+
+        if ($user['role'] !== 'ptw') {
+            return redirect()->route('login')->with('error', 'Anda tidak memiliki akses ke halaman ini.');
+        }
+        
+        return view('AddPropertyPTW', compact('user'));
     }
 
-    public function store(Request $request)
-    {
-        // Sementara: belum menyimpan ke array/database
-        // Nanti di sini kita tambahkan logika validasi & simpan
+    public function store(Request $request) {
+        $properties = session('properties', []);
 
-        // Kembali ke halaman properties
+        $newID = count($properties) + 1;
+
+        $file = $request->file('image');
+        $filename = $file->getClientOriginalName();
+        $file->move(public_path('images/properties'), $filename);
+
+        $newProperty = [
+            'id' => $newID,
+            'name' => $request->input('name'),
+            'start_hour' => $request->input('start_hour'),
+            'end_hour' => $request->input('end_hour'),
+            'category' => $request->input('category'),
+            'revenue' => 0,
+            'visitors' => 0,
+            'tickets_sold' => 0,
+            'address' => $request->input('address'),
+            'description' => $request->input('description'),
+            'image' => $filename,
+        ];
+
+        $properties[] = $newProperty;
+
+        session(['properties' => $properties]);
+
         return redirect()->route('properties.ptw');
     }
 }

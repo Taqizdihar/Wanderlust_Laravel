@@ -43,8 +43,7 @@ class LoginController extends Controller {
         return view('login');
     }
 
-    public function authenticate(Request $request)
-    {
+    public function authenticate(Request $request) {
         $username = $request->input('username');
         $password = $request->input('password');
 
@@ -58,15 +57,28 @@ class LoginController extends Controller {
 
         if ($user) {
             session(['user' => $user]);
+<<<<<<< HEAD
             if ($user['role'] === 'admin') {
                 return redirect()->route('dashboard.admin');
             } elseif ($user['role'] === 'ptw') {
                 return redirect()->route('dashboard.ptw');
             } else {
                 return redirect()->route('home');
+=======
+
+            switch ($user['role']) {
+                case 'admin':
+                    return redirect()->route('dashboard.admin');
+                case 'ptw':
+                    return redirect()->route('dashboard.ptw');
+                case 'tourist':
+                    return redirect()->route('home');
+                default:
+                    return redirect()->route('login');
+>>>>>>> ed670790da7ce6c9a4369a97d1b9df2244397e08
             }
         } else {
-            return redirect()->route('login')->with('error', 'Username atau password salah!');
+            return redirect()->route('login');
         }
     }
 
