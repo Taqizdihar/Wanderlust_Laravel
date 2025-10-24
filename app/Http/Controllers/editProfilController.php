@@ -4,37 +4,49 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class editProfilController extends Controller
+class EditProfilController extends Controller
 {
-    
-    public function index()
+    public function show(Request $request)
     {
-        $profil = [
-            'nama' => 'Faiz Syafiq Nabily',
-            'email' => 'faiz@gmail.com',
-            'telepon' => '08123456789',
-            'alamat' => 'Ciamis, Jawa Barat'
-        ];
+        $profil = $request->session()->get('profil', [
+            'nama' => '',
+            'email' => '',
+            'telepon' => '',
+            'alamat' => '',
+            'tanggal_lahir' => '',
+            'jenis_kelamin' => '',
+            'pekerjaan' => '',
+            'bio' => '',
+            'foto' => 'default.png',
+        ]);
 
-        if (session('profil_baru')) {
-            $profil = session('profil_baru');
-        }
-
-        return view('editProfil', ['profil' => $profil]);
+        return view('editProfil', compact('profil'));
     }
 
     public function update(Request $request)
     {
-        $profilBaru = [
-            'nama' => $request->input('nama'),
-            'email' => $request->input('email'),
-            'telepon' => $request->input('telepon'),
-            'alamat' => $request->input('alamat'),
-        ];
+        $data = $request->validate([
+            'nama' => 'required|string|max:100',
+            'email' => 'required|email',
+            'telepon' => 'nullable|string|max:20',
+            'alamat' => 'nullable|string|max:255',
+            'tanggal_lahir' => 'nullable|date',
+            'jenis_kelamin' => 'nullable|string',
+            'pekerjaan' => 'nullable|string|max:100',
+            'bio' => 'nullable|string|max:500',
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
 
-        session()->flash('success', 'Profil berhasil diperbarui!');
-        session(['profil_baru' => $profilBaru]);
+        if ($request->hasFile('foto')) {
+            $namaFile = time() . '.' . $request->file('foto')->extension();
+            $request->file('foto')->move(public_path('images'), $namaFile);
+            $data['foto'] = $namaFile;
+        } else {
+            $data['foto'] = $request->session()->get('foto', 'default.png');
+        }
 
-        return redirect('/editProfil');
+        $request->session()->put('profil', $data);
+
+        return redirect()->route('edit-profil')->with('success', 'Profil berhasil diperbarui!');
     }
 }

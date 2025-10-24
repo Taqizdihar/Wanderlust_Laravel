@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\editProfilController;
+use App\Http\Controllers\EditProfilController;
 use App\Http\Controllers\DashboardPTWController;
 use App\Http\Controllers\PropertyPTWController;
 use App\Http\Controllers\AddPropertyPTWController;
@@ -30,10 +30,10 @@ Route::post('/edit-property-ptw/{id}', [EditPropertyPTWController::class, 'updat
 Route::delete('/delete-property-ptw/{id}', [EditPropertyPTWController::class, 'destroy'])->name('delete.property.ptw');
 
 //untuk wisatawan - Faiz
-Route::get('/edit-profil', [editProfilController::class, 'index'])->name('editProfil');
-Route::post('/updateProfil', [editProfilController::class, 'update'])->name('updateProfil');
+Route::get('/edit-profil', [EditProfilController::class, 'index'])->name('editProfil');
+Route::post('/edit-profil', [EditProfilController::class, 'update'])->name('update.profil');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/editProfil', [editProfilController::class, 'index'])->name('editProfil');
+Route::get('/edit-profil', [EditProfilController::class, 'show'])->name('edit-profil');
 Route::get('/homeWisatawan', function () {
     return redirect('/home');
 });
