@@ -42,8 +42,6 @@ class AddPropertyPTWController extends Controller
             'address' => $request->input('address'),
             'description' => $request->input('description'),
             'image' => $filename,
-
-            
         ];
 
         $properties[] = $newProperty;

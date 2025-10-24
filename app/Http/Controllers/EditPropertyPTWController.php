@@ -39,30 +39,28 @@ class EditPropertyPTWController extends Controller {
                 $property['description'] = $request->input('description');
 
                 if ($request->hasFile('image')) {
+                    $file = $request->file('image');
+                    $filename = $file->getClientOriginalName();
+                    $file->move(public_path('images/properties'), $filename);
+                    $property['image'] = $filename;
+                } else {
+                    $property['image'] = $property['image'] ?? 'default.png';
+                }
 
-                $file = $request->file('image');
-                $filename = $file->getClientOriginalName();
-                $file->move(public_path('images/properties'), $filename);
-                $property['image'] = $filename;
-                
-            } else {
-                $property['image'] = $property['image'] ?? 'default.png';
-            }
+                if ($request->filled('start_hour')) {
+                    $property['start_hour'] = $request->input('start_hour');
 
-            if ($request->filled('start_hour')) {
-                $property['start_hour'] = $request->input('start_hour');
+                } else {
+                    $property['start_hour'] = $property['start_hour'];
+                }
 
-            } else {
-                $property['start_hour'] = $property['start_hour'];
-            }
+                if ($request->filled('end_hour')) {
+                    $property['end_hour'] = $request->input('end_hour');
+                } else {
+                    $property['end_hour'] = $property['end_hour'];
+                }
 
-            if ($request->filled('end_hour')) {
-                $property['end_hour'] = $request->input('end_hour');
-            } else {
-                $property['end_hour'] = $property['end_hour'];
-            }
-
-            break;
+                break;
             }
         }
 
