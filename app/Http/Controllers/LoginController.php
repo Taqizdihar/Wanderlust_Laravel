@@ -66,10 +66,10 @@ class LoginController extends Controller {
                 case 'tourist':
                     return redirect()->route('home');
                 default:
-                    return redirect()->route('login')->with('error', 'Role tidak dikenali!');
+                    return redirect()->route('login');
             }
         } else {
-            return redirect()->route('login')->with('error', 'Username atau password salah!');
+            return redirect()->route('login');
         }
     }
 

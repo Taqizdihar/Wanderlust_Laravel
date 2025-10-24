@@ -78,6 +78,6 @@ class EditPropertyPTWController extends Controller {
 
     session(['properties' => array_values($properties)]);
 
-    return redirect()->route('properties.ptw')->with('success', 'Property berhasil dihapus.');
+    return redirect()->route('properties.ptw');
     }
 }

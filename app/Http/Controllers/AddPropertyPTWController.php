@@ -48,6 +48,6 @@ class AddPropertyPTWController extends Controller
 
         session(['properties' => $properties]);
 
-        return redirect()->route('properties.ptw')->with('success', 'Properti baru berhasil ditambahkan.');
+        return redirect()->route('properties.ptw');
     }
 }
