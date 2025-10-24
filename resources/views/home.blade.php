@@ -30,7 +30,7 @@
         <a href="#">Beranda</a>
         <a href="#">Destinasi</a>
         <a href="#">Tentang</a>
-        <a href="{{ route('editProfil') }}">
+        <a href="{{ route('edit-profil') }}">
     <div class="profile-icon">
         @if(Auth::check() && Auth::user()->foto_profil)
             <img src="{{ asset('images/profiles/' . Auth::user()->foto_profil) }}" alt="Foto Profil">

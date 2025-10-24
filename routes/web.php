@@ -14,7 +14,10 @@ use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\VerifikasiDetailController; // IMPORT Controller BARU
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> cd523ade03a98c279f9abaa746c558195397d40b
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\PencarianController;
 

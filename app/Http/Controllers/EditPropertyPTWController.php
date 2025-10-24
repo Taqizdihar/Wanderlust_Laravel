@@ -49,7 +49,6 @@ class EditPropertyPTWController extends Controller {
 
                 if ($request->filled('start_hour')) {
                     $property['start_hour'] = $request->input('start_hour');
-
                 } else {
                     $property['start_hour'] = $property['start_hour'];
                 }
@@ -66,7 +65,7 @@ class EditPropertyPTWController extends Controller {
 
         session(['properties' => $properties]);
 
-        return redirect()->route('properties.ptw')->with('success', 'Properti berhasil diperbarui.');
+        return redirect()->route('properties.ptw');
     }
 
     public function destroy($id) {
