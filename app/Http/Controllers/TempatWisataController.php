@@ -3,33 +3,42 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
 
 class TempatWisataController extends Controller
 {
-    public function show($id_lokasi)
+    public function index(Request $request)
     {
-        // Ambil ID user dari session
-        $userId = Session::get('user_id');
+        $data_wisata = [
+            [
+                'id' => 1,
+                'nama' => 'Pantai Kuta',
+                'lokasi' => 'Bali',
+                'harga' => 25000,
+                'status' => 'Pending'
+            ],
+            [
+                'id' => 2,
+                'nama' => 'Candi Borobudur',
+                'lokasi' => 'Magelang',
+                'harga' => 50000,
+                'status' => 'Selesai'
+            ],
+            [
+                'id' => 3,
+                'nama' => 'Gunung Bromo',
+                'lokasi' => 'Jawa Timur',
+                'harga' => 30000,
+                'status' => 'Pending'
+            ]
+        ];
 
-        // Ambil data user
-        $profile = DB::table('user')->where('user_id', $userId)->first();
+        foreach ($data_wisata as &$wisata) {
+            $statusKey = 'status_wisata.' . $wisata['id'];
+            if ($request->session()->has($statusKey)) {
+                $wisata['status'] = $request->session()->get($statusKey);
+            }
+        }
 
-        // Ambil data tempat wisata
-        $dataLokasi = DB::table('tempatwisata')->where('tempatwisata_id', $id_lokasi)->first();
-
-        // Ambil data foto wisata
-        $fotos = DB::table('fotowisata')
-            ->where('tempatwisata_id', $id_lokasi)
-            ->orderBy('urutan')
-            ->pluck('link_foto');
-
-        // Kirim data ke view
-        return view('admin.properti-detail', [
-            'profile' => $profile,
-            'dataLokasi' => $dataLokasi,
-            'fotos' => $fotos,
-        ]);
+        return view('tempat_wisata', compact('data_wisata'));
     }
 }
