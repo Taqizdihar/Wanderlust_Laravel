@@ -32,8 +32,8 @@
             <header class="navbar">
                 <h2>Welcome back to dashboard!</h2>
                 <div class="navbar-logos">
-                    <img src="{{ asset('images/logo-wanderlust-white.png') }}" alt="Wanderlust Logo">
-                    <img src="{{ asset('images/logo-kemenpar.png') }}" alt="Logo Partner">
+                    <img src="{{ asset('images/Logos/Wanderlust Logo Circle.png') }}" alt="Wanderlust Logo">
+                    <img src="{{ asset('images/Logos/kemenpar.png') }}" alt="Logo Partner">
                 </div>
             </header>
 

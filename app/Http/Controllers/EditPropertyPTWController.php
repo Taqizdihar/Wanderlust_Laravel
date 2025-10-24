@@ -34,13 +34,35 @@ class EditPropertyPTWController extends Controller {
         foreach($properties as &$property) {
             if ($property['id'] == (int) $id) {
                 $property['name'] = $request->input('name');
-                $property['start_hour'] = $request->input('start_hour');
-                $property['end_hour'] = $request->input('end_hour');
                 $property['category'] = $request->input('category');
                 $property['address'] = $request->input('address');
                 $property['description'] = $request->input('description');
-                $property['image'] = $request->input('image');
-                break;
+
+                if ($request->hasFile('image')) {
+
+                $file = $request->file('image');
+                $filename = $file->getClientOriginalName();
+                $file->move(public_path('images/properties'), $filename);
+                $property['image'] = $filename;
+                
+            } else {
+                $property['image'] = $property['image'] ?? 'default.png';
+            }
+
+            if ($request->filled('start_hour')) {
+                $property['start_hour'] = $request->input('start_hour');
+
+            } else {
+                $property['start_hour'] = $property['start_hour'];
+            }
+
+            if ($request->filled('end_hour')) {
+                $property['end_hour'] = $request->input('end_hour');
+            } else {
+                $property['end_hour'] = $property['end_hour'];
+            }
+
+            break;
             }
         }
 
