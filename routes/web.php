@@ -33,8 +33,7 @@ Route::post('/edit-property-ptw/{id}', [EditPropertyPTWController::class, 'updat
 Route::delete('/delete-property-ptw/{id}', [EditPropertyPTWController::class, 'destroy'])->name('delete.property.ptw');
 
 //untuk wisatawan - Faiz
-Route::get('/edit-profil', [EditProfilController::class, 'index'])->name('editProfil');
-Route::post('/edit-profil', [EditProfilController::class, 'update'])->name('update.profil');
+Route::get('/editProfil', [EditProfilController::class,'index'])->name('editProfil');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/edit-profil', [EditProfilController::class, 'show'])->name('edit-profil');
 Route::get('/homeWisatawan', function () {
