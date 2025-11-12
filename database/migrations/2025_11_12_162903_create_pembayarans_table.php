@@ -10,7 +10,7 @@ return new class extends Migration {
         Schema::create('pembayarans', function (Blueprint $table) {
             $table->bigIncrements('id_pembayaran');
             $table->foreignId('id_transaksi')->constrained('transaksis', 'id_transaksi')->onDelete('cascade');
-            $table->timestamp('tgl_bayar')->useCurrent();
+            $table->timestamp('tanggal_bayar')->useCurrent();
         });
     }
 

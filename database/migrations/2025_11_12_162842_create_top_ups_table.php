@@ -12,7 +12,7 @@ return new class extends Migration {
             $table->foreignId('id_wisatawan')->constrained('wisatawans', 'id_wisatawan')->onDelete('restrict');
             $table->decimal('jumlah', 10, 2);
             $table->string('metode');
-            $table->timestamp('tgl_topup')->useCurrent();
+            $table->timestamp('tanggal_topup')->useCurrent();
         });
     }
 

@@ -13,7 +13,7 @@ return new class extends Migration {
             $table->foreignId('id_paket')->constrained('paket_wisatas', 'id_paket')->onDelete('restrict');
             $table->integer('jumlah_paket');
             $table->string('status_transaksi')->default('pending');
-            $table->timestamp('tgl_transaksi')->useCurrent();
+            $table->timestamp('tanggal_transaksi')->useCurrent();
             $table->decimal('total_harga', 10, 2);
         });
     }

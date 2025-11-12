@@ -13,7 +13,7 @@ return new class extends Migration {
             $table->foreignId('id_tempat')->constrained('tempat_wisatas', 'id_tempat')->onDelete('cascade');
             $table->tinyInteger('penilaian');
             $table->text('ulasan')->nullable();
-            $table->timestamp('tgl_penilaian')->useCurrent();
+            $table->timestamp('tanggal_penilaian')->useCurrent();
             $table->string('status_penilaian')->default('pending');
         });
     }

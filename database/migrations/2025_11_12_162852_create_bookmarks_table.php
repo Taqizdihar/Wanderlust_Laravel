@@ -11,7 +11,7 @@ return new class extends Migration {
             $table->bigIncrements('id_bookmark');
             $table->foreignId('id_wisatawan')->constrained('wisatawans', 'id_wisatawan')->onDelete('cascade');
             $table->foreignId('id_tempat')->constrained('tempat_wisatas', 'id_tempat')->onDelete('cascade');
-            $table->timestamp('tgl_simpan')->useCurrent();
+            $table->timestamp('tanggal_simpan')->useCurrent();
             $table->unique(['id_wisatawan', 'id_tempat']);
         });
     }
