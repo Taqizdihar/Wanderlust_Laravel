@@ -2,22 +2,19 @@
 
 namespace Database\Factories;
 
+use App\Models\TempatWisata;
+use App\Models\Wisatawan;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Penilaian>
- */
-class PenilaianFactory extends Factory
-{
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
-    {
+class PenilaianFactory extends Factory {
+    public function definition(): array {
         return [
-            //
+            'id_wisatawan' => Wisatawan::factory(),
+            'id_tempat' => TempatWisata::factory(),
+            'penilaian' => fake()->numberBetween(1, 5),
+            'ulasan' => fake()->paragraph(),
+            'tanggal_penilaian' => fake()->dateTimeThisYear(),
+            'status_penilaian' => fake()->randomElement(['pending', 'approved', 'rejected']),
         ];
     }
 }

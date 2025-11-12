@@ -2,22 +2,14 @@
 
 namespace Database\Factories;
 
+use App\Models\Transaksi;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Pembayaran>
- */
-class PembayaranFactory extends Factory
-{
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
-    {
+class PembayaranFactory extends Factory {
+    public function definition(): array {
         return [
-            //
+            'id_transaksi' => Transaksi::factory(),
+            'tanggal_bayar' => fake()->dateTimeThisYear(),
         ];
     }
 }

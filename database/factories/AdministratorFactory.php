@@ -2,22 +2,14 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Administrator>
- */
-class AdministratorFactory extends Factory
-{
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
-    {
+class AdministratorFactory extends Factory {
+    public function definition(): array {
         return [
-            //
+            'id_user' => User::factory(),
+            'jabatan' => fake()->jobTitle(),
         ];
     }
 }

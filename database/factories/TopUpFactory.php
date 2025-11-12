@@ -2,22 +2,16 @@
 
 namespace Database\Factories;
 
+use App\Models\Wisatawan;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\TopUp>
- */
-class TopUpFactory extends Factory
-{
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
-    {
+class TopUpFactory extends Factory {
+    public function definition(): array {
         return [
-            //
+            'id_wisatawan' => Wisatawan::factory(),
+            'jumlah' => fake()->randomElement([50000, 100000, 250000, 500000]),
+            'metode' => fake()->randomElement(['Bank Transfer', 'E-Wallet']),
+            'tanggal_topup' => fake()->dateTimeThisYear(),
         ];
     }
 }
