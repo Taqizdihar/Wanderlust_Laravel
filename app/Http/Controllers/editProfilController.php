@@ -21,24 +21,25 @@ class EditProfilController extends Controller
         ]);
 
         return view('editProfil', compact('profil'));
+    }
 
-        public function update(Request $request)
-        {
-            $data = $request-session->validate([
-                'nama' => 'required|string|max:100',
-                'email' => 'required|email',
-                'telepon' => 'nullable|string|max: 20',
-                'alamat' => 'nullable|string|max: 200'
-                'tanggal_lahir' =>
-                'jenis_kelamin' =>
-                'pekerjaan' =>
-                'bio' =>
-                'foto' =>
-            ]
-            ])
-                
+    public function update(Request $request)
+    {
+        $data = $request->session()->validate([
+            'nama' => 'required|string|max:100',
+            'email' => 'required|email',
+            'telepon' => 'nullable|string|max:20',
+            'alamat' => 'nullable|string|max:200',
+            'tanggal_lahir' => 'nullable|date',
+            'jenis_kelamin' => 'nullable|string',
+            'pekerjaan' => 'nullable|string',
+            'bio' => 'nullable|string',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
 
-        }
+        $request->session()->put('profil', $data);
+
+        return redirect()->back()->with('success', 'Profil updated successfully');
     }
 
 
