@@ -10,7 +10,7 @@ class User extends Authenticatable {
 
     use HasFactory, Notifiable;
     protected $primaryKey = 'id_user';
-    protected $fillable = ['nama','email','phone_number','password',];
+    protected $fillable = ['nama','email','no_telepon','password',];
     protected $hidden = ['password','remember_token',];
 
     public function administrator() {
