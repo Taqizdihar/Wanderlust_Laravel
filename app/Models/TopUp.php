@@ -11,6 +11,7 @@ class TopUp extends Model {
     protected $table = 'top_ups';
     protected $primaryKey = 'id_topup';
     protected $fillable = ['jumlah','metode','tanggal_topup',];
+    public $timestamps = false;
 
     public function wisatawan() {
         return $this->belongsTo(Wisatawan::class, 'id_wisatawan', 'id_wisatawan');

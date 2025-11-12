@@ -10,6 +10,7 @@ class Bookmark extends Model {
     
     protected $primaryKey = 'id_bookmark';
     protected $fillable = ['tanggal_simpan',];
+    public $timestamps = false;
 
     public function wisatawan() {
         return $this->belongsTo(Wisatawan::class, 'id_wisatawan', 'id_wisatawan');

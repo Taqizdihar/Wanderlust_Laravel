@@ -16,6 +16,7 @@ class Transaksi extends Model {
         'tanggal_transaksi',
         'total_harga',
     ];
+    public $timestamps = false;
 
     public function wisatawan(){
         return $this->belongsTo(Wisatawan::class, 'id_wisatawan', 'id_wisatawan');

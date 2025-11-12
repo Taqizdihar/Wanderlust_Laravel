@@ -16,6 +16,7 @@ class Penilaian extends Model {
         'tanggal_penilaian',
         'status_penilaian',
     ];
+    public $timestamps = false;
 
     public function wisatawan() {
         return $this->belongsTo(Wisatawan::class, 'id_wisatawan', 'id_wisatawan');
