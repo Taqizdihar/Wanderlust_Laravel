@@ -2,6 +2,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
+use function PHPUnit\Framework\returnSelf;
+
 class VerifikasiDetailController extends Controller
 {
     public function showDetail($id)
@@ -24,14 +27,17 @@ class VerifikasiDetailController extends Controller
 
         return view('verifikasi_detail', compact('data_wisata'));
     }
-
-    // punya ikaa gemaz imoeddd
     public function updateStatus(Request $request, $id)
     {
-        $newStatus = $request->input('status');
+$newStatus = $request->input('status');
         $statusKey = 'status_wisata.' . $id;
-        $request->session()->put($statusKey, $newStatus); // Menyimpan status baru.
-
-        return redirect()->route('tempat-wisata');
+ $request->session()->put($statusKey, $newStatus); 
+        return redirect()->route('tempat-sesssionwisata');
     }
 }
+
+
+
+
+
+

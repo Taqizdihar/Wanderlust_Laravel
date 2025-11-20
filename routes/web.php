@@ -45,8 +45,10 @@ Route::get('/pencarian', [PencarianController::class, 'index'])->name('pencarian
 //untuk administrator ikaa canZ
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.admin');
 Route::get('/tempat-wisata', [TempatWisataController::class, 'index'])->name('tempat-wisata');
+
+
+// yang di hapus routes ini
 Route::prefix('verifikasi-wisata')->group(function () {
 Route::get('/{id}/detail', [VerifikasiDetailController::class, 'showDetail'])->name('verifikasi.detail');
 Route::post('/{id}/update', [VerifikasiDetailController::class, 'updateStatus'])->name('verifikasi.update');
-    
 });
