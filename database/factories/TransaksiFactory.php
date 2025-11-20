@@ -17,7 +17,6 @@ class TransaksiFactory extends Factory {
             'total_harga' => fake()->randomFloat(2, 50000, 1500000),
             'kode_transaksi' => 'TRX-' . fake()->unique()->numerify('########'),
             'catatan_transaksi' => fake()->optional()->sentence(8),
-            'tanggal_selesai' => fake()->optional()->dateTimeThisYear(),
         ];
     }
 }
