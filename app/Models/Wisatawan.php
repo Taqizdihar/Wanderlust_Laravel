@@ -9,7 +9,7 @@ class Wisatawan extends Model {
     use HasFactory;
 
     protected $primaryKey = 'id_wisatawan';
-    protected $fillable = ['tanggal_lahir','jenis_kelamin','alamat',];
+    protected $fillable = ['tanggal_lahir','jenis_kelamin','usia','alamat','status_akun','kota_asal','preferensi_wisata'];
 
     public function user() {
         return $this->belongsTo(User::class, 'id_user', 'id_user');
