@@ -10,12 +10,7 @@ class Penilaian extends Model {
 
     protected $table = 'penilaians';
     protected $primaryKey = 'id_penilaian';
-    protected $fillable = [
-        'penilaian',
-        'ulasan',
-        'tanggal_penilaian',
-        'status_penilaian',
-    ];
+    protected $fillable = ['penilaian','ulasan','tanggal_penilaian','status_penilaian','judul_ulasan','foto_ulasan'];
     public $timestamps = false;
 
     public function wisatawan() {

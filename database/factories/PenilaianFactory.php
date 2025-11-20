@@ -13,6 +13,8 @@ class PenilaianFactory extends Factory {
             'id_tempat' => TempatWisata::factory(),
             'penilaian' => fake()->numberBetween(1, 5),
             'ulasan' => fake()->paragraph(),
+            'judul_ulasan' => fake()->sentence(3),
+            'foto_ulasan' => fake()->optional()->imageUrl(),
             'tanggal_penilaian' => fake()->dateTimeThisYear(),
             'status_penilaian' => fake()->randomElement(['pending', 'approved', 'rejected']),
         ];
