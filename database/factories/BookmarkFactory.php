@@ -12,6 +12,8 @@ class BookmarkFactory extends Factory {
             'id_wisatawan' => Wisatawan::factory(),
             'id_tempat' => TempatWisata::factory(),
             'tanggal_simpan' => fake()->dateTimeThisYear(),
+            'catatan' => fake()->sentence(),
+            'kategori' => fake()->randomElement(['Favorit', 'Ingin Dikunjungi', 'Pernah Dikunjungi']),
         ];
     }
 }

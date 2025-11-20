@@ -9,7 +9,7 @@ class Bookmark extends Model {
     use HasFactory;
     
     protected $primaryKey = 'id_bookmark';
-    protected $fillable = ['tanggal_simpan',];
+    protected $fillable = ['tanggal_simpan','catatan','kategori'];
     public $timestamps = false;
 
     public function wisatawan() {
