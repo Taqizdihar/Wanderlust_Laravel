@@ -10,12 +10,7 @@ class Transaksi extends Model {
 
     protected $table = 'transaksis';
     protected $primaryKey = 'id_transaksi';
-    protected $fillable = [
-        'jumlah_paket',
-        'status_transaksi',
-        'tanggal_transaksi',
-        'total_harga',
-    ];
+    protected $fillable = ['jumlah_paket','status_transaksi','tanggal_transaksi','total_harga','kode_transaksi','catatan_transaksi','tanggal_selesai'];
     public $timestamps = false;
 
     public function wisatawan(){

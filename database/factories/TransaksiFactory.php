@@ -14,7 +14,10 @@ class TransaksiFactory extends Factory {
             'jumlah_paket' => fake()->numberBetween(1, 3),
             'status_transaksi' => fake()->randomElement(['pending', 'sukses', 'gagal']),
             'tanggal_transaksi' => fake()->dateTimeThisYear(),
-            'total_harga' => fake()->randomFloat(2, 50000, 1500000), 
+            'total_harga' => fake()->randomFloat(2, 50000, 1500000),
+            'kode_transaksi' => 'TRX-' . fake()->unique()->numerify('########'),
+            'catatan_transaksi' => fake()->optional()->sentence(8),
+            'tanggal_selesai' => fake()->optional()->dateTimeThisYear(),
         ];
     }
 }
