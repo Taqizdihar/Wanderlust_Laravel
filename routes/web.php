@@ -28,13 +28,12 @@ Route::get('/dashboard-ptw', [DashboardPTWController::class, 'index'])->name('da
 Route::get('/properties-ptw', [PropertyPTWController::class, 'index'])->name('properties.ptw');
 Route::get('/add-property-ptw', [AddPropertyPTWController::class, 'index'])->name('add.property.ptw');
 Route::post('/add-property-ptw', [AddPropertyPTWController::class, 'store'])->name('store.property.ptw');
-Route::get('/edit-property-ptw/{id}', [EditPropertyPTWController::class, 'edit'])->name('edit.property.ptw');
+Route::get('/edit-property-ptw/{id}', [EditPropertyPTWController::class, 'edit'])->name('edit.property');
 Route::post('/edit-property-ptw/{id}', [EditPropertyPTWController::class, 'update'])->name('update.property.ptw');
 Route::delete('/delete-property-ptw/{id}', [EditPropertyPTWController::class, 'destroy'])->name('delete.property.ptw');
 
 //untuk wisatawan - Faiz
-Route::get('/edit-profil', [EditProfilController::class, 'index'])->name('editProfil');
-Route::post('/edit-profil', [EditProfilController::class, 'update'])->name('update.profil');
+Route::get('/editProfil', [EditProfilController::class,'index'])->name('editProfil');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/edit-profil', [EditProfilController::class, 'show'])->name('edit-profil');
 Route::get('/homeWisatawan', function () {

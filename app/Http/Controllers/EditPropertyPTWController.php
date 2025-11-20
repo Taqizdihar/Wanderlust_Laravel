@@ -29,42 +29,37 @@ class EditPropertyPTWController extends Controller {
     }
 
     public function update(Request $request, $id) {
-        $properties = session('properties', []);
-
-        foreach($properties as &$property) {
-            if ($property['id'] == (int) $id) {
+        $properties = session('properties');
+        foreach ($properties as &$property) {
+            if ($property['id'] == $request->input('id')) {
                 $property['name'] = $request->input('name');
                 $property['category'] = $request->input('category');
                 $property['address'] = $request->input('address');
                 $property['description'] = $request->input('description');
-
                 if ($request->hasFile('image')) {
                     $file = $request->file('image');
                     $filename = $file->getClientOriginalName();
                     $file->move(public_path('images/properties'), $filename);
                     $property['image'] = $filename;
                 } else {
-                    $property['image'] = $property['image'] ?? 'default.png';
+                    $property['image'] == $property['image'] ?? 'default.png';
                 }
-
+    
                 if ($request->filled('start_hour')) {
                     $property['start_hour'] = $request->input('start_hour');
                 } else {
                     $property['start_hour'] = $property['start_hour'];
                 }
-
+    
                 if ($request->filled('end_hour')) {
                     $property['end_hour'] = $request->input('end_hour');
                 } else {
                     $property['end_hour'] = $property['end_hour'];
                 }
-
-                break;
             }
+            break;
+            $property = session('properties', []);
         }
- 
-        session(['properties' => $properties]);
-
         return redirect()->route('properties.ptw');
     }
 

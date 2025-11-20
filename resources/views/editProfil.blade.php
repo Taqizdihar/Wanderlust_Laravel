@@ -19,7 +19,7 @@
         <div class="sidebar">
             <img src="{{ asset('images/Images/' . ($profil['foto'] ?? 'default.png')) }}" alt="Foto Profil" class="profile-pic">
             
-            <form action="{{ route('update.profil') }}" method="POST" enctype="multipart/form-data" style="width:100%; text-align:center;">
+            <form action="{{ route('editProfil') }}" method="POST" enctype="multipart/form-data" style="width:100%; text-align:center;">
                 @csrf
                 <label for="foto" class="edit-btn" style="cursor:pointer;">Ganti Foto</label>
                 <input type="file" id="foto" name="foto" accept="image/*" style="display:none;">
@@ -35,7 +35,7 @@
         <!-- Profile Card -->
         <div class="profile-card">
             <h2>Edit Profil Saya</h2>
-            <form action="{{ route('update.profil') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('editProfil') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-grid">
                     <div class="form-group">
