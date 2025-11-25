@@ -19,7 +19,7 @@ class LoginController extends Controller {
         ],
         [
             'id' => 2,
-            'name' => 'Azura Novalight',
+            'name' => 'Riska',
             'username' => 'ikaa',
             'password' => 'admin123',
             'email' => 'azura@wanderlust.com',
