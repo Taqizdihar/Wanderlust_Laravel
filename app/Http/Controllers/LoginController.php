@@ -29,10 +29,10 @@ class LoginController extends Controller {
         ],
         [
             'id' => 3,
-            'name' => 'Sena Aurelius',
-            'username' => 'sena',
+            'name' => 'Faiz Syafiq N',
+            'username' => 'izul',
             'password' => 'tourist123',
-            'email' => 'sena@example.com',
+            'email' => 'faiz@example.com',
             'phone' => '+6283234567892',
             'role' => 'tourist',
             'pp' => 'tourist-1.jpg'
