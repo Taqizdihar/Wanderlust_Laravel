@@ -3,36 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\TempatWisata; // Import Model
 
 class DestinasiController extends Controller
 {
+    /**
+     * Menampilkan daftar semua destinasi wisata.
+     */
     public function index()
     {
-        // Data dummy (tanpa database)
-        $destinasi = [
-            [
-                'id' => 1,
-                'nama' => 'Pantai Indah',
-                'lokasi' => 'Bali',
-                'rating' => 4.8,
-                'foto' => 'pantai1.jpg'
-            ],
-            [
-                'id' => 2,
-                'nama' => 'Gunung Sejuk',
-                'lokasi' => 'Bandung',
-                'rating' => 4.6,
-                'foto' => 'gunung1.jpg'
-            ],
-            [
-                'id' => 3,
-                'nama' => 'Danau Tenang',
-                'lokasi' => 'Sumatera Utara',
-                'rating' => 4.7,
-                'foto' => 'danau1.jpg'
-            ],
-        ];
+        // Logika untuk mengambil semua destinasi (atau dengan paginasi)
+        $semuaDestinasi = TempatWisata::orderBy('nama_tempat', 'asc')->paginate(12);
 
-        return view('destinasi', compact('destinasi'));
+        // Kirim data ke view destinasi.blade.php
+        return view('destinasi', compact('semuaDestinasi'));
     }
 }
