@@ -66,9 +66,6 @@ Route::middleware(['auth:wisatawan'])->group(function () {
     // Halaman Profil 
     Route::get('/editProfil', [editProfilController::class,'index'])->name('editProfil');
     Route::get('/edit-profil', [editProfilController::class, 'show'])->name('edit-profil');
-    
-    // Route untuk Riwayat Transaksi (Perlu dibuat)
-    Route::get('/riwayat-transaksi', [PesanTiketController::class, 'riwayat'])->name('transaksi.riwayat');
 
     // Route untuk Halaman Favorit/Bookmark (Perlu dibuat)
     Route::get('/favorit', [BookmarkController::class, 'index'])->name('bookmark.index');
