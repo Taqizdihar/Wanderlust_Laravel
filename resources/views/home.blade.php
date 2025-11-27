@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Wanderlust</title>
     
-    <meta name="csrf-token" content="{{ csrf_token() }}"> <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}"> 
+    
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
@@ -51,7 +53,7 @@
 <div class="card-gallery">
     @foreach ($populer as $item)
     <div class="cards-destination">
-        <div class="card-images" style="background-image: url('{{ asset('images/Images/' . $item['foto']) }}');">
+        <div class="card-images" style="background-image: url('{{ asset('images/Images/') . '/' . $item['foto'] }}')">
             <h4>{{ $item['nama'] }}</h4>
             
             @if(Auth::check())
@@ -98,7 +100,7 @@
 <div class="card-gallery">
     @foreach ($rekomendasi as $item)
     <div class="cards-destination">
-        <div class="card-images" style="background-image: url('{{ asset('images/Images/' . $item['foto']) }}');">
+        <div class="card-images" style="background-image: url('{{ asset('images/Images/') . '/' . $item['foto'] }}')">
             <h4>{{ $item['nama'] }}</h4>
             
             @if(Auth::check())
@@ -151,28 +153,30 @@
             const idTempat = this.getAttribute('data-id-tempat');
             const icon = this.querySelector('i');
             
+            // Menggunakan route yang sudah kita definisikan di web.php
             const endpoint = `/bookmark/toggle/${idTempat}`; 
 
             fetch(endpoint, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // Pastikan ada meta tag CSRF
+                    // Ambil token dari metatag CSRF
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') 
                 },
             })
             .then(response => response.json())
             .then(data => {
                 if(data.success) {
-                    // Toggle tampilan icon
+                    // Toggle tampilan icon berdasarkan respon server
                     if (data.action === 'removed') {
                         icon.classList.remove('active');
-                        alert('Bookmark dihapus!');
+                        // Tidak perlu alert jika menggunakan notifikasi yang lebih halus
                     } else {
                         icon.classList.add('active');
-                        alert('Bookmark ditambahkan!');
+                        // Tidak perlu alert
                     }
                 } else {
-                    alert('Gagal memproses bookmark: ' + data.message);
+                    alert('Gagal memproses bookmark. Coba cek koneksi atau status login.');
                 }
             })
             .catch(error => {
