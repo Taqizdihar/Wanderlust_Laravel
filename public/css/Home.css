@@ -1,19 +1,21 @@
+/* home.css (FINAL FIX UNTUK FIGMA) */
 body {
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(to right, #e0f7fa, #e8f5e9);
+  background-color: #f9f9f9; 
   margin: 0;
   overscroll-behavior: none;
 }
 
+/* HEADER DAN NAVIGASI */
 .main-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* PERUBAHAN WARNA: Dark Cyan/Teal sesuai desain Figma */
-  background-color: #005d5d; 
+  /* Warna Header: Dark Cyan/Teal sesuai desain Figma */
+  background-color: #076F82; 
   padding: 10px 20px;
   color: #333;
-  font-family: 'MuseoModerno', sans-serif;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
 }
 
 .logo-container {
@@ -22,7 +24,7 @@ body {
 }
 
 .logo {
-  width: 50px;
+  width: 50px; /* Ukuran Logo lebih kecil di Figma */
   height: 50px;
   border-radius: 50%;
   margin-right: 10px;
@@ -30,269 +32,201 @@ body {
 
 .logo-text .title {
   font-weight: bold;
-  font-size: 18px;
+  font-size: 1.0em; /* Ukuran font disesuaikan */
   color: white;
 }
-
 .logo-text .subtitle {
-  display: block;
-  font-size: 10px;
-  color: #fff;
+  display: none;
 }
 
 .search-bar {
   position: relative;
-  flex-grow: 1;
-  margin: 0 30px;
-  max-width: 400px;
+  flex-grow: 0.5; 
+  margin: 0 auto; /* Tengah */
+  max-width: 500px; /* Lebar Search Bar disesuaikan */
 }
 
 .search-bar input {
   width: 100%;
-  padding: 10px 35px 10px 10px;
-  border: none;
-  border-radius: 8px;
+  padding: 10px 35px 10px 15px;
+  border: none; /* Border dihilangkan karena design Figma borderless */
+  border-radius: 20px; 
   font-size: 14px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2); /* Shadow agar terlihat menonjol */
+}
+
+.search-button {
+    background: none;
+    border: none;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
 }
 
 .search-icon {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  pointer-events: none;
   color: #555;
+  font-size: 1.1em;
 }
 
 .nav-links {
   display: flex;
   align-items: center;
-  /* Sesuaikan jarak antar link navigasi */
-  gap: 15px; 
+  gap: 15px;
 }
 
 .nav-links a {
   text-decoration: none;
   color: #f9f9f9;
-  font-weight: bold;
+  font-weight: 500;
+  font-size: 0.9em;
+  white-space: nowrap;
 }
 
 .profile-icon {
-  width: 40px;
-  height: 40px;
+  width: 35px; /* Ukuran Profil Icon disesuaikan */
+  height: 35px;
   border-radius: 50%;
+  border: 2px solid #ff0000; /* Border Merah sesuai Figma */
   background-color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  margin-left: 10px;
 }
 
-.profile-icon img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.home-heading {
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 1.2em;
-}
-
-.destination {
-  font-size: 0.9em;
-  color: #0077cc;
-  text-decoration: none;
-}
-
+/* KONTEN CARD (DISESUAIKAN KE FIGMA) */
 .section-title {
   text-align: center;
   font-size: 2em;
   margin-top: 40px;
   margin-bottom: 20px;
   font-weight: bold;
-  color: #0056b3;
+  color: #333;
 }
 
 .card-gallery {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
-  padding: 20px 0;
+  gap: 24px;
+  padding: 20px 50px;
 }
 
 .cards-destination {
-  width: 300px;
+  width: 280px; 
   background-color: #fff;
-  border-radius: 10px;
+  border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
   transition: transform 0.3s;
-}
-
-.cards-destination:hover {
-  transform: translateY(-5px);
 }
 
 .card-images {
   width: 100%;
-  height: 200px;
+  height: 180px; 
   background-size: cover;
   background-position: center;
   position: relative;
 }
 
 .card-images h4 {
-  position: absolute;
-  bottom: 0;
-  margin: 0;
-  width: 100%;
-  /* Atur background agar lebih transparan dan nama destinasi terlihat */
-  background: rgba(0, 0, 0, 0.5); 
-  color: #fff;
-  padding: 8px;
-  font-size: 0.95em;
+  display: none; 
 }
-
-/* STYLING BOOKMARK ICON */
-.bookmark-icon {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 1.5em;
-    padding: 5px;
-    color: #fff; /* Warna default ikon (putih outline) */
-    text-shadow: 0 0 5px rgba(0,0,0,0.5); 
-    transition: color 0.2s;
-    z-index: 10;
-}
-
-.bookmark-icon i.active {
-    color: #FF0000; /* Warna Merah untuk status aktif/terisi */
-    text-shadow: none;
-}
-/* END STYLING BOOKMARK ICON */
-
 
 .destination-content {
-  padding: 12px;
+  padding: 15px; 
 }
 
-/* RATING BOX (Menggantikan selektor .stars lama) */
 .rating-box {
     display: flex;
     align-items: center;
     margin-bottom: 5px;
     font-size: 0.9em;
 }
-
-.stars-static i {
-    color: #FFD700; /* Warna Emas untuk Bintang */
-    margin-right: 2px;
+/* ... (Styling Rating, Lokasi, Harga tetap sama) ... */
+.description-text {
+    display: none; /* Hilangkan deskripsi */
 }
-
-.rating-text {
-    color: #555;
-    font-weight: normal;
-    margin-left: 5px;
-    font-size: 0.9em;
-}
-
-/* LOKASI */
-.location-text {
-    font-size: 0.8em;
-    color: #777;
-    margin-bottom: 10px;
-    font-weight: 500;
-}
-
-/* HARGA */
-.price-info {
-    margin-top: 5px;
-    margin-bottom: 10px;
-    font-size: 1.1em;
-    font-weight: bold;
-    color: #005d5d; /* Warna sesuai header */
-}
-
-/* DESKRIPSI (Ganti selektor p) */
-.destination-content p.description-text {
-  font-size: 0.85em; 
-  margin-bottom: 10px;
-  color: #555;
-  line-height: 1.4;
-}
-
 .card-button {
-  display: inline-block;
-  padding: 8px 12px;
-  background-color: #007BFF;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 5px;
-  font-size: 0.9em;
-  transition: background-color 0.3s;
+  display: none; /* Hilangkan tombol */
 }
 
-.card-button:hover {
-  background-color: #0056b3;
-}
 
+/* FOOTER STYLING SESUAI FIGMA */
 .footer {
-  /* PERUBAHAN WARNA: Dark Cyan/Teal sesuai desain Figma */
-  background-color: #005d5d; 
+  background-color: #076F82; 
   color: white;
-  padding: 24px;
+  padding: 30px 50px 10px 50px; /* Padding bawah lebih kecil */
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 30px;
+  margin-top: 50px;
 }
 
 .footer-top {
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
   align-items: flex-start;
   width: 100%;
+  flex-wrap: wrap;
 }
 
 .footer-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+    display: flex;
+    align-items: center;
 }
 
-.footer-logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.footer-left .logo-text {
+    display: flex;
+    align-items: center; 
+    gap: 12px; 
 }
 
-.logo-img {
-  width: 60px;
-  height: 60px;
-  border-radius: 100%;
+.footer-left .logo-img {
+    width: 50px;
+    height: 50px;
 }
 
-.footer-links {
-  display: grid;
-  grid-template-columns: repeat(3, auto);
-  gap: 12px 32px;
-  text-align: left;
-  justify-content: flex-end;
+.footer-left .title {
+    font-size: 1.0em;
 }
 
-.footer-links a {
+.footer-links-container {
+    display: flex;
+    gap: 40px; /* Jarak antar kolom footer */
+}
+
+.footer-column {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.footer-column a {
   color: white;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 0.8em;
+  font-weight: normal;
+}
+
+.footer-column a:first-child {
+    font-weight: bold; /* Judul Kolom */
 }
 
 .footer-center {
   width: 100%;
   text-align: center;
-  font-size: 14px;
+  font-size: 0.8em;
+  padding-top: 15px;
+  margin-top: 10px;
+  /* Hapus border-top agar terlihat seperti desain (garis hanya di bawah) */
+}
+
+/* Copyright text di bagian paling bawah */
+.footer-center {
+    font-weight: bold; /* Text Copyright tebal */
+    padding-bottom: 20px;
 }

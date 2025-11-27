@@ -31,7 +31,18 @@ class HomeController extends Controller
             ->selectRaw('EXISTS(SELECT 1 FROM bookmarks WHERE id_tempat = tempat_wisatas.id_tempat AND id_wisatawan = ?) as is_bookmarked', [$wisatawanId])
             
             // d. Grouping
-            ->groupBy('tempat_wisatas.id_tempat')
+           ->groupBy(
+               'tempat_wisatas.id_tempat', 
+               'tempat_wisatas.id_ptw', 
+               'tempat_wisatas.nama_tempat', 
+               'tempat_wisatas.alamat_tempat', 
+               'tempat_wisatas.jenis_tempat', 
+               'tempat_wisatas.waktu_buka', 
+               'tempat_wisatas.waktu_tutup', 
+               'tempat_wisatas.deskripsi',
+               'tempat_wisatas.created_at',
+               'tempat_wisatas.updated_at'
+            )
             
             // e. Urutkan
             ->orderByDesc('avg_rating'); 

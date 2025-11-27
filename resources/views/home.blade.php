@@ -17,8 +17,7 @@
         <img src="{{ asset('/images/Logos/Wanderlust Logo Circle.png') }}" alt="Logo" class="logo">
         <div class="logo-text">
             <span class="title">Wanderlust</span>
-            <span class="subtitle">Wanderings For Wonders</span>
-        </div>
+            </div>
     </div>
 
     <form action="{{ route('pencarian') }}" method="GET" class="search-bar">
@@ -29,10 +28,6 @@
     </form>
 
     <div class="nav-links">
-        <a href="{{ route('home') }}">Beranda</a>
-        <a href="{{ route('destinasi.index') }}">Destinasi</a>
-        <a href="#">Tentang</a>
-        
         <a href="{{ Auth::check() ? route('transaksi.riwayat') : route('login') }}">Pesan Tiket</a>
         <a href="{{ Auth::check() ? route('penilaian.index') : route('login') }}">Penilaian</a>
         <a href="{{ Auth::check() ? route('bookmark.index') : route('login') }}">Favorit</a>
@@ -53,15 +48,14 @@
 <div class="card-gallery">
     @foreach ($populer as $item)
     <div class="cards-destination">
-        <div class="card-images" style="background-image: url('{{ asset('images/Images/') . '/' . $item['foto'] }}')">
-            <h4>{{ $item['nama'] }}</h4>
-            
+        <div class="card-images" style="{{ 'background-image: url(\'' . asset('images/Images') . '/' . $item['foto'] . '\')' }}">
             @if(Auth::check())
                 <a href="#" class="bookmark-icon bookmark-toggle" data-id-tempat="{{ $item['id_tempat'] }}">
                     <i class="fas fa-bookmark {{ $item['is_bookmarked'] ? 'active' : '' }}"></i>
                 </a>
             @endif
         </div>
+        
         <div class="destination-content">
             <div class="rating-box">
                 <span class="stars-static">
@@ -76,6 +70,7 @@
                             <i class="fas fa-star-half-alt"></i>
                         @else
                             <i class="far fa-star"></i>
+                        </i class="far fa-star"></i>
                         @endif
                     @endfor
                 </span>
@@ -92,7 +87,7 @@
 
             <a href="{{ route('pencarian', ['kataKunci' => $item['nama']]) }}" class="card-button">Lihat Selengkapnya</a>
         </div>
-    </div>
+    </div> 
     @endforeach
 </div>
 
@@ -100,15 +95,14 @@
 <div class="card-gallery">
     @foreach ($rekomendasi as $item)
     <div class="cards-destination">
-        <div class="card-images" style="background-image: url('{{ asset('images/Images/') . '/' . $item['foto'] }}')">
-            <h4>{{ $item['nama'] }}</h4>
-            
+        <div class="card-images" style="{{ 'background-image: url(\'' . asset('images/Images') . '/' . $item['foto'] . '\')' }}">
             @if(Auth::check())
                 <a href="#" class="bookmark-icon bookmark-toggle" data-id-tempat="{{ $item['id_tempat'] }}">
                     <i class="fas fa-bookmark {{ $item['is_bookmarked'] ? 'active' : '' }}"></i>
                 </a>
             @endif
         </div>
+        
         <div class="destination-content">
              <div class="rating-box">
                 <span class="stars-static">
@@ -142,7 +136,39 @@
 </div>
 
 <footer class="footer">
-    </footer>
+    <div class="footer-top">
+        <div class="footer-left">
+            <div class="logo-text footer-logo">
+                <img src="{{ asset('/images/Logos/Wanderlust Logo Circle.png') }}" alt="Logo" class="logo-img">
+                <span class="title">Wanderlust</span>
+            </div>
+        </div>
+
+        <div class="footer-links-container">
+            <div class="footer-column">
+                <a href="#">Tentang Kami</a>
+                <a href="#">Kontak Kami</a>
+                <a href="#">FAQs</a>
+            </div>
+
+            <div class="footer-column">
+                <a href="#">Komunitas</a>
+                <a href="#">Tips & Trick</a>
+                <a href="#">Promo</a>
+            </div>
+
+            <div class="footer-column">
+                <a href="#">Profil</a>
+                <a href="#">Agenda</a>
+                <a href="{{ route('home') }}">Home</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer-center">
+        Copyright © 2025 Wanderlust. All rights reserved
+    </div>
+</footer>
 
 @if(Auth::check())
 <script>
@@ -153,27 +179,22 @@
             const idTempat = this.getAttribute('data-id-tempat');
             const icon = this.querySelector('i');
             
-            // Menggunakan route yang sudah kita definisikan di web.php
             const endpoint = `/bookmark/toggle/${idTempat}`; 
 
             fetch(endpoint, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    // Ambil token dari metatag CSRF
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') 
                 },
             })
             .then(response => response.json())
             .then(data => {
                 if(data.success) {
-                    // Toggle tampilan icon berdasarkan respon server
                     if (data.action === 'removed') {
                         icon.classList.remove('active');
-                        // Tidak perlu alert jika menggunakan notifikasi yang lebih halus
                     } else {
                         icon.classList.add('active');
-                        // Tidak perlu alert
                     }
                 } else {
                     alert('Gagal memproses bookmark. Coba cek koneksi atau status login.');
