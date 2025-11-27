@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder {
             TopUpSeeder::class,
             PenilaianSeeder::class,
             BookmarkSeeder::class,
+            UserPhotoSeeder::class, 
         ]);
 
         $this->call([
