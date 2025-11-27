@@ -10,6 +10,7 @@ class TempatWisata extends Model {
 
     protected $table = 'tempat_wisatas';
     protected $primaryKey = 'id_tempat';
+    // Menghapus 'harga_tiket' yang tidak diperlukan karena harga diambil dari paket_wisatas
     protected $fillable = [
         'nama_tempat',
         'alamat_tempat',

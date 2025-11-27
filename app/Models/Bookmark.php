@@ -9,8 +9,9 @@ class Bookmark extends Model {
     use HasFactory;
     
     protected $primaryKey = 'id_bookmark';
-    protected $fillable = ['tanggal_simpan','catatan','kategori'];
-    public $timestamps = false;
+    // Tambahkan id_wisatawan dan id_tempat ke fillable agar bisa di-create
+    protected $fillable = ['id_wisatawan', 'id_tempat', 'tanggal_simpan','catatan','kategori']; 
+    public $timestamps = false; // Karena tidak ada created_at/updated_at di migration
 
     public function wisatawan() {
         return $this->belongsTo(Wisatawan::class, 'id_wisatawan', 'id_wisatawan');

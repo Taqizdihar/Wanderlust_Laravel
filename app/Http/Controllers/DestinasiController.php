@@ -3,19 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\TempatWisata; // Import Model
+use App\Models\TempatWisata;
 
 class DestinasiController extends Controller
 {
-    /**
-     * Menampilkan daftar semua destinasi wisata.
-     */
     public function index()
     {
-        // Logika untuk mengambil semua destinasi (atau dengan paginasi)
-        $semuaDestinasi = TempatWisata::orderBy('nama_tempat', 'asc')->paginate(12);
+        // Ambil semua destinasi dengan paginasi
+        $semuaDestinasi = TempatWisata::with(['fotoTempatWisatas', 'penilaians'])
+            ->orderBy('nama_tempat', 'asc')
+            ->paginate(12);
 
-        // Kirim data ke view destinasi.blade.php
+        // View ini (destinasi.blade.php) perlu Anda buat
         return view('destinasi', compact('semuaDestinasi'));
     }
 }

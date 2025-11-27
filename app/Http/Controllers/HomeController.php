@@ -3,128 +3,71 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\TempatWisata;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        $populer = [
-            [
-                'nama' => 'Candi Borobudur',
-                'lokasi' => 'Magelang, Jawa Tengah',
-                'deskripsi' => 'Candi Buddha terbesar di dunia dan salah satu keajaiban arsitektur Indonesia.',
-                'rating' => 4.9,
-                'foto' => 'candi_borobudur.jpg'
-            ],
-            [
-                'nama' => 'Pantai Kuta',
-                'lokasi' => 'Bali, Indonesia',
-                'deskripsi' => 'Pantai ikonik di Bali dengan pasir putih dan pemandangan matahari terbenam yang menakjubkan.',
-                'rating' => 4.8,
-                'foto' => 'pantai_kuta.jpg'
-            ],
-            [
-                'nama' => 'Tangkuban Perahu',
-                'lokasi' => 'Bandung, Jawa Barat',
-                'deskripsi' => 'Gunung berapi aktif dengan kawah yang indah dan pemandangan alam yang menawan.',
-                'rating' => 4.7,
-                'foto' => 'gunung_tangkuban_perahu.webp'
-            ],
-            [
-                'nama' => 'Malioboro',
-                'lokasi' => 'Yogyakarta, Indonesia',
-                'deskripsi' => 'Jalan legendaris di pusat kota Yogyakarta, terkenal dengan belanja dan kuliner khas.',
-                'rating' => 4.8,
-                'foto' => 'jalan_malioboro.jpg'
-            ],
-            [
-                'nama' => 'Kawah Putih',
-                'lokasi' => 'Ciwidey, Bandung',
-                'deskripsi' => 'Danau kawah vulkanik dengan warna putih kehijauan yang eksotis dan suasana sejuk.',
-                'rating' => 4.9,
-                'foto' => 'kawah_putih_ciwidey.jpg'
-            ],
-            [
-                'nama' => 'Ubud Monkey Forest',
-                'lokasi' => 'Bali, Indonesia',
-                'deskripsi' => 'Hutan tropis alami yang dihuni ratusan monyet dan situs budaya kuno di Ubud.',
-                'rating' => 4.7,
-                'foto' => 'ubud_monkey.jpg'
-            ],
-            [
-                'nama' => 'Gunung Bromo',
-                'lokasi' => 'Jawa Timur, Indonesia',
-                'deskripsi' => 'Gunung berapi aktif yang terkenal dengan panorama sunrise terbaik di Indonesia.',
-                'rating' => 4.9,
-                'foto' => 'gunung_bromo.jpg'
-            ],
-            [
-                'nama' => 'Ranca Upas',
-                'lokasi' => 'Bandung, Jawa Barat',
-                'deskripsi' => 'Kawasan perkemahan dan penangkaran rusa dengan udara dingin khas pegunungan.',
-                'rating' => 4.6,
-                'foto' => 'ranca_upas.jpg'
-            ],
-        ];
+        // 1. Ambil ID Wisatawan yang sedang login (untuk fitur bookmark)
+        // Jika Guest (belum login), id akan menjadi 0.
+        $wisatawanId = Auth::check() ? Auth::user()->id_wisatawan : 0;
 
-        $rekomendasi = [
-            [
-                'nama' => 'Nusa Penida',
-                'lokasi' => 'Bali, Indonesia',
-                'deskripsi' => 'Pulau eksotis dengan tebing-tebing megah dan air laut biru jernih.',
-                'rating' => 4.8,
-                'foto' => 'nusa_penida.jpg'
-            ],
-            [
-                'nama' => 'Raja Ampat',
-                'lokasi' => 'Papua Barat, Indonesia',
-                'deskripsi' => 'Surga bawah laut dengan keanekaragaman biota laut paling kaya di dunia.',
-                'rating' => 5.0,
-                'foto' => 'raja_ampat.jpg'
-            ],
-            [
-                'nama' => 'Lembang Park & Zoo',
-                'lokasi' => 'Bandung, Jawa Barat',
-                'deskripsi' => 'Tempat wisata edukatif keluarga dengan kebun binatang dan taman yang modern.',
-                'rating' => 4.6,
-                'foto' => 'lembang_zoo.jpg'
-            ],
-            [
-                'nama' => 'Alun-Alun Kidul',
-                'lokasi' => 'Yogyakarta, Indonesia',
-                'deskripsi' => 'Tempat wisata malam yang terkenal dengan odong-odong dan suasana santai.',
-                'rating' => 4.5,
-                'foto' => 'alun_alun_kidul.jpg'
-            ],
-            [
-                'nama' => 'Pantai Tanjung Aan',
-                'lokasi' => 'Lombok, Nusa Tenggara Barat',
-                'deskripsi' => 'Pantai cantik dengan pasir putih lembut dan ombak yang cocok untuk berenang.',
-                'rating' => 4.8,
-                'foto' => 'pantai_tanjung_aan.jpg'
-            ],
-            [
-                'nama' => 'Labuan Bajo',
-                'lokasi' => 'Flores, Nusa Tenggara Timur',
-                'deskripsi' => 'Gerbang menuju Pulau Komodo dengan pemandangan laut dan sunset yang memukau.',
-                'rating' => 4.9,
-                'foto' => 'labuan_bajo.jpg'
-            ],
-            [
-                'nama' => 'Tebing Keraton',
-                'lokasi' => 'Bandung, Jawa Barat',
-                'deskripsi' => 'Tebing tinggi dengan panorama hutan dan lautan kabut di pagi hari.',
-                'rating' => 4.7,
-                'foto' => 'tebing_keraton.webp'
-            ],
-            [
-                'nama' => 'Bukit Rhema (Gereja Ayam)',
-                'lokasi' => 'Magelang, Jawa Tengah',
-                'deskripsi' => 'Bangunan unik berbentuk ayam raksasa dengan pemandangan pegunungan yang menakjubkan.',
-                'rating' => 4.8,
-                'foto' => 'bukit_rhema.jpg'
-            ],
-        ];
+        // 2. Definisikan Base Query (Rating, Harga, dan Status Bookmark)
+        $baseQuery = TempatWisata::with(['fotoTempatWisatas', 'penilaians'])
+            ->select('tempat_wisatas.*')
+            
+            // a. Hitung Rata-rata Penilaian (AVG) dan Jumlah Review (COUNT)
+            ->leftJoin('penilaians', 'tempat_wisatas.id_tempat', '=', 'penilaians.id_tempat')
+            ->selectRaw('AVG(penilaians.penilaian) as avg_rating, COUNT(penilaians.id_penilaian) as review_count')
+            
+            // b. Ambil Harga Termurah dari Paket Wisata (Kolom 'harga' di paket_wisatas)
+            ->leftJoin('paket_wisatas', 'tempat_wisatas.id_tempat', '=', 'paket_wisatas.id_tempat')
+            ->selectRaw('MIN(paket_wisatas.harga) as min_harga') 
+            
+            // c. Cek Status Bookmark (1 jika ada, 0 jika tidak)
+            ->selectRaw('EXISTS(SELECT 1 FROM bookmarks WHERE id_tempat = tempat_wisatas.id_tempat AND id_wisatawan = ?) as is_bookmarked', [$wisatawanId])
+            
+            // d. Grouping
+            ->groupBy('tempat_wisatas.id_tempat')
+            
+            // e. Urutkan
+            ->orderByDesc('avg_rating'); 
+
+        // 3. Destinasi Populer: Top 4
+        $populerModels = (clone $baseQuery)
+            ->take(4)
+            ->get();
+
+        // 4. Rekomendasi Destinasi: 4 lainnya secara Acak
+        $rekomendasiModels = (clone $baseQuery)
+            ->whereNotIn('tempat_wisatas.id_tempat', $populerModels->pluck('id_tempat')->toArray())
+            ->inRandomOrder()
+            ->take(4)
+            ->get();
+
+        // 5. Fungsi Helper untuk Memformat Data
+        $formatData = function ($item) {
+            $foto_utama = $item->fotoTempatWisatas->sortBy('urutan')->first();
+            $alamat_parts = explode(',', $item->alamat_tempat); 
+            
+            return [
+                'id_tempat' => $item->id_tempat, 
+                'nama' => $item->nama_tempat,
+                'lokasi' => trim(implode(', ', array_slice($alamat_parts, -2, 2))), // Lokasi singkat
+                'deskripsi' => $item->deskripsi ? (strlen($item->deskripsi) > 100 ? substr($item->deskripsi, 0, 100) . '...' : $item->deskripsi) : 'Deskripsi belum tersedia.',
+                'rating' => number_format($item->avg_rating ?? 0, 1),
+                'reviews' => $item->review_count,
+                'harga' => number_format($item->min_harga ?? 0, 0, ',', '.'), 
+                'foto' => $foto_utama ? $foto_utama->url_foto : 'default.jpg', 
+                'is_bookmarked' => (bool)$item->is_bookmarked,
+            ];
+        };
+
+        $populer = $populerModels->map($formatData);
+        $rekomendasi = $rekomendasiModels->map($formatData);
 
         return view('home', compact('populer', 'rekomendasi'));
     }

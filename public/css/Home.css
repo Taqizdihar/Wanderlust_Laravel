@@ -9,7 +9,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #0077cc;
+  /* PERUBAHAN WARNA: Dark Cyan/Teal sesuai desain Figma */
+  background-color: #005d5d; 
   padding: 10px 20px;
   color: #333;
   font-family: 'MuseoModerno', sans-serif;
@@ -65,7 +66,8 @@ body {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 20px;
+  /* Sesuaikan jarak antar link navigasi */
+  gap: 15px; 
 }
 
 .nav-links a {
@@ -148,26 +150,80 @@ body {
   bottom: 0;
   margin: 0;
   width: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  /* Atur background agar lebih transparan dan nama destinasi terlihat */
+  background: rgba(0, 0, 0, 0.5); 
   color: #fff;
   padding: 8px;
   font-size: 0.95em;
 }
 
+/* STYLING BOOKMARK ICON */
+.bookmark-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5em;
+    padding: 5px;
+    color: #fff; /* Warna default ikon (putih outline) */
+    text-shadow: 0 0 5px rgba(0,0,0,0.5); 
+    transition: color 0.2s;
+    z-index: 10;
+}
+
+.bookmark-icon i.active {
+    color: #FF0000; /* Warna Merah untuk status aktif/terisi */
+    text-shadow: none;
+}
+/* END STYLING BOOKMARK ICON */
+
+
 .destination-content {
   padding: 12px;
 }
 
-.destination-content p {
+/* RATING BOX (Menggantikan selektor .stars lama) */
+.rating-box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+}
+
+.stars-static i {
+    color: #FFD700; /* Warna Emas untuk Bintang */
+    margin-right: 2px;
+}
+
+.rating-text {
+    color: #555;
+    font-weight: normal;
+    margin-left: 5px;
+    font-size: 0.9em;
+}
+
+/* LOKASI */
+.location-text {
+    font-size: 0.8em;
+    color: #777;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+/* HARGA */
+.price-info {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #005d5d; /* Warna sesuai header */
+}
+
+/* DESKRIPSI (Ganti selektor p) */
+.destination-content p.description-text {
   font-size: 0.85em; 
   margin-bottom: 10px;
   color: #555;
   line-height: 1.4;
-}
-
-.stars {
-  color: #FFD700;
-  margin-bottom: 10px;
 }
 
 .card-button {
@@ -186,7 +242,8 @@ body {
 }
 
 .footer {
-  background-color: #0077cc;
+  /* PERUBAHAN WARNA: Dark Cyan/Teal sesuai desain Figma */
+  background-color: #005d5d; 
   color: white;
   padding: 24px;
   display: flex;
@@ -194,7 +251,7 @@ body {
   gap: 16px;
 }
 
-footer-top {
+.footer-top {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -228,7 +285,7 @@ footer-top {
   justify-content: flex-end;
 }
 
-footer-links a {
+.footer-links a {
   color: white;
   text-decoration: none;
   font-size: 14px;

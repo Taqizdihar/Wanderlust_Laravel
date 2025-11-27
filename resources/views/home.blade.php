@@ -27,18 +27,23 @@
     </form>
 
     <div class="nav-links">
-        <a href="#">Beranda</a>
-        <a href="#">Destinasi</a>
+        <a href="{{ route('home') }}">Beranda</a>
+        <a href="{{ route('destinasi.index') }}">Destinasi</a>
         <a href="#">Tentang</a>
-        <a href="{{ route('edit-profil') }}">
-    <div class="profile-icon">
-        @if(Auth::check() && Auth::user()->foto_profil)
-            <img src="{{ asset('images/profiles/' . Auth::user()->foto_profil) }}" alt="Foto Profil">
-        @else
-            <i class="fas fa-user"></i>
-        @endif
-    </div>
-</a>
+        
+        <a href="{{ Auth::check() ? route('transaksi.riwayat') : route('login') }}">Pesan Tiket</a>
+        <a href="{{ Auth::check() ? route('penilaian.index') : route('login') }}">Penilaian</a>
+        <a href="{{ Auth::check() ? route('bookmark.index') : route('login') }}">Favorit</a>
+        
+        <a href="{{ Auth::check() ? route('edit-profil') : route('login') }}">
+            <div class="profile-icon">
+                @if(Auth::check() && Auth::user()->foto_profil)
+                    <img src="{{ asset('images/profiles/' . Auth::user()->foto_profil) }}" alt="Foto Profil">
+                @else
+                    <i class="fas fa-user"></i>
+                @endif
+            </div>
+        </a>
     </div>
 </header>
 
@@ -48,10 +53,41 @@
     <div class="cards-destination">
         <div class="card-images" style="background-image: url('{{ asset('images/Images/' . $item['foto']) }}');">
             <h4>{{ $item['nama'] }}</h4>
+            
+            @if(Auth::check())
+                <a href="#" class="bookmark-icon bookmark-toggle" data-id-tempat="{{ $item['id_tempat'] }}">
+                    <i class="fas fa-bookmark {{ $item['is_bookmarked'] ? 'active' : '' }}"></i>
+                </a>
+            @endif
         </div>
         <div class="destination-content">
-            <p>{{ $item['deskripsi'] }}</p>
-            <div class="stars">★★★★★</div>
+            <div class="rating-box">
+                <span class="stars-static">
+                    @php
+                        $fullStars = floor($item['rating']);
+                        $hasHalf = ($item['rating'] - $fullStars) >= 0.5;
+                    @endphp
+                    @for ($i = 1; $i <= 5; $i++)
+                        @if ($i <= $fullStars)
+                            <i class="fas fa-star"></i>
+                        @elseif ($hasHalf && $i == $fullStars + 1)
+                            <i class="fas fa-star-half-alt"></i>
+                        @else
+                            <i class="far fa-star"></i>
+                        @endif
+                    @endfor
+                </span>
+                <span class="rating-text">{{ $item['rating'] }} ({{ $item['reviews'] }} reviews)</span>
+            </div>
+            
+            <p class="location-text">{{ $item['lokasi'] }}</p>
+            
+            <p class="price-info">
+                Rp {{ $item['harga'] }}
+            </p>
+            
+            <p class="description-text">{{ $item['deskripsi'] }}</p>
+
             <a href="{{ route('pencarian', ['kataKunci' => $item['nama']]) }}" class="card-button">Lihat Selengkapnya</a>
         </div>
     </div>
@@ -62,12 +98,41 @@
 <div class="card-gallery">
     @foreach ($rekomendasi as $item)
     <div class="cards-destination">
-        <div class="card-images" style="background-image: url('{{ asset('images/Images/'  . $item['foto']) }}');">
+        <div class="card-images" style="background-image: url('{{ asset('images/Images/' . $item['foto']) }}');">
             <h4>{{ $item['nama'] }}</h4>
+            
+            @if(Auth::check())
+                <a href="#" class="bookmark-icon bookmark-toggle" data-id-tempat="{{ $item['id_tempat'] }}">
+                    <i class="fas fa-bookmark {{ $item['is_bookmarked'] ? 'active' : '' }}"></i>
+                </a>
+            @endif
         </div>
         <div class="destination-content">
-            <p>{{ $item['deskripsi'] }}</p>
-            <div class="stars">★★★★★</div>
+             <div class="rating-box">
+                <span class="stars-static">
+                    @php
+                        $fullStars = floor($item['rating']);
+                        $hasHalf = ($item['rating'] - $fullStars) >= 0.5;
+                    @endphp
+                    @for ($i = 1; $i <= 5; $i++)
+                        @if ($i <= $fullStars)
+                            <i class="fas fa-star"></i>
+                        @elseif ($hasHalf && $i == $fullStars + 1)
+                            <i class="fas fa-star-half-alt"></i>
+                        @else
+                            <i class="far fa-star"></i>
+                        @endif
+                    @endfor
+                </span>
+                <span class="rating-text">{{ $item['rating'] }} ({{ $item['reviews'] }} reviews)</span>
+            </div>
+            
+            <p class="location-text">{{ $item['lokasi'] }}</p>
+            <p class="price-info">
+                Rp {{ $item['harga'] }}
+            </p>
+            <p class="description-text">{{ $item['deskripsi'] }}</p>
+            
             <a href="{{ route('pencarian', ['kataKunci' => $item['nama']]) }}" class="card-button">Lihat Selengkapnya</a>
         </div>
     </div>
@@ -75,29 +140,49 @@
 </div>
 
 <footer class="footer">
-    <div class="footer-top">
-        <div class="footer-left">
-            <div class="footer-logo">
-                <img src="{{ asset('/images/Logos/Wanderlust Logo Circle.png') }}" class="logo-img">
-                <span class="logo-text">Wanderlust</span>
-            </div>
-        </div>
-        <div class="footer-links">
-            <a href="#">Tentang Kami</a>
-            <a href="#">Kontak Kami</a>
-            <a href="#">FAQs</a>
-            <a href="#">Komunitas</a>
-            <a href="#">Tips & Trik</a>
-            <a href="#">Promo</a>
-            <a href="#">Profil</a>
-            <a href="#">Agenda</a>
-            <a href="#">Home</a>
-        </div>
-    </div>
-    <div class="footer-center">
-        Copyright © 2025 Wanderlust. All rights reserved
-    </div>
-</footer>
+    </footer>
+
+@if(Auth::check())
+<script>
+    document.querySelectorAll('.bookmark-toggle').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const idTempat = this.getAttribute('data-id-tempat');
+            const icon = this.querySelector('i');
+            
+            const endpoint = `/bookmark/toggle/${idTempat}`; 
+
+            fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // Pastikan ada meta tag CSRF
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.success) {
+                    // Toggle tampilan icon
+                    if (data.action === 'removed') {
+                        icon.classList.remove('active');
+                        alert('Bookmark dihapus!');
+                    } else {
+                        icon.classList.add('active');
+                        alert('Bookmark ditambahkan!');
+                    }
+                } else {
+                    alert('Gagal memproses bookmark: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error toggling bookmark:', error);
+                alert('Gagal memproses bookmark. Silakan coba lagi.');
+            });
+        });
+    });
+</script>
+@endif
 
 </body>
 </html>
