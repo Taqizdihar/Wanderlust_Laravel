@@ -3,75 +3,28 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth; // Import Auth
 
-class EditPropertyPTWController extends Controller {
+class EditProfilController extends Controller
+{
+    // FIX: Mengubah method show untuk mengambil data dari database
+    public function show()
+    {
+        // Pastikan user sudah login (Middleware sudah melindungi route ini)
+        $user = Auth::user();
 
-    public function edit($id) {
+        // Memuat data Wisatawan yang terhubung (relasi wisatawan() sudah ada di User.php)
+        $wisatawan = $user->wisatawan; 
 
-        $user = session('user');
-        $properties = session('properties');
-        
-        if (!$user) {
-            return redirect()->route('login')->with('error', 'Silakan Login Terlebih dahulu');
-        }
-
-        if ($user['role'] !== 'ptw') {
-            return redirect()->route('login')->with('error', 'Anda tidak memiliki akses ke halaman ini.');
-        }
-
-        $property = collect($properties)->firstWhere('id', (int) $id);
-
-        if (!$property) {
-            return redirect()->route('properties.ptw')->with('error', 'Property tidak ditemukan.');
-        }
-        
-        return view('editPropertyPTW', compact('user', 'property'));
+        // Kirim data yang digabungkan ke view
+        // Kita hanya akan mengirim $user (yang mengandung semua data yang dibutuhkan)
+        return view('editProfil', compact('user', 'wisatawan'));
     }
 
-    public function update(Request $request, $id) {
-        $properties = session('properties');
-        foreach ($properties as &$property) {
-            if ($property['id'] == $request->input('id')) {
-                $property['name'] = $request->input('name');
-                $property['category'] = $request->input('category');
-                $property['address'] = $request->input('address');
-                $property['description'] = $request->input('description');
-                if ($request->hasFile('image')) {
-                    $file = $request->file('image');
-                    $filename = $file->getClientOriginalName();
-                    $file->move(public_path('images/properties'), $filename);
-                    $property['image'] = $filename;
-                } else {
-                    $property['image'] == $property['image'] ?? 'default.png';
-                }
-    
-                if ($request->filled('start_hour')) {
-                    $property['start_hour'] = $request->input('start_hour');
-                } else {
-                    $property['start_hour'] = $property['start_hour'];
-                }
-    
-                if ($request->filled('end_hour')) {
-                    $property['end_hour'] = $request->input('end_hour');
-                } else {
-                    $property['end_hour'] = $property['end_hour'];
-                }
-            }
-            break;
-            $property = session('properties', []);
-        }
-        return redirect()->route('properties.ptw');
-    }
-
-    public function destroy($id) {
-        $properties = session('properties', []);
-
-        $properties = array_filter($properties, function ($property) use ($id) {
-            return $property['id'] != (int) $id;
-        });
-
-        session(['properties' => array_values($properties)]);
-
-        return redirect()->route('properties.ptw');
+    // FIX: Mengubah method update untuk menyimpan ke database (belum dilakukan, ini hanya placeholder)
+    public function update(Request $request)
+    {
+        // FIX: Anda perlu mengganti logika ini agar menyimpan ke tabel users dan wisatawan
+        return redirect()->back()->with('error', 'Update profil belum diimplementasikan ke database.');
     }
 }

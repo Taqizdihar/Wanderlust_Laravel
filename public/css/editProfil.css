@@ -1,125 +1,27 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  background: #f4f6fa;
-  overscroll-behavior: none;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-/* ===== HEADER ===== */
-.main-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #0077cc;
-  padding: 10px 20px;
-  color: #333;
-  font-family: 'MuseoModerno', sans-serif;
-}
-
-.logo-container {
-  display: flex;
-  align-items: center;
-}
-
-.logo {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin-right: 10px;
-}
-
-.logo-text .title {
-  font-weight: bold;
-  font-size: 18px;
-  color: white;
-}
-
-.logo-text .subtitle {
-  display: block;
-  font-size: 10px;
-  color: #fff;
-}
-
-/* ===== SEARCH BAR ===== */
-.search-bar {
-  position: relative;
-  flex-grow: 1;
-  margin: 0 30px;
-  max-width: 400px;
-}
-
-.search-bar input {
-  width: 100%;
-  padding: 10px 35px 10px 10px;
-  border: none;
-  border-radius: 8px;
-  font-size: 14px;
-}
-
-.search-icon {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  pointer-events: none;
-  color: #555;
-}
-
-/* ===== NAVIGATION ===== */
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: #f9f9f9;
-  font-weight: bold;
-}
-
-.profile-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.profile-icon img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
+/* ... (Bagian header styling tetap) ... */
 
 /* ===== FORM CONTAINER ===== */
 .profile-form {
   display: flex;
   padding: 30px;
   flex: 1;
-  gap: 20px; /* Jarak antara sidebar dan profile-card */
+  gap: 20px;
+  /* Atur agar sidebar dan card memiliki ruang yang cukup */
+  max-width: 1200px; 
+  margin: 0 auto;
 }
 
-/* ===== SIDEBAR ===== */
+/* ===== SIDEBAR (Warna Teal) ===== */
 .sidebar {
-  width: 250px;
-  background: #224f82;
+  width: 280px; /* Lebar Sidebar disesuaikan */
+  background: #076F82; /* Warna Teal/Biru Tua */
   padding: 20px;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   height: fit-content;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .profile-pic {
@@ -128,161 +30,124 @@ a {
   object-fit: cover;
   border-radius: 50%;
   margin-bottom: 15px;
-  border: 4px solid white;
+  border: 4px solid white; /* Border Putih Sesuai Figma */
   background-color: #ddd;
 }
 
 .edit-btn {
+  /* Tombol Edit Profil di sidebar (Diubah menjadi tombol "Edit Profil" saja) */
   display: inline-block;
   width: 80%;
   padding: 10px 20px;
-  background-color: #4a90e2;
-  color: white;
+  background-color: #fff; /* Warna Putih */
+  color: #076F82; /* Warna Teks Biru Teal */
   border: none;
-  border-radius: 8px;
+  border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
-  transition: background-color 0.3s;
 }
 
-.edit-btn:hover {
-  background-color: #3a7bc8;
-}
-
-.menu-options {
-  list-style: none;
-  padding: 0;
-  margin-top: 20px;
-  width: 100%;
-}
-
+/* ... (menu-options styling) ... */
 .menu-options li {
   padding: 12px 0;
-  border-bottom: 1px solid #4a90e2;
-  text-align: center;
+  /* Hapus border di menu options, biarkan polos */
+  border-bottom: none; 
+  text-align: left;
+  padding-left: 15px;
 }
-
-.menu-options li:last-child {
-  border-bottom: none;
-}
-
 .menu-options li a {
   color: white;
+  font-weight: 500;
   display: block;
   transition: background-color 0.2s;
 }
-.menu-options li a:hover {
+.menu-options li a:hover, .menu-options li a.active-option {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* ===== PROFILE CARD ===== */
+/* ===== PROFILE CARD (Bagian Kanan) ===== */
 .profile-card {
   flex: 1;
-  background: white;
-  color: #333;
+  background: #076F82; /* Latar Belakang Teal/Biru */
+  color: white; /* Teks default putih */
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
 .profile-card h2 {
-  font-size: 28px;
-  margin-top: 0;
-  margin-bottom: 25px;
-  color: #224f82;
-  border-bottom: 2px solid #f0f0f0;
-  padding-bottom: 15px;
+  color: white; /* Judul putih */
+  border-bottom: 2px solid rgba(255, 255, 255, 0.4);
 }
 
-/* ===== GRID FORM ===== */
+/* ===== GRID FORM (Menggunakan struktur tabel Figma) ===== */
 .form-grid {
-  display: grid;
-  grid-template-columns: 1fr; /* 1 kolom untuk mobile */
-  gap: 20px;
+  display: flex; /* Ubah grid menjadi Flex untuk membuat baris seperti tabel */
+  flex-direction: column;
+  gap: 0; /* Hapus gap antar baris */
   margin-bottom: 30px;
 }
 
-/* 2 kolom untuk layar lebih besar */
-@media (min-width: 768px) {
-  .form-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* ===== INPUT FIELD ===== */
 .form-group {
-  display: flex;
-  flex-direction: column;
+    /* Setiap form-group adalah satu baris data */
+    flex-direction: row; 
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 12px 0;
 }
 
 .form-group label {
-  font-weight: bold;
-  margin-bottom: 8px;
-  font-size: 14px;
-  color: #555;
+  font-weight: normal; /* Label tidak terlalu tebal */
+  margin-bottom: 0;
+  font-size: 16px;
+  color: white;
+  width: 30%; /* Kolom kiri (Label) */
 }
 
+/* Mengganti input dengan teks biasa untuk tampilan profil */
 .form-group input[type="text"],
 .form-group input[type="email"],
 .form-group input[type="tel"],
 .form-group input[type="date"],
 .form-group select,
 .form-group textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  width: 65%; /* Kolom kanan (Nilai) */
+  padding: 0; 
+  border: none;
+  background: none;
   font-size: 16px;
-  resize: none;
-  box-sizing: border-box;
-  transition: border-color 0.3s, box-shadow 0.3s;
+  color: white;
+  font-family: inherit;
+  cursor: default;
 }
-
 .form-group textarea {
-  min-height: 90px;
-  font-family: Arial, sans-serif;
+    min-height: 20px;
+    resize: none;
+}
+.form-group input[disabled], .form-group input:focus:not([type="submit"]) {
+    /* Hapus styling fokus karena ini tampilan profil, bukan edit */
+    background: none;
+    cursor: default;
+    box-shadow: none;
+    border: none;
+    color: white;
 }
 
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: #4a90e2;
-  box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
-}
-
-.form-group input[disabled] {
-  background-color: #f4f6fa;
-  cursor: not-allowed;
-  color: #888;
-}
-
-/* ===== BUTTONS ===== */
+/* Tombol Kembali/Simpan */
 .action-buttons {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start; /* Tombol Kembali di kiri */
   margin-top: 20px;
 }
 
-.btn {
-  padding: 12px 25px;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s, transform 0.2s;
+.cancel-btn {
+    background-color: #fff;
+    color: #333;
+    margin-right: 15px;
+    font-weight: 500;
 }
-
-.btn:hover {
-  transform: translateY(-2px);
-}
-
 .save-btn {
-  background-color: #224f82;
-  color: white;
-}
-
-.save-btn:hover {
-  background-color: #1b3f68;
+    /* Sembunyikan Save Button karena ini tampilan Profil */
+    display: none; 
 }
