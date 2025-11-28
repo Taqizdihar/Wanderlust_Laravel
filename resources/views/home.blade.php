@@ -33,7 +33,7 @@
         <a href="{{ Auth::check() ? route('penilaian.index') : route('login') }}">Penilaian</a>
         <a href="{{ Auth::check() ? route('bookmark.index') : route('login') }}">Favorit</a>
         
-        <a href="{{ Auth::check() ? route('edit-profil') : route('login') }}">
+        <a href="{{ Auth::check() ? route('profil') : route('login') }}">
             <div class="profile-icon">
                 @if(Auth::check() && Auth::user()->foto_profil)
                     <img src="{{ asset('images/profiles/' . Auth::user()->foto_profil) }}" alt="Foto Profil">
@@ -182,7 +182,7 @@
             </div>
 
             <div class="footer-column">
-                <a href="#">Profil</a>
+                <a href="{{ route('profil') }}">Profil</a>
                 <a href="#">Agenda</a>
                 <a href="{{ route('home') }}">Home</a>
             </div>

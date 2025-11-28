@@ -68,7 +68,7 @@
 /* ===== PROFILE CARD (Bagian Kanan) ===== */
 .profile-card {
   flex: 1;
-  background: #076F82; /* Latar Belakang Teal/Biru */
+  background: #28A4B4; /* Latar Belakang Teal/Biru */
   color: white; /* Teks default putih */
   padding: 30px;
   border-radius: 10px;

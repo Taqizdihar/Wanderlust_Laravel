@@ -1,0 +1,349 @@
+/* ========================================================== */
+/* 1. GLOBAL, HEADER, dan FOOTER STYLING (Untuk Konsistensi)  */
+/* ========================================================== */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4; 
+}
+
+/* --- HEADER --- */
+.main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #076F82; 
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0; 
+}
+
+.logo {
+  width: 35px; 
+  height: 35px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.logo-text .title {
+  font-weight: bold;
+  font-size: 1.1em; 
+  color: white;
+}
+
+.logo-text .subtitle {
+  display: block; 
+  font-size: 0.5em; 
+  color: #fff;
+  font-weight: 500;
+  letter-spacing: 0.5px; 
+  margin-top: 3px; 
+  white-space: nowrap; 
+}
+
+.search-bar {
+  position: relative;
+  flex-grow: 1; 
+  margin: 0 40px; 
+  max-width: 500px;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 10px 35px 10px 15px;
+  border: none;
+  border-radius: 20px; 
+  font-size: 14px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2); 
+}
+
+.search-button {
+    background: none;
+    border: none;
+    position: absolute;
+    right: 5px; 
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.search-icon {
+  color: #555;
+  font-size: 1.1em;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0; 
+  gap: 15px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #f9f9f9;
+  font-weight: 500;
+  font-size: 0.9em;
+  white-space: nowrap;
+}
+
+.profile-icon {
+    width: 35px; 
+    height: 35px;
+    border-radius: 50%; 
+    background-color: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; 
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.profile-icon img { 
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+
+/* --- FOOTER --- */
+.footer {
+  background-color: #076F82; 
+  color: white;
+  padding: 30px 50px 10px 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-top: 50px;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.footer-left {
+    display: flex;
+    align-items: center;
+}
+
+.footer-left .logo-text.footer-logo {
+    display: flex;
+    align-items: center; 
+    gap: 13px; 
+}
+
+.footer-left .logo-img {
+    width: 50px;
+    height: 50px;
+}
+
+.footer-left .title {
+    font-size: 1.1em;
+    line-height: normal; 
+}
+
+.footer-left .subtitle {
+    display: none; 
+}
+
+.footer-links-container {
+    display: flex;
+    gap: 40px;
+}
+
+.footer-column {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.footer-column a {
+  color: white;
+  text-decoration: none;
+  font-size: 0.8em;
+  font-weight: normal;
+}
+
+.footer-column a:first-child {
+    font-weight: bold;
+}
+
+.footer-center {
+  width: 100%;
+  text-align: center;
+  font-size: 0.8em;
+  padding-top: 15px;
+  margin-top: 10px;
+  font-weight: bold;
+  padding-bottom: 20px;
+}
+
+/* ========================================================== */
+/* 2. PROFILE LAYOUT & CARD DATA FIX (Fokus Utama)            */
+/* ========================================================== */
+
+/* ===== FORM CONTAINER (Layout utama profil, sejajar) ===== */
+.profile-form {
+  display: flex;
+  padding: 30px;
+  flex: 1;
+  gap: 20px;
+  max-width: 1200px; 
+  margin: 20px auto 50px auto; /* Margin atas bawah agar rapi dan tidak menempel Header/Footer */
+}
+
+/* ===== SIDEBAR (Warna Teal Tua: #076F82) ===== */
+.sidebar {
+  width: 280px; 
+  background: #076F82; 
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: fit-content; /* PENTING: Membuat sidebar berhenti di kontennya */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.profile-pic {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  border: 4px solid white; 
+  background-color: #ddd;
+}
+
+.edit-btn {
+  display: inline-block;
+  width: 80%;
+  padding: 10px 20px;
+  background-color: #fff; 
+  color: #076F82; 
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  text-decoration: none; 
+}
+
+.menu-options {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.menu-options li {
+  padding: 0; 
+  border-bottom: none; 
+  text-align: left;
+}
+.menu-options li a {
+  color: white;
+  font-weight: 500;
+  display: block;
+  padding: 12px 15px; 
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+.menu-options li a:hover, .menu-options li a.active-option {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ===== PROFILE CARD (Warna Teal Sedang: #28A4B4) ===== */
+.profile-card {
+  flex: 1;
+  background: #28A4B4; 
+  color: white; 
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.profile-card h2 {
+  color: white; 
+  font-size: 24px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+  padding-bottom: 15px;
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+/* ===== GRID FORM (PENTING: Perapihan Data) ===== */
+.form-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0; 
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.form-group {
+    /* Menggunakan Flex untuk Baris Data */
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+    /* PENTING: Border pemisah baris */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4); 
+    padding: 12px 0;
+}
+
+.form-group label {
+  font-weight: normal;
+  font-size: 16px;
+  color: white;
+  width: 35%; /* Kolom kiri (Label) */
+  flex-shrink: 0; 
+}
+
+/* Styling untuk SPAN (Nilai Data - PENTING) */
+.form-group span {
+  font-size: 16px;
+  color: white;
+  width: 60%; /* Kolom kanan (Nilai) */
+  text-align: right; /* PENTING: Rata Kanan agar Nilai data sejajar rapi */
+  word-wrap: break-word; 
+  padding: 0; /* Hapus padding agar rata kanan sempurna */
+}
+
+/* Sembunyikan semua elemen input/form */
+.form-group input, 
+.form-group select, 
+.form-group textarea,
+.form-group input[type="date"]::-webkit-calendar-picker-indicator { 
+    display: none !important; 
+}
+
+/* Tombol Kembali */
+.action-buttons {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 20px;
+}
+
+.cancel-btn {
+    background-color: #fff;
+    color: #076F82; 
+    font-weight: bold;
+    padding: 10px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+.save-btn {
+    display: none; /* Pastikan tombol simpan tersembunyi di view mode */
+}
