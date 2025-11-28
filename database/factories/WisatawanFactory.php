@@ -11,10 +11,14 @@ class WisatawanFactory extends Factory
     {
         return [
             'id_user' => User::factory(),
-            'tanggal_lahir' => $this->faker->date(),
+            
+            // Perbaikan: Gunakan dateTimeBetween untuk menghasilkan tanggal lahir yang realistis
+            'tanggal_lahir' => $this->faker->dateTimeBetween('-50 years', '-18 years')->format('Y-m-d'),
+            
             'jenis_kelamin' => $this->faker->randomElement(['L', 'P']),
             
-            'usia' => $this->faker->numberBetween(17, 60),
+            // HAPUS BARIS INI: Kolom usia dihitung di Controller, tidak perlu di DB
+            // 'usia' => $this->faker->numberBetween(17, 60),
 
             'alamat' => $this->faker->address(),
 

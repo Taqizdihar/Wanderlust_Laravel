@@ -199,7 +199,7 @@ body {
   flex: 1;
   gap: 20px;
   max-width: 1200px; 
-  margin: 20px auto 50px auto; /* Margin atas bawah agar rapi dan tidak menempel Header/Footer */
+  margin: 20px auto 50px auto; 
 }
 
 /* ===== SIDEBAR (Warna Teal Tua: #076F82) ===== */
@@ -211,7 +211,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: fit-content; /* PENTING: Membuat sidebar berhenti di kontennya */
+  height: fit-content; 
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
@@ -320,7 +320,7 @@ body {
   padding: 0; /* Hapus padding agar rata kanan sempurna */
 }
 
-/* Sembunyikan semua elemen input/form */
+/* Sembunyikan elemen input/form, karena ini view mode */
 .form-group input, 
 .form-group select, 
 .form-group textarea,
