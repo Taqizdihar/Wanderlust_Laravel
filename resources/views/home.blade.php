@@ -50,11 +50,13 @@
     @foreach ($populer as $item)
     <div class="cards-destination">
         <div class="card-images" style="{{ 'background-image: url(\'' . asset('images/Images') . '/' . $item['foto'] . '\')' }}">
-            @if(Auth::check())
-                <a href="#" class="bookmark-icon bookmark-toggle" data-id-tempat="{{ $item['id_tempat'] ?? '0' }}">
-                    <i class="fas fa-bookmark {{ $item['is_bookmarked'] ?? false ? 'active' : '' }}"></i>
-                </a>
-            @endif
+            
+            <a href="{{ Auth::check() ? '#' : route('login') }}" 
+               class="bookmark-icon bookmark-toggle" 
+               data-id-tempat="{{ $item['id_tempat'] ?? '0' }}">
+                <i class="fas fa-bookmark {{ $item['is_bookmarked'] ?? false ? 'active' : '' }}"></i>
+            </a>
+            
         </div>
         
         <div class="card-info-box">
@@ -96,7 +98,7 @@
                 <a href="/detail/{{ $item['id_tempat'] }}" class="btn-detail-link">Lihat Detail</a>
             </div>
         </div>
-        </div> 
+    </div> 
     @endforeach
 </div>
 
@@ -105,11 +107,13 @@
     @foreach ($rekomendasi as $item)
     <div class="cards-destination">
         <div class="card-images" style="{{ 'background-image: url(\'' . asset('images/Images') . '/' . $item['foto'] . '\')' }}">
-            @if(Auth::check())
-                <a href="#" class="bookmark-icon bookmark-toggle" data-id-tempat="{{ $item['id_tempat'] ?? '0' }}">
-                    <i class="fas fa-bookmark {{ $item['is_bookmarked'] ?? false ? 'active' : '' }}"></i>
-                </a>
-            @endif
+            
+            <a href="{{ Auth::check() ? '#' : route('login') }}" 
+               class="bookmark-icon bookmark-toggle" 
+               data-id-tempat="{{ $item['id_tempat'] ?? '0' }}">
+                <i class="fas fa-bookmark {{ $item['is_bookmarked'] ?? false ? 'active' : '' }}"></i>
+            </a>
+
         </div>
         
         <div class="card-info-box">
@@ -151,7 +155,7 @@
                 <a href="/detail/{{ $item['id_tempat'] }}" class="btn-detail-link">Lihat Detail</a>
             </div>
         </div>
-        </div>
+    </div>
     @endforeach
 </div>
 
@@ -193,38 +197,6 @@
 @if(Auth::check())
 <script>
     document.querySelectorAll('.bookmark-toggle').forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const idTempat = this.getAttribute('data-id-tempat');
-            const icon = this.querySelector('i');
-            
-            const endpoint = `/bookmark/toggle/${idTempat}`; 
-
-            fetch(endpoint, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') 
-                },
-            })
-            .then(response => response.json())
-            .then(data => {
-                if(data.success) {
-                    if (data.action === 'removed') {
-                        icon.classList.remove('active');
-                    } else {
-                        icon.classList.add('active');
-                    }
-                } else {
-                    alert('Gagal memproses bookmark. Coba cek koneksi atau status login.');
-                }
-            })
-            .catch(error => {
-                console.error('Error toggling bookmark:', error);
-                alert('Gagal memproses bookmark. Silakan coba lagi.');
-                });
-        });
     });
 </script>
 @endif
