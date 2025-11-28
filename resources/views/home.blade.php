@@ -49,42 +49,54 @@
 <div class="card-gallery">
     @foreach ($populer as $item)
     <div class="cards-destination">
-    <div class="card-images" style="{{ 'background-image: url(\'' . asset('images/Images') . '/' . $item['foto'] . '\')' }}">
-        @if(Auth::check())
-            <a href="#" class="bookmark-icon bookmark-toggle" data-id-tempat="{{ $item['id_tempat'] ?? '0' }}">
-                <i class="fas fa-bookmark {{ $item['is_bookmarked'] ?? false ? 'active' : '' }}"></i>
-            </a>
-        @endif
-    </div>
-    
-    <div class="card-info-box">
-        <h4 class="destination-name">{{ $item['nama'] }}</h4>
-        
-        <div class="rating-box">
-            <span class="stars">
-                @php
-                    $rating = $item['rating'] ?? 0;
-                    $fullStars = floor($rating);
-                    $hasHalf = ($rating - $fullStars) >= 0.5;
-                @endphp
-                @for ($i = 1; $i <= 5; $i++)
-                    @if ($i <= $fullStars)
-                        <i class="fas fa-star"></i>
-                    @elseif ($hasHalf && $i == $fullStars + 1)
-                        <i class="fas fa-star-half-alt"></i>
-                    @else
-                        <i class="far fa-star"></i>
-                    @endif
-                @endfor
-            </span>
-            <span class="rating-text">{{ $item['rating'] ?? 'N/A' }} ({{ $item['reviews'] ?? 0 }} reviews)</span>
+        <div class="card-images" style="{{ 'background-image: url(\'' . asset('images/Images') . '/' . $item['foto'] . '\')' }}">
+            @if(Auth::check())
+                <a href="#" class="bookmark-icon bookmark-toggle" data-id-tempat="{{ $item['id_tempat'] ?? '0' }}">
+                    <i class="fas fa-bookmark {{ $item['is_bookmarked'] ?? false ? 'active' : '' }}"></i>
+                </a>
+            @endif
         </div>
-    </div>
-    <div class="destination-content">
-        <p class="location-text-white">{{ $item['lokasi'] ?? 'Lokasi Tidak Tersedia' }}</p>
-        <p class="price-info-white">Rp {{ number_format($item['harga'] ?? 0, 0, ',', '.') }}</p>
-    </div>
-</div>
+        
+        <div class="card-info-box">
+            <h4 class="destination-name">{{ $item['nama'] }}</h4>
+            
+            <div class="rating-box">
+                <span class="stars">
+                    @php
+                        $rating = $item['rating'] ?? 0;
+                        $fullStars = floor($rating);
+                        $hasHalf = ($rating - $fullStars) >= 0.5;
+                    @endphp
+                    @for ($i = 1; $i <= 5; $i++)
+                        @if ($i <= $fullStars)
+                            <i class="fas fa-star"></i>
+                        @elseif ($hasHalf && $i == $fullStars + 1)
+                            <i class="fas fa-star-half-alt"></i>
+                        @else
+                            <i class="far fa-star"></i>
+                        @endif
+                    @endfor
+                </span>
+                <span class="rating-text">{{ $item['rating'] ?? 'N/A' }} ({{ $item['reviews'] ?? 0 }} reviews)</span>
+            </div>
+        </div>
+        <div class="card-detail-body">
+            <p class="location-text-white-small">{{ $item['lokasi'] ?? 'Lokasi Tidak Tersedia' }}</p>
+
+            <p class="card-description-text">
+                {{ substr($item['deskripsi'] ?? 'Jelajahi keindahan destinasi wisata ini dengan paket spesial kami.', 0, 70) }}...
+            </p>
+            
+            <div class="card-price-action-wrapper">
+                <div class="price-text-container">
+                    <div class="price-block">
+                        <span class="price-start">Rp {{ number_format($item['harga'] ?? 0, 0, ',', '.') }}</span>
+                    </div>
+                </div>
+                <a href="/detail/{{ $item['id_tempat'] }}" class="btn-detail-link">Lihat Detail</a>
+            </div>
+        </div>
+        </div> 
     @endforeach
 </div>
 
@@ -92,42 +104,54 @@
 <div class="card-gallery">
     @foreach ($rekomendasi as $item)
     <div class="cards-destination">
-    <div class="card-images" style="{{ 'background-image: url(\'' . asset('images/Images') . '/' . $item['foto'] . '\')' }}">
-        @if(Auth::check())
-            <a href="#" class="bookmark-icon bookmark-toggle" data-id-tempat="{{ $item['id_tempat'] ?? '0' }}">
-                <i class="fas fa-bookmark {{ $item['is_bookmarked'] ?? false ? 'active' : '' }}"></i>
-            </a>
-        @endif
-    </div>
-    
-    <div class="card-info-box">
-        <h4 class="destination-name">{{ $item['nama'] }}</h4>
-        
-        <div class="rating-box">
-            <span class="stars">
-                @php
-                    $rating = $item['rating'] ?? 0;
-                    $fullStars = floor($rating);
-                    $hasHalf = ($rating - $fullStars) >= 0.5;
-                @endphp
-                @for ($i = 1; $i <= 5; $i++)
-                    @if ($i <= $fullStars)
-                        <i class="fas fa-star"></i>
-                    @elseif ($hasHalf && $i == $fullStars + 1)
-                        <i class="fas fa-star-half-alt"></i>
-                    @else
-                        <i class="far fa-star"></i>
-                    @endif
-                @endfor
-            </span>
-            <span class="rating-text">{{ $item['rating'] ?? 'N/A' }} ({{ $item['reviews'] ?? 0 }} reviews)</span>
+        <div class="card-images" style="{{ 'background-image: url(\'' . asset('images/Images') . '/' . $item['foto'] . '\')' }}">
+            @if(Auth::check())
+                <a href="#" class="bookmark-icon bookmark-toggle" data-id-tempat="{{ $item['id_tempat'] ?? '0' }}">
+                    <i class="fas fa-bookmark {{ $item['is_bookmarked'] ?? false ? 'active' : '' }}"></i>
+                </a>
+            @endif
         </div>
-    </div>
-    <div class="destination-content">
-        <p class="location-text-white">{{ $item['lokasi'] ?? 'Lokasi Tidak Tersedia' }}</p>
-        <p class="price-info-white">Rp {{ number_format($item['harga'] ?? 0, 0, ',', '.') }}</p>
-    </div>
-</div>
+        
+        <div class="card-info-box">
+            <h4 class="destination-name">{{ $item['nama'] }}</h4>
+            
+            <div class="rating-box">
+                <span class="stars">
+                    @php
+                        $rating = $item['rating'] ?? 0;
+                        $fullStars = floor($rating);
+                        $hasHalf = ($rating - $fullStars) >= 0.5;
+                    @endphp
+                    @for ($i = 1; $i <= 5; $i++)
+                        @if ($i <= $fullStars)
+                            <i class="fas fa-star"></i>
+                        @elseif ($hasHalf && $i == $fullStars + 1)
+                            <i class="fas fa-star-half-alt"></i>
+                        @else
+                            <i class="far fa-star"></i>
+                        @endif
+                    @endfor
+                </span>
+                <span class="rating-text">{{ $item['rating'] ?? 'N/A' }} ({{ $item['reviews'] ?? 0 }} reviews)</span>
+            </div>
+        </div>
+        <div class="card-detail-body">
+            <p class="location-text-white-small">{{ $item['lokasi'] ?? 'Lokasi Tidak Tersedia' }}</p>
+
+            <p class="card-description-text">
+                {{ substr($item['deskripsi'] ?? 'Jelajahi keindahan destinasi wisata ini dengan paket spesial kami.', 0, 70) }}...
+            </p>
+            
+            <div class="card-price-action-wrapper">
+                <div class="price-text-container">
+                    <div class="price-block">
+                        <span class="price-start">Rp {{ number_format($item['harga'] ?? 0, 0, ',', '.') }}</span>
+                    </div>
+                </div>
+                <a href="/detail/{{ $item['id_tempat'] }}" class="btn-detail-link">Lihat Detail</a>
+            </div>
+        </div>
+        </div>
     @endforeach
 </div>
 
@@ -199,7 +223,7 @@
             .catch(error => {
                 console.error('Error toggling bookmark:', error);
                 alert('Gagal memproses bookmark. Silakan coba lagi.');
-            });
+                });
         });
     });
 </script>

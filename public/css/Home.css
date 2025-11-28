@@ -36,7 +36,6 @@ body {
   color: white;
 }
 
-/* SUBTITLE (WANDERINGS FOR WONDERS) */
 .logo-text .subtitle {
   display: block; 
   font-size: 0.5em; 
@@ -44,7 +43,7 @@ body {
   font-weight: 500;
   letter-spacing: 0.5px; 
   margin-top: 3px; 
-  white-space: nowrap; /* Mencegah teks pindah baris */
+  white-space: nowrap; 
 }
 
 .search-bar {
@@ -138,7 +137,6 @@ body {
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
   transition: transform 0.3s;
-  /* FIX: Pastikan posisi relatif untuk bookmark */
   position: relative; 
 }
 
@@ -150,17 +148,17 @@ body {
   position: relative;
 }
 
-/* KOTAK INFO DENGAN LATAR BELAKANG BIRU */
+/* --- KOTAK INFO TEAL (NAMA & RATING) --- */
 .card-info-box {
     background-color: #076F82; 
     color: white;
-    padding: 8px 12px; /* Padding lebih kecil agar lebih ringkas */
+    padding: 8px 12px;
 }
 
 .card-info-box .destination-name {
-    font-size: 0.95em; /* Ukuran nama destinasi lebih kecil */
+    font-size: 0.95em;
     font-weight: bold;
-    margin: 0 0 5px 0; 
+    margin: 0 0 5px 0;
     color: white;
 }
 
@@ -172,7 +170,7 @@ body {
 
 /* FIX WARNA BINTANG KE KUNING/EMAS */
 .stars i {
-    color: #FFD700; /* Warna Kuning/Emas */
+    color: #FFD700; 
     margin-right: 1px;
     font-size: 0.8em;
 }
@@ -184,35 +182,85 @@ body {
     font-size: 0.8em;
 }
 
-/* Teks Lokasi dan Harga di dalam Kotak Biru */
-.card-info-box .location-text, 
-.card-info-box .price-info {
-    font-size: 0.85em;
-    margin: 3px 0;
-    color: white;
+/* BOOKMARK ICON STYLING */
+.bookmark-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.2em; /* Ukuran ikon lebih kecil */
+    padding: 6px 8px; /* Padding untuk background semi-transparan */
+    background-color: rgba(0, 0, 0, 0.3); /* Latar belakang semi-transparan */
+    border-radius: 4px; 
+    color: #fff; /* Ikon putih/putih transparan */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.4); /* Efek terangkat */
+    z-index: 10;
+    transition: background-color 0.2s, color 0.2s;
 }
 
-.card-info-box .price-info {
-    font-weight: bold;
+.bookmark-icon i {
+    text-shadow: none; 
 }
 
-/* Sembunyikan div konten lama yang tidak kita gunakan */
-.destination-content {
-    display: block !important; /* Pastikan konten ini terlihat (area putih) */
-    padding: 10px 12px; 
-    text-align: left;
+.bookmark-icon i.active {
+    color: #FFD700; /* Ketika aktif, berwarna kuning/emas */
+    background: none;
 }
 
-.location-text-white {
+
+/* --- KONTEN PUTIH (DESKRIPSI, HARGA, TOMBOL) --- */
+.card-detail-body {
+    display: block; 
+    padding: 10px 12px;
+    height: auto;
+}
+
+.location-text-white-small {
+    font-size: 0.75em; 
+    color: #888;
+    margin-bottom: 5px;
+}
+
+.card-description-text {
     font-size: 0.8em;
-    color: #555; /* Warna agak gelap */
-    margin-bottom: 2px;
+    color: #666;
+    margin-bottom: 15px;
+    line-height: 1.4;
 }
 
-.price-info-white {
-    font-size: 0.95em;
+.card-price-action-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end; 
+}
+
+.price-block {
+    display: flex;
+    align-items: baseline;
+    font-size: 1em;
     font-weight: bold;
-    color: #333; 
+    color: #333;
+}
+
+.btn-detail-link {
+    display: block;
+    padding: 8px 15px;
+    background-color: #007BFF; 
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background-color 0.2s;
+}
+
+.btn-detail-link:hover {
+    background-color: #0063cc;
+}
+
+/* Sembunyikan div konten lama yang tidak digunakan */
+.destination-content {
+    display: none !important;
 }
 
 /* FOOTER STYLING */
@@ -236,30 +284,31 @@ body {
 
 .footer-left {
     display: flex;
-    align-items: center;
+    align-items: center; /* Ini menyentralkan keseluruhan blok footer-left */
 }
 
-.footer-left .logo-text {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
+/* FIX ALIGNMENT LOGO DAN TEKS */
 .footer-left .logo-text.footer-logo {
     display: flex;
-    align-items: center; 
-    gap: 10px; 
+    align-items: center; /* Menyentralkan gambar dan teks */
+    gap: 13px; 
 }
 
-
 .footer-left .logo-img {
-    width: 30px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
 }
 
 .footer-left .title {
-    font-size: 1.2em;
+    font-size: 1.1em;
+    line-height: normal; /* Menjaga teks agar tidak terdorong oleh line-height besar */
 }
+
+/* Sembunyikan subtitle di footer jika ada */
+.footer-left .subtitle {
+    display: none;
+}
+
 
 .footer-links-container {
     display: flex;
