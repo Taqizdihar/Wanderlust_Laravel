@@ -1,4 +1,4 @@
-/* home.css (FINAL FIX UNTUK FIGMA) */
+/* home.css (FINAL FIX UNTUK TAMPILAN KARTU DAN LAYOUT) */
 body {
   font-family: 'Poppins', sans-serif;
   background-color: #f9f9f9; 
@@ -11,7 +11,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* Warna Header: Dark Cyan/Teal sesuai desain Figma */
   background-color: #076F82; 
   padding: 10px 20px;
   color: #333;
@@ -21,45 +20,54 @@ body {
 .logo-container {
   display: flex;
   align-items: center;
+  flex-shrink: 0; 
 }
 
 .logo {
-  width: 50px; /* Ukuran Logo lebih kecil di Figma */
-  height: 50px;
+  width: 35px; 
+  height: 35px;
   border-radius: 50%;
   margin-right: 10px;
 }
 
 .logo-text .title {
   font-weight: bold;
-  font-size: 1.0em; /* Ukuran font disesuaikan */
+  font-size: 1.1em; 
   color: white;
 }
+
+/* SUBTITLE (WANDERINGS FOR WONDERS) */
 .logo-text .subtitle {
-  display: none;
+  display: block; 
+  font-size: 0.5em; 
+  color: #fff;
+  font-weight: 500;
+  letter-spacing: 0.5px; 
+  margin-top: 3px; 
+  white-space: nowrap; /* Mencegah teks pindah baris */
 }
 
 .search-bar {
   position: relative;
-  flex-grow: 0.5; 
-  margin: 0 auto; /* Tengah */
-  max-width: 500px; /* Lebar Search Bar disesuaikan */
+  flex-grow: 1; 
+  margin: 0 40px; 
+  max-width: 500px;
 }
 
 .search-bar input {
   width: 100%;
   padding: 10px 35px 10px 15px;
-  border: none; /* Border dihilangkan karena design Figma borderless */
+  border: none;
   border-radius: 20px; 
   font-size: 14px;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2); /* Shadow agar terlihat menonjol */
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2); 
 }
 
 .search-button {
     background: none;
     border: none;
     position: absolute;
-    right: 10px;
+    right: 5px; 
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
@@ -73,6 +81,7 @@ body {
 .nav-links {
   display: flex;
   align-items: center;
+  flex-shrink: 0; 
   gap: 15px;
 }
 
@@ -85,10 +94,10 @@ body {
 }
 
 .profile-icon {
-  width: 35px; /* Ukuran Profil Icon disesuaikan */
+  width: 35px;
   height: 35px;
   border-radius: 50%;
-  border: 2px solid #ff0000; /* Border Merah sesuai Figma */
+  border: 2px solid #ff0000;
   background-color: #fff;
   display: flex;
   align-items: center;
@@ -100,11 +109,11 @@ body {
 .profile-icon img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* PENTING: Memastikan gambar mengisi seluruh lingkaran tanpa distorsi */
-  border-radius: 50%; /* PENTING: Memastikan gambar juga berbentuk bulat */
+  object-fit: cover;
+  border-radius: 50%;
 }
 
-/* KONTEN CARD (DISESUAIKAN KE FIGMA) */
+/* SECTION TITLE DAN CARD GALLERY */
 .section-title {
   text-align: center;
   font-size: 2em;
@@ -129,6 +138,8 @@ body {
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
   transition: transform 0.3s;
+  /* FIX: Pastikan posisi relatif untuk bookmark */
+  position: relative; 
 }
 
 .card-images {
@@ -139,34 +150,76 @@ body {
   position: relative;
 }
 
-.card-images h4 {
-  display: none; 
+/* KOTAK INFO DENGAN LATAR BELAKANG BIRU */
+.card-info-box {
+    background-color: #076F82; 
+    color: white;
+    padding: 8px 12px; /* Padding lebih kecil agar lebih ringkas */
 }
 
-.destination-content {
-  padding: 15px; 
+.card-info-box .destination-name {
+    font-size: 0.95em; /* Ukuran nama destinasi lebih kecil */
+    font-weight: bold;
+    margin: 0 0 5px 0; 
+    color: white;
 }
 
 .rating-box {
     display: flex;
     align-items: center;
     margin-bottom: 5px;
-    font-size: 0.9em;
-}
-/* ... (Styling Rating, Lokasi, Harga tetap sama) ... */
-.description-text {
-    display: none; /* Hilangkan deskripsi */
-}
-.card-button {
-  display: none; /* Hilangkan tombol */
 }
 
+/* FIX WARNA BINTANG KE KUNING/EMAS */
+.stars i {
+    color: #FFD700; /* Warna Kuning/Emas */
+    margin-right: 1px;
+    font-size: 0.8em;
+}
 
-/* FOOTER STYLING SESUAI FIGMA */
+.card-info-box .rating-text {
+    color: white; 
+    font-weight: 500;
+    margin-left: 5px;
+    font-size: 0.8em;
+}
+
+/* Teks Lokasi dan Harga di dalam Kotak Biru */
+.card-info-box .location-text, 
+.card-info-box .price-info {
+    font-size: 0.85em;
+    margin: 3px 0;
+    color: white;
+}
+
+.card-info-box .price-info {
+    font-weight: bold;
+}
+
+/* Sembunyikan div konten lama yang tidak kita gunakan */
+.destination-content {
+    display: block !important; /* Pastikan konten ini terlihat (area putih) */
+    padding: 10px 12px; 
+    text-align: left;
+}
+
+.location-text-white {
+    font-size: 0.8em;
+    color: #555; /* Warna agak gelap */
+    margin-bottom: 2px;
+}
+
+.price-info-white {
+    font-size: 0.95em;
+    font-weight: bold;
+    color: #333; 
+}
+
+/* FOOTER STYLING */
 .footer {
   background-color: #076F82; 
   color: white;
-  padding: 30px 50px 10px 50px; /* Padding bawah lebih kecil */
+  padding: 30px 50px 10px 50px;
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -188,22 +241,29 @@ body {
 
 .footer-left .logo-text {
     display: flex;
-    align-items: center; 
-    gap: 12px; 
+    flex-direction: column;
+    justify-content: center;
 }
 
+.footer-left .logo-text.footer-logo {
+    display: flex;
+    align-items: center; 
+    gap: 10px; 
+}
+
+
 .footer-left .logo-img {
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
 }
 
 .footer-left .title {
-    font-size: 1.0em;
+    font-size: 1.2em;
 }
 
 .footer-links-container {
     display: flex;
-    gap: 40px; /* Jarak antar kolom footer */
+    gap: 40px;
 }
 
 .footer-column {
@@ -220,7 +280,7 @@ body {
 }
 
 .footer-column a:first-child {
-    font-weight: bold; /* Judul Kolom */
+    font-weight: bold;
 }
 
 .footer-center {
@@ -229,11 +289,9 @@ body {
   font-size: 0.8em;
   padding-top: 15px;
   margin-top: 10px;
-  /* Hapus border-top agar terlihat seperti desain (garis hanya di bawah) */
 }
 
-/* Copyright text di bagian paling bawah */
 .footer-center {
-    font-weight: bold; /* Text Copyright tebal */
+    font-weight: bold;
     padding-bottom: 20px;
 }

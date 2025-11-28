@@ -71,7 +71,7 @@ class HomeController extends Controller
                 'deskripsi' => $item->deskripsi ? (strlen($item->deskripsi) > 100 ? substr($item->deskripsi, 0, 100) . '...' : $item->deskripsi) : 'Deskripsi belum tersedia.',
                 'rating' => number_format($item->avg_rating ?? 0, 1),
                 'reviews' => $item->review_count,
-                'harga' => number_format($item->min_harga ?? 0, 0, ',', '.'), 
+                'harga' => $item->min_harga ?? 0, 
                 'foto' => $foto_utama ? $foto_utama->url_foto : 'default.jpg', 
                 'is_bookmarked' => (bool)$item->is_bookmarked,
             ];

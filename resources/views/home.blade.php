@@ -17,7 +17,8 @@
         <img src="{{ asset('/images/Logos/Wanderlust Logo Circle.png') }}" alt="Logo" class="logo">
         <div class="logo-text">
             <span class="title">Wanderlust</span>
-            </div>
+            <span class="subtitle">WANDERINGS FOR WONDERS</span> 
+        </div>
     </div>
 
     <form action="{{ route('pencarian') }}" method="GET" class="search-bar">
@@ -48,46 +49,42 @@
 <div class="card-gallery">
     @foreach ($populer as $item)
     <div class="cards-destination">
-        <div class="card-images" style="{{ 'background-image: url(\'' . asset('images/Images') . '/' . $item['foto'] . '\')' }}">
-            @if(Auth::check())
-                <a href="#" class="bookmark-icon bookmark-toggle" data-id-tempat="{{ $item['id_tempat'] }}">
-                    <i class="fas fa-bookmark {{ $item['is_bookmarked'] ? 'active' : '' }}"></i>
-                </a>
-            @endif
-        </div>
+    <div class="card-images" style="{{ 'background-image: url(\'' . asset('images/Images') . '/' . $item['foto'] . '\')' }}">
+        @if(Auth::check())
+            <a href="#" class="bookmark-icon bookmark-toggle" data-id-tempat="{{ $item['id_tempat'] ?? '0' }}">
+                <i class="fas fa-bookmark {{ $item['is_bookmarked'] ?? false ? 'active' : '' }}"></i>
+            </a>
+        @endif
+    </div>
+    
+    <div class="card-info-box">
+        <h4 class="destination-name">{{ $item['nama'] }}</h4>
         
-        <div class="destination-content">
-            <div class="rating-box">
-                <span class="stars-static">
-                    @php
-                        $fullStars = floor($item['rating']);
-                        $hasHalf = ($item['rating'] - $fullStars) >= 0.5;
-                    @endphp
-                    @for ($i = 1; $i <= 5; $i++)
-                        @if ($i <= $fullStars)
-                            <i class="fas fa-star"></i>
-                        @elseif ($hasHalf && $i == $fullStars + 1)
-                            <i class="fas fa-star-half-alt"></i>
-                        @else
-                            <i class="far fa-star"></i>
-                        </i class="far fa-star"></i>
-                        @endif
-                    @endfor
-                </span>
-                <span class="rating-text">{{ $item['rating'] }} ({{ $item['reviews'] }} reviews)</span>
-            </div>
-            
-            <p class="location-text">{{ $item['lokasi'] }}</p>
-            
-            <p class="price-info">
-                Rp {{ $item['harga'] }}
-            </p>
-            
-            <p class="description-text">{{ $item['deskripsi'] }}</p>
-
-            <a href="{{ route('pencarian', ['kataKunci' => $item['nama']]) }}" class="card-button">Lihat Selengkapnya</a>
+        <div class="rating-box">
+            <span class="stars">
+                @php
+                    $rating = $item['rating'] ?? 0;
+                    $fullStars = floor($rating);
+                    $hasHalf = ($rating - $fullStars) >= 0.5;
+                @endphp
+                @for ($i = 1; $i <= 5; $i++)
+                    @if ($i <= $fullStars)
+                        <i class="fas fa-star"></i>
+                    @elseif ($hasHalf && $i == $fullStars + 1)
+                        <i class="fas fa-star-half-alt"></i>
+                    @else
+                        <i class="far fa-star"></i>
+                    @endif
+                @endfor
+            </span>
+            <span class="rating-text">{{ $item['rating'] ?? 'N/A' }} ({{ $item['reviews'] ?? 0 }} reviews)</span>
         </div>
-    </div> 
+    </div>
+    <div class="destination-content">
+        <p class="location-text-white">{{ $item['lokasi'] ?? 'Lokasi Tidak Tersedia' }}</p>
+        <p class="price-info-white">Rp {{ number_format($item['harga'] ?? 0, 0, ',', '.') }}</p>
+    </div>
+</div>
     @endforeach
 </div>
 
@@ -95,43 +92,42 @@
 <div class="card-gallery">
     @foreach ($rekomendasi as $item)
     <div class="cards-destination">
-        <div class="card-images" style="{{ 'background-image: url(\'' . asset('images/Images') . '/' . $item['foto'] . '\')' }}">
-            @if(Auth::check())
-                <a href="#" class="bookmark-icon bookmark-toggle" data-id-tempat="{{ $item['id_tempat'] }}">
-                    <i class="fas fa-bookmark {{ $item['is_bookmarked'] ? 'active' : '' }}"></i>
-                </a>
-            @endif
-        </div>
+    <div class="card-images" style="{{ 'background-image: url(\'' . asset('images/Images') . '/' . $item['foto'] . '\')' }}">
+        @if(Auth::check())
+            <a href="#" class="bookmark-icon bookmark-toggle" data-id-tempat="{{ $item['id_tempat'] ?? '0' }}">
+                <i class="fas fa-bookmark {{ $item['is_bookmarked'] ?? false ? 'active' : '' }}"></i>
+            </a>
+        @endif
+    </div>
+    
+    <div class="card-info-box">
+        <h4 class="destination-name">{{ $item['nama'] }}</h4>
         
-        <div class="destination-content">
-             <div class="rating-box">
-                <span class="stars-static">
-                    @php
-                        $fullStars = floor($item['rating']);
-                        $hasHalf = ($item['rating'] - $fullStars) >= 0.5;
-                    @endphp
-                    @for ($i = 1; $i <= 5; $i++)
-                        @if ($i <= $fullStars)
-                            <i class="fas fa-star"></i>
-                        @elseif ($hasHalf && $i == $fullStars + 1)
-                            <i class="fas fa-star-half-alt"></i>
-                        @else
-                            <i class="far fa-star"></i>
-                        @endif
-                    @endfor
-                </span>
-                <span class="rating-text">{{ $item['rating'] }} ({{ $item['reviews'] }} reviews)</span>
-            </div>
-            
-            <p class="location-text">{{ $item['lokasi'] }}</p>
-            <p class="price-info">
-                Rp {{ $item['harga'] }}
-            </p>
-            <p class="description-text">{{ $item['deskripsi'] }}</p>
-            
-            <a href="{{ route('pencarian', ['kataKunci' => $item['nama']]) }}" class="card-button">Lihat Selengkapnya</a>
+        <div class="rating-box">
+            <span class="stars">
+                @php
+                    $rating = $item['rating'] ?? 0;
+                    $fullStars = floor($rating);
+                    $hasHalf = ($rating - $fullStars) >= 0.5;
+                @endphp
+                @for ($i = 1; $i <= 5; $i++)
+                    @if ($i <= $fullStars)
+                        <i class="fas fa-star"></i>
+                    @elseif ($hasHalf && $i == $fullStars + 1)
+                        <i class="fas fa-star-half-alt"></i>
+                    @else
+                        <i class="far fa-star"></i>
+                    @endif
+                @endfor
+            </span>
+            <span class="rating-text">{{ $item['rating'] ?? 'N/A' }} ({{ $item['reviews'] ?? 0 }} reviews)</span>
         </div>
     </div>
+    <div class="destination-content">
+        <p class="location-text-white">{{ $item['lokasi'] ?? 'Lokasi Tidak Tersedia' }}</p>
+        <p class="price-info-white">Rp {{ number_format($item['harga'] ?? 0, 0, ',', '.') }}</p>
+    </div>
+</div>
     @endforeach
 </div>
 

@@ -15,6 +15,19 @@ class PenilaianSeeder extends Seeder {
         $destinations = TempatWisata::all();
         $wisatawanIds = Wisatawan::pluck('id_wisatawan')->toArray();
         
+        // --- BAGIAN BARU: DEFINISI JUMLAH REVIEW TARGET SESUAI FIGMA ---
+        $review_count_map = [
+            'Museum Nasional Indonesia' => 155,
+            'Kebun Binatang Bandung' => 520,
+            "D'Castello Wisata Flora" => 228,
+            'Tur Lava Merapi' => 1024,
+            'The Great Asia Africa' => 317,
+            'Trans Studio Bandung' => 369,
+            'Gunung Bromo' => 602,
+            'Candi Borobudur' => 378,
+        ];
+        // ---------------------------------------------------------------
+
         $rating_map = [
             'Museum Nasional Indonesia' => 4.5,
             'Kebun Binatang Bandung' => 4.7,
@@ -29,7 +42,11 @@ class PenilaianSeeder extends Seeder {
         foreach ($destinations as $tempat) {
             $target_rating = $rating_map[$tempat->nama_tempat] ?? 4.0;
             
-            for ($i = 0; $i < 10; $i++) {
+            // --- BAGIAN PERUBAHAN: Dapatkan jumlah review target ---
+            $count = $review_count_map[$tempat->nama_tempat] ?? 10;
+            
+            // Ganti 10 menjadi $count untuk membuat review sesuai target
+            for ($i = 0; $i < $count; $i++) {
                 $rating = max(4, min(5, round($target_rating + (mt_rand(-20, 20) / 100), 0)));
 
                 Penilaian::create([
