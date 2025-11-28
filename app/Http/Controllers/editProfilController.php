@@ -3,44 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth; // Wajib diimpor untuk mengambil user yang login
 
 class EditProfilController extends Controller
 {
-    public function show(Request $request)
+    // FIX: Mengambil data user yang sudah di-authenticated dari database
+    public function show()
     {
-        $profil = $request->session()->get('profil', [
-            'nama' => '',
-            'email' => '',
-            'telepon' => '',
-            'alamat' => '',
-            'tanggal_lahir' => '',
-            'jenis_kelamin' => '',
-            'pekerjaan' => '',
-            'bio' => '',
-            'foto' => 'foto_profil.jpg',
-        ]);
+        // Pastikan user sudah login (Middleware sudah melindungi route ini)
+        $user = Auth::user();
 
-        return view('editProfil', compact('profil'));
+        // Mengambil data Wisatawan melalui relasi (relasi wisatawan() ada di Model User.php)
+        // Ini akan mengambil semua data detail seperti Tanggal Lahir, Alamat, dll.
+        $wisatawan = $user->wisatawan; 
+
+        // FIX: Kirim data dengan nama variabel yang benar: 'user' dan 'wisatawan'
+        return view('editProfil', compact('user', 'wisatawan'));
     }
 
+    // UPDATE: Struktur dasar untuk menyimpan perubahan ke database (melalui model)
     public function update(Request $request)
     {
-        $data = $request->session()->validate([
-            'nama' => 'required|string|max:100',
-            'email' => 'required|email',
-            'telepon' => 'nullable|string|max:20',
-            'alamat' => 'nullable|string|max:200',
-            'tanggal_lahir' => 'nullable|date',
-            'jenis_kelamin' => 'nullable|string',
-            'pekerjaan' => 'nullable|string',
-            'bio' => 'nullable|string',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-
-        $request->session()->put('profil', $data);
-
-        return redirect()->back()->with('success', 'Profil updated successfully');
+        // Anda perlu mengganti logika ini untuk menyimpan data ke tabel users dan wisatawan
+        // Ini adalah placeholder untuk update DB yang sebenarnya:
+        return redirect()->back()->with('error', 'Update profil belum diimplementasikan ke database.');
     }
-
-
 }

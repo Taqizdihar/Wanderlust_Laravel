@@ -9,7 +9,11 @@ class DatabaseSeeder extends Seeder {
     public function run(): void {
         
         $this->call([
-            // AdministratorSeeder::class, // <-- HILANGKAN TANDA // JIKA SUDAH SIAP DENGAN FACTORY-NYA
+            UserSeeder::class, 
+        ]);
+
+        $this->call([
+            // AdministratorSeeder::class, 
             WisatawanSeeder::class,
             PemilikTempatWisataSeeder::class,
         ]);
@@ -24,7 +28,6 @@ class DatabaseSeeder extends Seeder {
             TopUpSeeder::class,
             PenilaianSeeder::class,
             BookmarkSeeder::class,
-            UserPhotoSeeder::class, 
         ]);
 
         $this->call([

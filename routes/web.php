@@ -63,9 +63,12 @@ Route::middleware(['auth:wisatawan'])->group(function () {
     Route::get('/pesan-tiket/{idPaket}', [PesanTiketController::class, 'showForm'])->name('pesan.tiket.form'); 
     Route::post('/pesan-tiket/store', [PesanTiketController::class, 'store'])->name('pesan.tiket.store'); 
 
+    Route::get('/riwayat-transaksi', [\App\Http\Controllers\PesanTiketController::class, 'riwayat'])->name('transaksi.riwayat');
+
     // Halaman Profil 
     Route::get('/editProfil', [editProfilController::class,'index'])->name('editProfil');
     Route::get('/edit-profil', [editProfilController::class, 'show'])->name('edit-profil');
+    Route::post('/update-profil', [\App\Http\Controllers\editProfilController::class, 'update'])->name('update.profil');
 
     // Route untuk Halaman Favorit/Bookmark (Perlu dibuat)
     Route::get('/favorit', [BookmarkController::class, 'index'])->name('bookmark.index');
