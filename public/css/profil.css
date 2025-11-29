@@ -232,8 +232,8 @@ body {
   display: inline-block;
   width: 80%;
   padding: 10px 20px;
-  background-color: #fff; 
-  color: #076F82; 
+  background-color: #28A4B4; 
+  color: #fff; 
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -344,8 +344,8 @@ body {
 }
 
 .cancel-btn {
-    background-color: #fff;
-    color: #076F82; 
+    background-color: #076F82;
+    color: #fff; 
     font-weight: bold;
     padding: 10px 25px;
     border-radius: 5px;

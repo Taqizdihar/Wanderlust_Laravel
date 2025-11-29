@@ -25,6 +25,7 @@ class WisatawanSeeder extends Seeder {
                 'id_user' => $id_user,
                 'tanggal_lahir' => $birthDate, // Menggunakan tanggal dinamis
                 'jenis_kelamin' => $faker->randomElement(['L', 'P']),
+                'no_telepon' => '08' . $faker->randomNumber(8, true),
                 'alamat' => $faker->address,
                 'status_akun' => 'aktif',
                 'kota_asal' => $faker->city,
