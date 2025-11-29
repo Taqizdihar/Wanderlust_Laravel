@@ -68,7 +68,7 @@ Route::middleware(['auth:wisatawan'])->group(function () {
     // Halaman Profil 
     Route::get('/editProfil', [editProfilController::class,'index'])->name('editProfil');
     Route::get('/profil', [\App\Http\Controllers\ProfilController::class, 'showProfile'])->name('profil');
-    Route::get('/edit-profil', [editProfilController::class, 'show'])->name('edit-profil');
+    Route::get('/edit-profil', [\App\Http\Controllers\editProfilController::class, 'show'])->name('edit-profil');
     Route::post('/update-profil', [\App\Http\Controllers\editProfilController::class, 'update'])->name('update.profil');
 
     // Route untuk Halaman Favorit/Bookmark (Perlu dibuat)
