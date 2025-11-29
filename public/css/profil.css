@@ -195,11 +195,15 @@ body {
 /* ===== FORM CONTAINER (Layout utama profil, sejajar) ===== */
 .profile-form {
   display: flex;
-  padding: 30px;
+  /* FIX: Hapus padding horizontal di container utama agar menyatu */
+  padding: 0; 
+  /* FIX: Hapus gap di antara elemen */
+  gap: 0; 
   flex: 1;
-  gap: 20px;
-  max-width: 1200px; 
+  max-width: 1200px;
+  /* Biarkan margin vertikal agar tidak menempel header/footer */
   margin: 20px auto 50px auto; 
+  /* PENTING: Tambahkan padding vertikal di sini jika dibutuhkan, tapi kita pakai padding di Card/Sidebar */
 }
 
 /* ===== SIDEBAR (Warna Teal Tua: #076F82) ===== */
@@ -207,11 +211,10 @@ body {
   width: 280px; 
   background: #076F82; 
   padding: 20px;
-  border-radius: 10px;
+  border-radius: 10px 0 0 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: fit-content; 
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
@@ -241,10 +244,10 @@ body {
 }
 
 .menu-options {
-    list-style: none;
-    padding: 0;
-    width: 100%;
-    margin-top: 20px;
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  margin-top: 20px;
 }
 
 .menu-options li {
@@ -270,7 +273,7 @@ body {
   background: #28A4B4; 
   color: white; 
   padding: 30px;
-  border-radius: 10px;
+  border-radius: 0 10px 10px 0;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
@@ -293,11 +296,10 @@ body {
 }
 
 .form-group {
-    /* Menggunakan Flex untuk Baris Data */
     display: flex; 
     justify-content: space-between;
     align-items: center;
-    /* PENTING: Border pemisah baris */
+    /* Border pemisah baris */
     border-bottom: 1px solid rgba(255, 255, 255, 0.4); 
     padding: 12px 0;
 }
@@ -308,16 +310,22 @@ body {
   color: white;
   width: 35%; /* Kolom kiri (Label) */
   flex-shrink: 0; 
+  /* FIX: Tambahkan border kanan untuk membuat garis vertikal */
+  border-right: 1px solid rgba(255, 255, 255, 0.5); 
+  /* Tambahkan padding kanan untuk jarak dari garis */
+  padding-right: 15px; 
 }
 
 /* Styling untuk SPAN (Nilai Data - PENTING) */
 .form-group span {
   font-size: 16px;
   color: white;
-  width: 60%; /* Kolom kanan (Nilai) */
-  text-align: right; /* PENTING: Rata Kanan agar Nilai data sejajar rapi */
+  width: 65%; 
+  text-align: left; 
   word-wrap: break-word; 
-  padding: 0; /* Hapus padding agar rata kanan sempurna */
+  /* FIX: Tambahkan padding kiri agar data tidak menempel ke garis */
+  padding-left: 15px; 
+  padding-right: 0; /* Pastikan tidak ada padding kanan yang tidak perlu */
 }
 
 /* Sembunyikan elemen input/form, karena ini view mode */

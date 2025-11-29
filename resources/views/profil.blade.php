@@ -67,6 +67,11 @@
                 <span>{{ $user->email ?? '-' }}</span>
             </div>
 
+            <div class="form-group"> 
+                <label>No Telepon</label>
+                <span>{{ $wisatawan->no_telepon ?? '-' }}</span>
+            </div>
+            
             <div class="form-group">
                 <label>Tanggal Lahir</label>
                 <span>{{ $wisatawan->tanggal_lahir ? \Carbon\Carbon::parse($wisatawan->tanggal_lahir)->format('F d, Y') : '-' }}</span>
