@@ -12,10 +12,13 @@ use App\Http\Controllers\TempatWisataController;
 use App\Http\Controllers\PropertiController;
 use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\VerifikasiDetailController; // IMPORT Controller BARU
-
+use App\Http\Controllers\VerifikasiDetailController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\PencarianController;
+use App\Http\Controllers\BookmarkController;   
+use App\Http\Controllers\PenilaianController; 
+use App\Http\Controllers\DestinasiController;  
+use App\Http\Controllers\PesanTiketController; 
 
 
 //untuk autentikasi - umum
@@ -32,21 +35,54 @@ Route::get('/edit-property-ptw/{id}', [EditPropertyPTWController::class, 'edit']
 Route::post('/edit-property-ptw/{id}', [EditPropertyPTWController::class, 'update'])->name('update.property.ptw');
 Route::delete('/delete-property-ptw/{id}', [EditPropertyPTWController::class, 'destroy'])->name('delete.property.ptw');
 
-//untuk wisatawan - Faiz
-Route::get('/editProfil', [EditProfilController::class,'index'])->name('editProfil');
+
+// ----------------------------------------------------
+// ROUTE PUBLIK (TIDAK MEMERLUKAN LOGIN / GUEST ACCESS)
+// ----------------------------------------------------
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/edit-profil', [EditProfilController::class, 'show'])->name('edit-profil');
 Route::get('/homeWisatawan', function () {
     return redirect('/home');
 });
 Route::get('/pencarian', [PencarianController::class, 'index'])->name('pencarian');
+Route::get('/destinasi', [DestinasiController::class, 'index'])->name('destinasi.index'); 
+
+
+// ----------------------------------------------------
+// ROUTE WISATAWAN (MEMERLUKAN LOGIN / AUTHENTICATION)
+// ----------------------------------------------------
+// Asumsi Guard adalah 'wisatawan'
+Route::middleware(['auth:wisatawan'])->group(function () {
+    
+    // Aksi Bookmark (dari AJAX/Fetch)
+    Route::post('/bookmark/toggle/{idTempat}', [BookmarkController::class, 'toggle'])->name('bookmark.toggle'); 
+
+    // Aksi Penilaian (POST untuk menyimpan ulasan dan rating)
+    Route::post('/penilaian/store', [PenilaianController::class, 'store'])->name('penilaian.store'); 
+    
+    // Pesan Tiket
+    Route::get('/pesan-tiket/{idPaket}', [PesanTiketController::class, 'showForm'])->name('pesan.tiket.form'); 
+    Route::post('/pesan-tiket/store', [PesanTiketController::class, 'store'])->name('pesan.tiket.store'); 
+
+    Route::get('/riwayat-transaksi', [\App\Http\Controllers\PesanTiketController::class, 'riwayat'])->name('transaksi.riwayat');
+
+    // Halaman Profil 
+    Route::get('/editProfil', [editProfilController::class,'index'])->name('editProfil');
+    Route::get('/profil', [\App\Http\Controllers\ProfilController::class, 'showProfile'])->name('profil');
+    Route::get('/edit-profil', [\App\Http\Controllers\editProfilController::class, 'show'])->name('edit-profil');
+    Route::post('/update-profil', [\App\Http\Controllers\editProfilController::class, 'update'])->name('update.profil');
+
+    // Route untuk Halaman Favorit/Bookmark (Perlu dibuat)
+    Route::get('/favorit', [BookmarkController::class, 'index'])->name('bookmark.index');
+    
+    // Route untuk Halaman Penilaian (Perlu dibuat)
+    Route::get('/daftar-penilaian', [PenilaianController::class, 'index'])->name('penilaian.index');
+
+});
+
 
 //untuk administrator ikaa canZ
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.admin');
 Route::get('/tempat-wisata', [TempatWisataController::class, 'index'])->name('tempat-wisata');
-
-
-// yang di hapus routes ini
 Route::prefix('verifikasi-wisata')->group(function () {
 Route::get('/{id}/detail', [VerifikasiDetailController::class, 'showDetail'])->name('verifikasi.detail');
 Route::post('/{id}/update', [VerifikasiDetailController::class, 'updateStatus'])->name('verifikasi.update');

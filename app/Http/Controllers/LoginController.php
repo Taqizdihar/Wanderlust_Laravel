@@ -3,62 +3,40 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth; 
+use App\Models\User; 
 
 class LoginController extends Controller {
-
-    private $users = [
-        [
-            'id' => 1,
-            'name' => 'M. Alnilam Lambda',
-            'username' => 'alnilam',
-            'password' => 'alnilam123',
-            'email' => 'alnilam@wanderlust.com',
-            'phone' => '+6281234567890',
-            'role' => 'ptw',
-            'pp' => 'ptw-1.jpg'
-        ],
-        [
-            'id' => 2,
-            'name' => 'Riska',
-            'username' => 'ikaa',
-            'password' => 'admin123',
-            'email' => 'azura@wanderlust.com',
-            'phone' => '+6282234567891',
-            'role' => 'admin',
-            'pp' => 'admin-1.jpg'
-        ],
-        [
-            'id' => 3,
-            'name' => 'Faiz Syafiq N',
-            'username' => 'izul',
-            'password' => 'tourist123',
-            'email' => 'faiz@example.com',
-            'phone' => '+6283234567892',
-            'role' => 'tourist',
-            'pp' => 'tourist-1.jpg'
-        ],
-    ];
+    
+    // Hapus array private $users yang berisi data hardcoded
 
     public function showLoginForm() {
         return view('login');
     }
 
     public function authenticate(Request $request) {
-        $username = $request->input('username');
-        $password = $request->input('password');
+        // 1. Validasi input menggunakan 'username' (sesuai nama input form Anda)
+        // Menambahkan validasi 'email' karena input harus berformat email
+        $credentials = $request->validate([
+            'username' => ['required', 'email'], 
+            'password' => ['required'],
+        ]);
 
-        $user = null;
-        foreach ($this->users as $u) {
-            if ($u['username'] === $username && $u['password'] === $password) {
-                $user = $u;
-                break;
-            }
-        }
+        // 2. Petakan input 'username' dari form ke kunci 'email' untuk Auth::attempt
+        $lookup_credentials = [
+            'email' => $credentials['username'],
+            'password' => $credentials['password'],
+        ];
 
-        if ($user) {
-            session(['user' => $user]);
+        // 3. Verifikasi Kredensial terhadap database (Auth::attempt)
+        if (Auth::guard('wisatawan')->attempt($lookup_credentials)) {
+           // Login Berhasil
+           $request->session()->regenerate();
+    
+           $user = Auth::user(); // User yang sudah di-guard('wisatawan')
 
-            switch ($user['role']) {
+            // 4. Redirect berdasarkan Role
+            switch ($user->role ?? 'tourist') { 
                 case 'admin':
                     return redirect()->route('dashboard.admin');
                 case 'ptw':
@@ -68,14 +46,18 @@ class LoginController extends Controller {
                 default:
                     return redirect()->route('login');
             }
-        } else {
-            return redirect()->route('login');
-        }
+        } 
+        
+        // Login Gagal
+        return back()->withErrors([
+            'email' => 'Kredensial tidak valid atau tidak cocok.',
+        ])->onlyInput('email');
     }
 
-    public function logout()
-    {
-        session()->forget('user');
+    public function logout(Request $request) {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
         return redirect()->route('login');
     }
 }

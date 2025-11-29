@@ -8,9 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Wisatawan extends Model {
     use HasFactory;
 
+    protected $table = 'wisatawan';
+    
     protected $primaryKey = 'id_wisatawan';
-    protected $fillable = ['tanggal_lahir','jenis_kelamin','usia','alamat','status_akun','kota_asal','preferensi_wisata'];
-
+    protected $fillable = ['id_user','tanggal_lahir','jenis_kelamin','no_telepon','alamat','status_akun','kota_asal','preferensi_wisata'];
+    protected $casts = [
+        'tanggal_lahir' => 'date',
+    ];
+    
     public function user() {
         return $this->belongsTo(User::class, 'id_user', 'id_user');
     }
