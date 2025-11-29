@@ -43,90 +43,110 @@
 </header>
     
     <div class="profile-form">
-        <div class="sidebar">
-            <img src="{{ asset('images/profiles/' . ($user->foto_profil ?? 'default.png')) }}" alt="Foto Profil" class="profile-pic" id="profile-pic-preview">
-            
-            <input type="file" id="foto_profil_input" name="foto_profil" accept="image/*" style="display: none;">
-            <button type="button" class="btn edit-foto-btn" onclick="document.getElementById('foto_profil_input').click();">Edit Foto Profil</button>
-            
-            <ul class="menu-options">
-                <li><a href="{{ route('home') }}">🏠 Beranda</a></li>
-                <li><a href="{{ route('profil') }}">👤 Profil</a></li> 
-                <li class="active"><a href="{{ route('edit-profil') }}" class="active-option">✍️ Edit Profil</a></li> 
-                <li><a href="{{ route('bookmark.index') }}">⭐ Favorit</a></li>
-                <li><a href="#">💰 Pembayaran</a></li> 
-                <li><a href="{{ route('logout') }}">🚪 Logout</a></li> 
-            </ul>
-        </div>
-
-        <div class="profile-card">
-            <h2>Edit Profil</h2>
-            
-            <form action="{{ route('update.profil') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="form-grid">
-                    
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" name="email" value="{{ $user->email }}" disabled>
-                    </div>
-
-                    <div class="form-group">
-                        <label>No Telepon</label>
-                        <input type="tel" name="no_telepon" value="{{ $wisatawan->no_telepon ?? '' }}">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Tanggal Lahir</label>
-                        <input type="date" name="tanggal_lahir" value="{{ $wisatawan->tanggal_lahir ?? '' }}">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Jenis Kelamin</label>
-                        <select name="jenis_kelamin">
-                            <option value="L" {{ ($wisatawan->jenis_kelamin ?? '') == 'L' ? 'selected' : '' }}>Laki-laki</option>
-                            <option value="P" {{ ($wisatawan->jenis_kelamin ?? '') == 'P' ? 'selected' : '' }}>Perempuan</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Usia</label>
-                        <input type="text" value="{{ $usia ?? 'N/A' }} Tahun" disabled>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Status Akun</label>
-                        <input type="text" value="{{ $wisatawan->status_akun ?? 'Aktif' }}" disabled>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Kota Asal</label>
-                        <input type="text" name="kota_asal" value="{{ $wisatawan->kota_asal ?? '' }}">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Preferensi Wisata</label>
-                        <input type="text" name="preferensi_wisata" value="{{ $wisatawan->preferensi_wisata ?? '' }}">
-                    </div>
-                    
-                    <div class="form-group full-width-grid">
-                        <label>Alamat</label>
-                        <textarea name="alamat">{{ $wisatawan->alamat ?? '' }}</textarea>
-                    </div>
-
-                </div>
-
-                <div class="action-buttons">
-                    <a href="{{ route('profil') }}" class="btn back-btn">Kembali</a> 
-                    
-                    <div class="right-actions">
-                         <a href="{{ route('profil') }}" class="btn cancel-btn">Batalkan</a> 
-                        <button type="submit" class="btn save-btn">Simpan</button>
-                    </div>
-                </div>
-            </form>
-        </div>
+    
+    <div class="sidebar">
+        <img id="profile-pic-preview" 
+             src="{{ asset('images/profiles/' . ($user->foto_profil ?? 'default.png')) }}" 
+             alt="Foto Profil" 
+             class="profile-pic">
+        
+        <label for="foto_profil_input" class="edit-foto-btn">
+            Ganti Foto Profil
+        </label>
+        <input type="file" name="foto_profil" id="foto_profil_input" accept="image/*" style="display: none;">
+        
+        <ul class="menu-options">
+            <li><a href="{{ route('home') }}">🏠 Beranda</a></li>
+            <li><a href="{{ route('edit-profil') }}" class="active-option">👤 Edit Profil</a></li>
+            <li><a href="{{ route('bookmark.index') }}">⭐ Favorit</a></li>
+            <li><a href="#">💰 Pembayaran</a></li> 
+            <li><a href="{{ route('logout') }}">🚪 Logout</a></li> 
+        </ul>
     </div>
+
+    <div class="profile-card">
+        @if (session('success'))
+            <div class="alert success-alert">{{ session('success') }}</div>
+        @endif
+        @if (session('error'))
+            <div class="alert error-alert">{{ session('error') }}</div>
+        @endif
+
+        <h2>{{ $user->nama ?? 'Nama Pengguna' }}</h2>
+        
+        <form action="{{ route('update.profil') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+    
+        <input type="file" name="foto_profil" id="foto_profil_input" accept="image/*" style="display: none;">
+        </form>
+            
+            <div class="form-grid">
+                
+                <div class="form-group">
+                    <label>Nama</label>
+                    <input type="text" value="{{ $user->nama ?? 'N/A' }}" disabled>
+                </div>
+                
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" value="{{ $user->email ?? 'N/A' }}" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label>No Telepon</label>
+                    <input type="tel" name="no_telepon" value="{{ $wisatawan->no_telepon ?? '' }}">
+                </div>
+
+                <div class="form-group">
+                    <label>Tanggal Lahir</label>
+                    <input type="date" name="tanggal_lahir" 
+                           value="{{ optional($wisatawan->tanggal_lahir ? \Carbon\Carbon::parse($wisatawan->tanggal_lahir) : null)->format('Y-m-d') }}">
+                </div>
+                
+                <div class="form-group">
+                    <label>Usia</label>
+                    <input type="text" value="{{ $usia ?? 'N/A' }}" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label>Jenis Kelamin</label>
+                    <select name="jenis_kelamin">
+                        <option value="">Pilih</option>
+                        <option value="L" {{ ($wisatawan->jenis_kelamin ?? '') == 'L' ? 'selected' : '' }}>Laki-laki</option>
+                        <option value="P" {{ ($wisatawan->jenis_kelamin ?? '') == 'P' ? 'selected' : '' }}>Perempuan</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Status Akun</label>
+                    <input type="text" value="{{ $wisatawan->status_akun ?? 'N/A' }}" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label>Kota Asal</label>
+                    <input type="text" name="kota_asal" value="{{ $wisatawan->kota_asal ?? '' }}">
+                </div>
+
+                <div class="form-group">
+                    <label>Preferensi Wisata</label>
+                    <input type="text" name="preferensi_wisata" value="{{ $wisatawan->preferensi_wisata ?? '' }}">
+                </div>
+                
+                <div class="form-group full-width-grid">
+                    <label>Alamat</label>
+                    <textarea name="alamat">{{ $wisatawan->alamat ?? '' }}</textarea>
+                </div>
+
+            </div>
+
+            <div class="action-buttons">
+                <a href="{{ route('profil') }}" class="btn back-btn">Kembali</a> 
+                <a href="{{ route('profil') }}" class="btn cancel-btn">Batalkan</a>
+                <button type="submit" class="btn save-btn">Simpan Perubahan</button>
+            </div>
+        </form>
+    </div>
+</div>
 
     <footer class="footer">
     <div class="footer-top">
@@ -163,7 +183,6 @@
 </footer>
 
 <script>
-    // Fungsionalitas preview foto profil (opsional, untuk UX)
     document.getElementById('foto_profil_input').addEventListener('change', function(event) {
         const file = event.target.files[0];
         if (file) {

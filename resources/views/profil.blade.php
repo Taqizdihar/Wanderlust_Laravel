@@ -42,6 +42,7 @@
         </a>
     </div>
 </header>
+
 <div class="profile-form">
     <div class="sidebar">
         <img src="{{ asset('images/profiles/' . ($user->foto_profil ?? 'default.png')) }}" alt="Foto Profil" class="profile-pic">

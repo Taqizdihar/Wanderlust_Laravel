@@ -6,34 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule; 
 use Illuminate\Support\Facades\DB; 
-use Carbon\Carbon; // Diperlukan untuk perhitungan Usia
+use Illuminate\Support\Facades\Storage; // PASTIKAN INI ADA
+use Carbon\Carbon; // PASTIKAN INI ADA
 
 class editProfilController extends Controller
 {
-    /**
-     * Menampilkan halaman Edit Profil (Form) dengan data yang sudah ada.
-     * Dipanggil oleh Route::get('/edit-profil', ... , 'show')
-     */
-    public function show() 
-    {
-        // 1. Mendapatkan data user yang sedang login
-        $user = Auth::user();
-
-        // 2. Mengambil data Wisatawan (detail profil) melalui relasi
-        $wisatawan = $user->wisatawan; 
-        
-        // --- FIX: Hitung Usia dan siapkan variabel $usia ---
-        $usia = null;
-        if ($wisatawan && $wisatawan->tanggal_lahir) {
-            $birthDate = Carbon::parse($wisatawan->tanggal_lahir);
-            // Menggunakan diffInYears() yang akan menghasilkan integer (bilangan bulat)
-            $usiaTahun = $birthDate->diffInYears(Carbon::now());
-        }
-        // ----------------------------------------------------
-
-        // 3. Tampilkan view editProfil dan kirimkan data, termasuk $usia
-        return view('editProfil', compact('user', 'wisatawan', 'usia')); 
-    }
+    // ... (Metode show() Anda tetap sama)
 
     /**
      * Menyimpan data yang diubah dari Form Edit Profil ke database.
@@ -47,42 +25,68 @@ class editProfilController extends Controller
 
         // 2. Validasi Input
         $request->validate([
+            'nama' => 'required|string|max:255', // Wajib: Update di tabel users
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id_user . ',id_user', // Wajib: Update di tabel users, unik kecuali user sendiri
             'no_telepon' => 'nullable|string|max:15',
             'tanggal_lahir' => 'nullable|date',
-            // Memastikan jenis kelamin hanya L atau P
             'jenis_kelamin' => ['nullable', Rule::in(['L', 'P'])], 
             'kota_asal' => 'nullable|string|max:255',
             'preferensi_wisata' => 'nullable|string|max:255',
             'alamat' => 'nullable|string',
+            'foto_profil' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Untuk validasi upload file
         ]);
 
-        // 3. Memulai Transaksi Database (untuk memastikan konsistensi)
+        // 3. Memulai Transaksi Database
         try {
             DB::beginTransaction();
 
-            // --- Update Data di Tabel 'wisatawan' ---
+            // --- Data untuk Tabel 'users' ---
+            $dataToUpdateUser = [
+                'nama' => $request->nama,
+                'email' => $request->email,
+            ];
+
+            // --- Logika Upload Foto Profil BARU ---
+            if ($request->hasFile('foto_profil')) {
+                $image = $request->file('foto_profil');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                
+                // Hapus foto profil lama jika ada dan bukan 'default.png'
+                if ($user->foto_profil && $user->foto_profil !== 'default.png' && Storage::disk('public')->exists('images/profiles/' . $user->foto_profil)) {
+                    Storage::disk('public')->delete('images/profiles/' . $user->foto_profil);
+                }
+                
+                // Simpan foto baru
+                $image->storeAs('images/profiles', $imageName, 'public');
+                $dataToUpdateUser['foto_profil'] = $imageName; // Tambahkan nama file baru ke data user
+            }
+            // ----------------------------------------
+            
+            // 4. Update Database
+            $user->update($dataToUpdateUser); // PENTING: Update data users
+
+            // --- Data untuk Tabel 'wisatawan' ---
             if ($wisatawan) {
-                $wisatawan->update([
+                $dataToUpdateWisatawan = [
                     'no_telepon' => $request->no_telepon,
                     'tanggal_lahir' => $request->tanggal_lahir,
                     'jenis_kelamin' => $request->jenis_kelamin, 
                     'kota_asal' => $request->kota_asal,
                     'preferensi_wisata' => $request->preferensi_wisata,
                     'alamat' => $request->alamat,
-                ]);
+                ];
+                $wisatawan->update($dataToUpdateWisatawan); // Update data wisatawan
             }
             
-            // Catatan: Jika ada data di tabel 'users' yang diubah (misal: nama), update di sini.
-
             DB::commit();
 
-            // 4. Redirect dan Tampilkan Pesan Sukses
+            // 5. Redirect dan Tampilkan Pesan Sukses
             return redirect()->route('profil')->with('success', 'Profil berhasil diperbarui!');
 
         } catch (\Exception $e) {
             DB::rollBack();
 
-            // 5. Redirect dan Tampilkan Pesan Error
+            // 6. Redirect dan Tampilkan Pesan Error (sangat membantu untuk debugging!)
             return redirect()->route('edit-profil')->with('error', 'Gagal memperbarui profil. Silakan coba lagi. Error: ' . $e->getMessage());
         }
     }
