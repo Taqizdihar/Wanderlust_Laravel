@@ -6,12 +6,36 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule; 
 use Illuminate\Support\Facades\DB; 
-use Illuminate\Support\Facades\Storage; // PASTIKAN INI ADA
-use Carbon\Carbon; // PASTIKAN INI ADA
+use Carbon\Carbon; // Diperlukan untuk perhitungan Usia
+use Illuminate\Support\Facades\Storage; // Diperlukan untuk upload foto
+use App\Models\User; // Diperlukan untuk Auth::login($freshUser)
 
 class editProfilController extends Controller
 {
-    // ... (Metode show() Anda tetap sama)
+    /**
+     * Menampilkan halaman Edit Profil (Form) dengan data yang sudah ada.
+     * Dipanggil oleh Route::get('/edit-profil', ... , 'show')
+     */
+    public function show() 
+    {
+        // 1. Mendapatkan data user yang sedang login
+        $user = Auth::user();
+
+        // 2. Mengambil data Wisatawan (detail profil) melalui relasi
+        $wisatawan = $user->wisatawan; 
+        
+        // --- FIX: Hitung Usia dan siapkan variabel $usia (Integer) ---
+        $usia = null;
+         if ($wisatawan && $wisatawan->tanggal_lahir) {
+         $birthDate = Carbon::parse($wisatawan->tanggal_lahir);
+        // Menggunakan diffInYears() yang akan menghasilkan integer (bilangan bulat)
+         $usia = $birthDate->diffInYears(Carbon::now()); // <--- PASTIKAN BARIS INI BENAR
+    }
+        // -----------------------------------------------------------
+
+        // 3. Tampilkan view editProfil dan kirimkan data, termasuk $usia
+        return view('editProfil', compact('user', 'wisatawan', 'usia')); 
+    }
 
     /**
      * Menyimpan data yang diubah dari Form Edit Profil ke database.
@@ -25,15 +49,15 @@ class editProfilController extends Controller
 
         // 2. Validasi Input
         $request->validate([
-            'nama' => 'required|string|max:255', // Wajib: Update di tabel users
-            'email' => 'required|email|max:255|unique:users,email,' . $user->id_user . ',id_user', // Wajib: Update di tabel users, unik kecuali user sendiri
+            'nama' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id_user . ',id_user', 
             'no_telepon' => 'nullable|string|max:15',
             'tanggal_lahir' => 'nullable|date',
             'jenis_kelamin' => ['nullable', Rule::in(['L', 'P'])], 
             'kota_asal' => 'nullable|string|max:255',
             'preferensi_wisata' => 'nullable|string|max:255',
             'alamat' => 'nullable|string',
-            'foto_profil' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Untuk validasi upload file
+            'foto_profil' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', 
         ]);
 
         // 3. Memulai Transaksi Database
@@ -51,7 +75,7 @@ class editProfilController extends Controller
                 $image = $request->file('foto_profil');
                 $imageName = time() . '.' . $image->getClientOriginalExtension();
                 
-                // Hapus foto profil lama jika ada dan bukan 'default.png'
+                // Hapus foto profil lama jika ada
                 if ($user->foto_profil && $user->foto_profil !== 'default.png' && Storage::disk('public')->exists('images/profiles/' . $user->foto_profil)) {
                     Storage::disk('public')->delete('images/profiles/' . $user->foto_profil);
                 }
@@ -63,7 +87,7 @@ class editProfilController extends Controller
             // ----------------------------------------
             
             // 4. Update Database
-            $user->update($dataToUpdateUser); // PENTING: Update data users
+            $user->update($dataToUpdateUser); // Update data users
 
             // --- Data untuk Tabel 'wisatawan' ---
             if ($wisatawan) {
@@ -80,13 +104,17 @@ class editProfilController extends Controller
             
             DB::commit();
 
-            // 5. Redirect dan Tampilkan Pesan Sukses
+            // 5. FIX KRITIS: Memuat ulang User ke dalam sesi agar foto profil baru muncul
+            $freshUser = User::find($user->id_user); 
+            Auth::login($freshUser); 
+
+            // 6. Redirect dan Tampilkan Pesan Sukses
             return redirect()->route('profil')->with('success', 'Profil berhasil diperbarui!');
 
         } catch (\Exception $e) {
             DB::rollBack();
 
-            // 6. Redirect dan Tampilkan Pesan Error (sangat membantu untuk debugging!)
+            // 7. Redirect dan Tampilkan Pesan Error
             return redirect()->route('edit-profil')->with('error', 'Gagal memperbarui profil. Silakan coba lagi. Error: ' . $e->getMessage());
         }
     }

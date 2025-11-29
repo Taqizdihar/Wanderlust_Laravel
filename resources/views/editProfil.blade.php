@@ -30,15 +30,16 @@
         <a href="{{ Auth::check() ? route('penilaian.index') : route('login') }}">Penilaian</a>
         <a href="{{ Auth::check() ? route('bookmark.index') : route('login') }}">Favorit</a>
         
-        <a href="{{ Auth::check() ? route('profil') : route('login') }}">
-            <div class="profile-icon">
-                @if(Auth::check() && Auth::user()->foto_profil)
-                    <img src="{{ asset('images/profiles/' . Auth::user()->foto_profil) }}" alt="Foto Profil">
-                @else
-                    <i class="fas fa-user"></i>
-                @endif
-            </div>
-        </a>
+<a href="{{ Auth::check() ? route('profil') : route('login') }}">
+    <div class="profile-icon">
+        @if(Auth::check() && Auth::user()->foto_profil)
+            <img src="{{ asset('storage/images/profiles/' . Auth::user()->foto_profil) }}" alt="Foto Profil">
+        @else
+            <i class="fas fa-user"></i>
+        @endif
+    </div>
+</a>
+
     </div>
 </header>
     
@@ -46,14 +47,13 @@
     
     <div class="sidebar">
         <img id="profile-pic-preview" 
-             src="{{ asset('images/profiles/' . ($user->foto_profil ?? 'default.png')) }}" 
+             src="{{ asset('storage/images/profiles/' . ($user->foto_profil ?? 'default.png')) }}" 
              alt="Foto Profil" 
              class="profile-pic">
         
         <label for="foto_profil_input" class="edit-foto-btn">
             Ganti Foto Profil
         </label>
-        <input type="file" name="foto_profil" id="foto_profil_input" accept="image/*" style="display: none;">
         
         <ul class="menu-options">
             <li><a href="{{ route('home') }}">🏠 Beranda</a></li>
@@ -71,25 +71,34 @@
         @if (session('error'))
             <div class="alert error-alert">{{ session('error') }}</div>
         @endif
-
+        @if ($errors->any())
+            <div class="alert error-alert" style="background-color: #dc3545; color: white; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
+                <strong>Terjadi kesalahan validasi:</strong>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        
         <h2>{{ $user->nama ?? 'Nama Pengguna' }}</h2>
         
         <form action="{{ route('update.profil') }}" method="POST" enctype="multipart/form-data">
         @csrf
     
         <input type="file" name="foto_profil" id="foto_profil_input" accept="image/*" style="display: none;">
-        </form>
             
             <div class="form-grid">
                 
                 <div class="form-group">
                     <label>Nama</label>
-                    <input type="text" value="{{ $user->nama ?? 'N/A' }}" disabled>
+                    <input type="text" name="nama" value="{{ $user->nama ?? 'N/A' }}">
                 </div>
                 
                 <div class="form-group">
                     <label>Email</label>
-                    <input type="email" value="{{ $user->email ?? 'N/A' }}" disabled>
+                    <input type="email" name="email" value="{{ $user->email ?? 'N/A' }}">
                 </div>
 
                 <div class="form-group">
@@ -105,7 +114,7 @@
                 
                 <div class="form-group">
                     <label>Usia</label>
-                    <input type="text" value="{{ $usia ?? 'N/A' }}" disabled>
+                     <input type="text" value="{{ floor($usia) }} Tahun" disabled>
                 </div>
 
                 <div class="form-group">
@@ -141,8 +150,11 @@
 
             <div class="action-buttons">
                 <a href="{{ route('profil') }}" class="btn back-btn">Kembali</a> 
-                <a href="{{ route('profil') }}" class="btn cancel-btn">Batalkan</a>
-                <button type="submit" class="btn save-btn">Simpan Perubahan</button>
+                
+                <div class="right-actions">
+                    <a href="{{ route('profil') }}" class="btn cancel-btn">Batalkan</a>
+                    <button type="submit" class="btn save-btn">Simpan Perubahan</button>
+                </div>
             </div>
         </form>
     </div>
@@ -183,6 +195,7 @@
 </footer>
 
 <script>
+    // Script untuk preview foto profil (diambil dari input file yang kini di dalam form)
     document.getElementById('foto_profil_input').addEventListener('change', function(event) {
         const file = event.target.files[0];
         if (file) {

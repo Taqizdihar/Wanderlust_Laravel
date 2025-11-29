@@ -286,6 +286,22 @@ body {
   margin-bottom: 5px;
 }
 
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.success-alert {
+    /* Warna Hijau Umum */
+    color: #155724; 
+    background-color: #d4edda; 
+    border-color: #c3e6cb;
+}
+
 /* ===== GRID FORM (PENTING: Perapihan Data) ===== */
 .form-grid {
   display: flex;
