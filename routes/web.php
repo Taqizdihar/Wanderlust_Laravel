@@ -20,9 +20,8 @@ use App\Http\Controllers\DestinasiController;
 use App\Http\Controllers\PesanTiketController; 
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminUserController;
 use Illuminate\Support\Facades\Route;
-
-
 
 //untuk autentikasi - umum
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
@@ -93,17 +92,34 @@ Route::middleware(['auth:wisatawan'])->group(function () {
 });
 
 
-//untuk administrator ikaa canZ
+//admin
 
 
-Route::prefix('admin')->name('admin.')->group(function () {
-    
+Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('login', [LoginController::class, 'login']);
+Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+
+
+// 3. GROUP ROUTE ADMIN PANEL (Fokus Kelola User)
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
-    Route::get('wisata', [AdminController::class, 'kelolaWisata'])->name('wisata.index');
-    Route::get('user', [AdminController::class, 'kelolaUser'])->name('user.index');
-    Route::get('keuangan', [AdminController::class, 'kelolaKeuangan'])->name('keuangan.index');
+    Route::controller(AdminUserController::class)->prefix('user')->name('user.')->group(function () {
+        Route::get('/', 'index')->name('index');         
+        Route::get('/{user}/edit', 'edit')->name('edit'); 
+        Route::put('/{user}', 'update')->name('update'); 
+        Route::delete('/{user}', 'destroy')->name('destroy');
+        // Fitur Toggle Status (Aktif/Nonaktif)
+        Route::put('/{user}/status', 'toggleStatus')->name('toggleStatus'); 
+        Route::controller(AdminUserController::class)->prefix('user')->name('user.')->group(function () {
+    // ...
+});
+    });
 
 });
+
+
+
+
 // ATAU lebih umum, kamu bisa menggunakan route index dan menangkap parameter keyword-nya di Controller
 // WISATAWAN
 Route::get('/penilaian', [ReviewController::class, 'index'])->name('reviews.index');

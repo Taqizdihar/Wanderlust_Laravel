@@ -9,28 +9,29 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        // View-nya berubah menjadi 'dashboard'
-        return view('dashboard');
+        // View-nya 'admin_dashboard' (seperti yang kita desain sebelumnya)
+        return view('admin_dashboard');
     }
 
+    // Method ini tidak kita gunakan lagi, karena sudah ada AdminWisataController
     public function kelolaWisata(Request $request)
     {
         $keyword = $request->get('keyword'); 
         $wisatas = []; 
         
-        // View-nya berubah menjadi 'wisata_index'
+        // Asumsi: View ini akan dihapus/diganti resource route
         return view('wisata_index', compact('wisatas'));
     }
 
-    public function kelolaUser()
-    {
-        // View-nya berubah menjadi 'user_index' (asumsi)
-        return view('user_index'); 
-    }
+    // Method kelolaUser() HARUS DIHAPUS KARENA SUDAH PINDAH KE ADMINUSERCONTROLLER
+    // public function kelolaUser()
+    // {
+    //     return view('user_index'); 
+    // }
 
     public function kelolaKeuangan()
     {
-        // View-nya berubah menjadi 'keuangan_index' (asumsi)
+        // View-nya 'keuangan_index'
         return view('keuangan_index'); 
     }
 }

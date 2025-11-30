@@ -4,12 +4,21 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder {
+class DatabaseSeeder extends Seeder
+{
 
-    public function run(): void {
-        
+    public function run(): void
+    {
+        // database/seeders/DatabaseSeeder.php
+
+
+        {
+            // Panggil seeder user di sini
+            $this->call(UserTableSeeder::class);
+            // User::factory(10)->create(); // Jika kamu menggunakan Factory
+        }
         $this->call([
-            UserSeeder::class, 
+            UserSeeder::class,
         ]);
 
         $this->call([
@@ -19,7 +28,7 @@ class DatabaseSeeder extends Seeder {
         ]);
 
         $this->call([
-            TempatWisataSeeder::class, 
+            TempatWisataSeeder::class,
         ]);
 
         $this->call([
