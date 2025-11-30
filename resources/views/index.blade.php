@@ -1,40 +1,49 @@
 @extends('layout')
-@section('title', 'Data Penilaian')
+
+@section('title', 'Daftar Penilaian')
 
 @section('content')
+<link rel="stylesheet" href="{{ asset('css/review.css') }}">
 
-<h1>Data Penilaian Wisata</h1>
+<h1 class="page-title">Daftar Penilaian Pengguna</h1>
 
-<a href="{{ route('reviews.create') }}" class="btn btn-primary">+ Tambah Penilaian</a>
+@if(session('success'))
+    <div class="alert-success">{{ session('success') }}</div>
+@endif
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>User</th>
-            <th>Destinasi</th>
-            <th>Rating</th>
-            <th>Komentar</th>
-            <th>Aksi</th>
-        </tr>
-    </thead>
+<div class="review-container">
+    <table class="review-table">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Destinasi</th>
+                <th>Rating</th>
+                <th>Komentar</th>
+                <th>Tanggal</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
 
-    <tbody>
-        @foreach ($reviews as $r)
-        <tr>
-            <td>{{ $r->user->name }}</td>
-            <td>{{ $r->destinasi->nama }}</td>
-            <td>{{ $r->rating }}</td>
-            <td>{{ $r->komentar }}</td>
-            <td>
-                <a href="{{ route('reviews.edit', $r->id) }}" class="btn btn-warning">Edit</a>
-                <form action="{{ route('reviews.destroy', $r->id) }}" method="POST" style="display:inline;">
-                    @csrf @method('DELETE')
-                    <button class="btn btn-danger" onclick="return confirm('Yakin hapus?')">Hapus</button>
-                </form>
-            </td>
-        </tr>
-        @endforeach
-    </tbody>
-</table>
+        <tbody>
+            @foreach ($reviews as $review)
+            <tr>
+                <td>{{ $review->user->name ?? '-' }}</td>
+                <td>{{ $review->destinasi->nama ?? '-' }}</td>
+                <td class="rating">⭐ {{ $review->rating }}</td>
+                <td>{{ $review->komentar }}</td>
+                <td>{{ $review->created_at->format('d M Y') }}</td>
+                <td>
+                    <a class="btn-edit" href="{{ route('reviews.edit', $review->id) }}">Edit</a>
 
+                    <form action="{{ route('reviews.destroy', $review->id) }}" method="POST" class="form-delete">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn-delete">Hapus</button>
+                    </form>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
 @endsection

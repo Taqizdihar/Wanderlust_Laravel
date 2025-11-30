@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth; // Import Auth
 
-class EditProfilController extends Controller
+class EditPropertyPTWController extends Controller
+
 {
     // FIX: Mengubah method show untuk mengambil data dari database
     public function show()

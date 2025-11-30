@@ -19,6 +19,7 @@ use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\PenilaianController; 
 use App\Http\Controllers\DestinasiController;  
 use App\Http\Controllers\PesanTiketController; 
+use App\Http\Controllers\ReviewController;
 
 
 //untuk autentikasi - umum
@@ -86,8 +87,13 @@ Route::get('/tempat-wisata', [TempatWisataController::class, 'index'])->name('te
 Route::prefix('verifikasi-wisata')->group(function () {
 Route::get('/{id}/detail', [VerifikasiDetailController::class, 'showDetail'])->name('verifikasi.detail');
 Route::post('/{id}/update', [VerifikasiDetailController::class, 'updateStatus'])->name('verifikasi.update');
-Route::middleware(['auth'])->group(function () {
- Route::resource('reviews', App\Http\Controllers\ReviewController::class);
-});
+Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
+Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+Route::delete('/reviews/{id}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
+Route::get('/reviews/{id}/edit', [ReviewController::class, 'edit'])->name('reviews.edit');
+Route::put('/reviews/{id}', [ReviewController::class, 'update'])->name('reviews.update');
+
+
+
 
 });
