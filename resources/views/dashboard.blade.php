@@ -3,6 +3,8 @@
 @section('title', 'Dashboard Utama')
 
 @section('content')
+    
+    <h2>Selamat Datang, Admin</h2>
 
     <div class="metric-cards">
         <div class="metric-card" style="border-bottom: 4px solid #3498db;">

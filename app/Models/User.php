@@ -1,8 +1,10 @@
 <?php
-// app/Models/User.php
+
+// app/Models/User.php (INI FILE YANG BENAR)
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -13,18 +15,21 @@ class User extends Authenticatable
 
     /**
      * The attributes that are mass assignable.
-     * Ini adalah satu-satunya deklarasi $fillable.
+     *
+     * @var array
      */
     protected $fillable = [
         'name',
         'email',
         'password',
-        'role',     // Role (admin/user)
-        'status',   // Status (aktif/nonaktif)
+        'role', // Pastikan kolom role ada
+        'status', // Pastikan kolom status ada
     ];
 
     /**
      * The attributes that should be hidden for serialization.
+     *
+     * @var array
      */
     protected $hidden = [
         'password',
@@ -33,15 +38,10 @@ class User extends Authenticatable
 
     /**
      * The attributes that should be cast.
+     *
+     * @var array
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
     ];
-
-    // Helper untuk mengecek apakah user adalah admin
-    public function isAdmin()
-    {
-        return $this->role === 'admin';
-    }
 }

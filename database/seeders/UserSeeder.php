@@ -2,45 +2,56 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use Illuminate\Database\Seeder;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
-class UserSeeder extends Seeder {
-    public function run(): void {
-        
-        // --- 1. AKUN WISATAWAN (Role: tourist) ---
-        User::create([
-            'nama' => 'Faiz Syafiq N',
-            'email' => 'faiz@wanderlust.com', 
-            'no_telepon' => '081234567890',
-            'password' => Hash::make('12345678'), 
-            'role' => 'tourist', 
-            'foto_profil' => 'faiz.jpg', // ID 1
-        ]);
+class UserSeeder extends Seeder
+{
+    /**
+     * Jalankan database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        $usersData = [
+            // User 1: Administrator (Tambahan untuk akses login)
+            [
+                'name' => 'Super Administrator',
+                'email' => 'admin@mail.com',
+                'password' => Hash::make('password'), // password: password
+                'role' => 'Super Administrator', 
+                'status' => 'Aktif',
+                'email_verified_at' => now(),
+            ],
+            
+            // User 2-20: Data SIDER 20 Wisatawan
+            ['name' => 'Riska Wijaya', 'email' => 'riska@mail.com', 'password' => Hash::make('password'), 'role' => 'Wisatawan', 'status' => 'Aktif', 'email_verified_at' => now()],
+            ['name' => 'Budi Santoso', 'email' => 'budi@mail.com', 'password' => Hash::make('password'), 'role' => 'Wisatawan', 'status' => 'Non Aktif', 'email_verified_at' => now()],
+            ['name' => 'Siti Nurhaliza', 'email' => 'siti@mail.com', 'password' => Hash::make('password'), 'role' => 'Wisatawan', 'status' => 'Aktif', 'email_verified_at' => now()],
+            ['name' => 'Agung Pramana', 'email' => 'agung@mail.com', 'password' => Hash::make('password'), 'role' => 'Wisatawan', 'status' => 'Aktif', 'email_verified_at' => now()],
+            ['name' => 'Diah Ayu', 'email' => 'diah@mail.com', 'password' => Hash::make('password'), 'role' => 'Wisatawan', 'status' => 'Non Aktif', 'email_verified_at' => now()],
+            ['name' => 'Eko Maulana', 'email' => 'eko@mail.com', 'password' => Hash::make('password'), 'role' => 'Wisatawan', 'status' => 'Aktif', 'email_verified_at' => now()],
+            ['name' => 'Fani Adelia', 'email' => 'fani@mail.com', 'password' => Hash::make('password'), 'role' => 'Wisatawan', 'status' => 'Aktif', 'email_verified_at' => now()],
+            ['name' => 'Gilang Putra', 'email' => 'gilang@mail.com', 'password' => Hash::make('password'), 'role' => 'Wisatawan', 'status' => 'Non Aktif', 'email_verified_at' => now()],
+            ['name' => 'Heni Susanti', 'email' => 'heni@mail.com', 'password' => Hash::make('password'), 'role' => 'Wisatawan', 'status' => 'Aktif', 'email_verified_at' => now()],
+            ['name' => 'Indra Jaya', 'email' => 'indra@mail.com', 'password' => Hash::make('password'), 'role' => 'Wisatawan', 'status' => 'Aktif', 'email_verified_at' => now()],
+            ['name' => 'Jihan Kirana', 'email' => 'jihan@mail.com', 'password' => Hash::make('password'), 'role' => 'Wisatawan', 'status' => 'Non Aktif', 'email_verified_at' => now()],
+            ['name' => 'Kemal Pasha', 'email' => 'kemal@mail.com', 'password' => Hash::make('password'), 'role' => 'Wisatawan', 'status' => 'Aktif', 'email_verified_at' => now()],
+            ['name' => 'Laila Sari', 'email' => 'laila@mail.com', 'password' => Hash::make('password'), 'role' => 'Wisatawan', 'status' => 'Aktif', 'email_verified_at' => now()],
+            ['name' => 'Maman Sudarman', 'email' => 'maman@mail.com', 'password' => Hash::make('password'), 'role' => 'Wisatawan', 'status' => 'Non Aktif', 'email_verified_at' => now()],
+            ['name' => 'Nina Kartika', 'email' => 'nina@mail.com', 'password' => Hash::make('password'), 'role' => 'Wisatawan', 'status' => 'Aktif', 'email_verified_at' => now()],
+            ['name' => 'Oki Setiawan', 'email' => 'oki@mail.com', 'password' => Hash::make('password'), 'role' => 'Wisatawan', 'status' => 'Aktif', 'email_verified_at' => now()],
+            ['name' => 'Putri Lestari', 'email' => 'putri@mail.com', 'password' => Hash::make('password'), 'role' => 'Wisatawan', 'status' => 'Non Aktif', 'email_verified_at' => now()],
+            ['name' => 'Qinan Fadhil', 'email' => 'qinan@mail.com', 'password' => Hash::make('password'), 'role' => 'Wisatawan', 'status' => 'Aktif', 'email_verified_at' => now()],
+            ['name' => 'Rendi Kusuma', 'email' => 'rendi@mail.com', 'password' => Hash::make('password'), 'role' => 'Wisatawan', 'status' => 'Aktif', 'email_verified_at' => now()],
+            ['name' => 'Sari Dewi', 'email' => 'sari@mail.com', 'password' => Hash::make('password'), 'role' => 'Wisatawan', 'status' => 'Non Aktif', 'email_verified_at' => now()],
+        ];
 
-        // --- 2. AKUN PEMILIK TEMPAT WISATA (Role: ptw) ---
-        User::create([
-            'nama' => 'M. Alnilam Lambda',
-            'email' => 'alnilam@wanderlust.com',
-            'no_telepon' => '081211122233',
-            'password' => Hash::make('12345678'),
-            'role' => 'ptw',
-            'foto_profil' => 'ptw-1.jpg', // ID 2
-        ]);
-        
-        // --- 3. AKUN ADMINISTRATOR (Role: admin) ---
-        User::create([
-            'nama' => 'Riska',
-            'email' => 'riska@wanderlust.com',
-            'no_telepon' => '082211133344',
-            'password' => Hash::make('12345678'),
-            'role' => 'admin',
-            'foto_profil' => 'admin-1.jpg', // ID 3
-        ]);
-        
-        // 4. User Dummy (7 Akun tambahan)
-        // Ini dibuat untuk memenuhi dependency (PenilaianSeeder/WisatawanSeeder membutuhkan 10 user)
-        User::factory(7)->create(); 
+        // Masukkan data ke dalam tabel users
+        foreach ($usersData as $user) {
+            User::create($user);
+        }
     }
 }

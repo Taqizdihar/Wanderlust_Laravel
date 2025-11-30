@@ -7,31 +7,36 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+    // Halaman Dashboard
     public function dashboard()
     {
-        // View-nya 'admin_dashboard' (seperti yang kita desain sebelumnya)
-        return view('admin_dashboard');
+        // Logika pengambilan data statistik/chart akan diletakkan di sini
+        return view('dashboard');
     }
 
-    // Method ini tidak kita gunakan lagi, karena sudah ada AdminWisataController
+    // Halaman Kelola Wisata (index dan search)
     public function kelolaWisata(Request $request)
     {
+        // Ambil keyword dari URL (jika ada)
         $keyword = $request->get('keyword'); 
+
+        // LOGIKA PENCARIAN & PENGAMBILAN DATA AKAN DIMULAI DI SINI
         $wisatas = []; 
         
-        // Asumsi: View ini akan dihapus/diganti resource route
-        return view('wisata_index', compact('wisatas'));
+        return view('wisata_index', compact('wisatas', 'keyword'));
     }
 
-    // Method kelolaUser() HARUS DIHAPUS KARENA SUDAH PINDAH KE ADMINUSERCONTROLLER
-    // public function kelolaUser()
-    // {
-    //     return view('user_index'); 
-    // }
+    // Halaman Kelola User
+    public function kelolaUser()
+    {
+        // View 'user_index' perlu kamu buat nanti
+        return view('user_index'); 
+    }
 
+    // Halaman Kelola Keuangan
     public function kelolaKeuangan()
     {
-        // View-nya 'keuangan_index'
+        // View 'keuangan_index' perlu kamu buat nanti
         return view('keuangan_index'); 
     }
 }

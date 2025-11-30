@@ -1,131 +1,93 @@
-@extends('layout')
-
-@section('title', 'Kelola Pengguna Sistem')
-
-@section('content')
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelola User Admin</title>
+    <!-- Ganti dengan link CSS Tailwind atau Bootstrap Anda jika ada -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        /* Style Dasar untuk Badge/Status */
-        .badge {
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 0.8em;
-            font-weight: 600;
-            color: white; /* Warna teks statis */
-            display: inline-block;
-        }
-
-        /* Warna Dinamis untuk Role */
-        .badge-admin { background-color: #3498db; } /* Biru */
-        .badge-user { background-color: #2ecc71; }  /* Hijau */
-        
-        /* Warna Dinamis untuk Status */
-        .badge-aktif { background-color: #27ae60; }   /* Hijau Tua */
-        .badge-nonaktif { background-color: #e67e22; } /* Oranye */
+        .container-custom { max-width: 1024px; }
+        .alert-success { background-color: #d1e7dd; color: #0f5132; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem; }
     </style>
-    
-    <h2>Daftar Pengguna Sistem</h2>
-    
-    @if(session('success'))
-        <div style="padding: 15px; margin-bottom: 20px; background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; border-radius: 5px;">
-            {{ session('success') }}
-        </div>
-    @endif
+</head>
+<body class="bg-gray-100 p-8">
 
-    <div class="search-container" style="justify-content: space-between; align-items: center;">
-        <div style="font-weight: 600; color: #555;">Total User: {{ $users->total() }}</div>
-        
-        <form action="{{ route('admin.user.index') }}" method="GET" style="display: flex; gap: 10px;">
-            <input type="text" name="keyword" class="search-input" placeholder="Cari Nama/Email/Status..." value="{{ request('keyword') }}">
-            <button type="submit" class="btn-search"><i class="fas fa-search"></i> Cari</button>
+    <div class="container-custom mx-auto">
+        <h1 class="text-3xl font-bold mb-6 text-gray-800">Kelola User Wisata</h1>
+
+        <!-- Pesan Sukses -->
+        @if(session('success'))
+            <div class="alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        <!-- Form Pencarian (sesuai Controller: $request->keyword) -->
+        <form method="GET" action="{{ route('admin.user.index') }}" class="flex mb-6">
+            <input type="text" name="keyword" placeholder="Cari Nama/Email/Status..." value="{{ request('keyword') }}"
+                   class="flex-grow p-2 border border-gray-300 rounded-l-md focus:ring-blue-500 focus:border-blue-500">
+            <button type="submit" class="bg-blue-600 text-white p-2 rounded-r-md hover:bg-blue-700 transition duration-150">Cari</button>
         </form>
-    </div>
-    
-    <div class="panel" style="padding: 0;">
-        <table style="width: 100%; border-collapse: collapse; text-align: left;">
-            <thead>
-                <tr style="background-color: #f7f7f7;">
-                    <th style="padding: 15px; border-bottom: 1px solid #eee;">No</th>
-                    <th style="padding: 15px; border-bottom: 1px solid #eee;">Nama</th>
-                    <th style="padding: 15px; border-bottom: 1px solid #eee;">Email</th>
-                    <th style="padding: 15px; border-bottom: 1px solid #eee;">Role</th>
-                    <th style="padding: 15px; border-bottom: 1px solid #eee;">Status</th>
-                    <th style="padding: 15px; border-bottom: 1px solid #eee;">Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($users as $user)
-                
-                @php
-                    // 1. Tentukan Class untuk Role
-                    $roleClass = $user->role === 'admin' ? 'badge-admin' : 'badge-user';
 
-                    // 2. Tentukan Class dan Teks untuk Status
-                    $statusClass = $user->status === 'aktif' ? 'badge-aktif' : 'badge-nonaktif';
-                    $statusText = strtoupper($user->status);
-                    
-                    // 3. Pesan Konfirmasi Status
-                    $actionText = $user->status === 'aktif' ? 'NONAKTIF' : 'AKTIF';
-                    $confirmMessage = "Apakah Anda yakin ingin mengubah status $user->name menjadi $actionText?";
-                @endphp
-                
-                <tr style="border-bottom: 1px solid #eee;">
-                    <td style="padding: 15px;">{{ $loop->iteration + $users->firstItem() - 1 }}</td>
-                    <td style="padding: 15px;">{{ $user->name }}</td>
-                    <td style="padding: 15px;">{{ $user->email }}</td>
-                    
-                    <td style="padding: 15px;">
-                        <span class="badge {{ $roleClass }}">
-                            {{ strtoupper($user->role) }}
-                        </span>
-                    </td>
-                    
-                    <td style="padding: 15px;">
-                        <span class="badge {{ $statusClass }}">
-                            {{ $statusText }}
-                        </span>
-                    </td>
-
-                    <td style="padding: 15px; display: flex; gap: 5px; flex-wrap: wrap;">
-                        
-                        <a href="{{ route('admin.user.edit', $user->id) }}" style="padding: 5px 10px; background-color: #f39c12; color: white; border-radius: 4px; text-decoration: none; font-size: 0.9em;">
-                            <i class="fas fa-edit"></i> Edit
-                        </a>
-
-                        <form action="{{ route('admin.user.toggleStatus', $user->id) }}" method="POST" onsubmit="return confirm('{{ $confirmMessage }}');">
-                            @csrf
-                            @method('PUT')
-                            @if ($user->status === 'aktif')
-                                <button type="submit" style="padding: 5px 10px; background-color: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9em;">
-                                    <i class="fas fa-power-off"></i> Nonaktifkan
-                                </button>
-                            @else
-                                <button type="submit" style="padding: 5px 10px; background-color: #2ecc71; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9em;">
-                                    <i class="fas fa-check-circle"></i> Aktifkan
-                                </button>
-                            @endif
-                        </form>
-                        
-                        <form action="{{ route('admin.user.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus user ini?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" style="padding: 5px 10px; background-color: #e74c3c; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9em;">
-                                <i class="fas fa-trash-alt"></i> Hapus
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="6" style="padding: 20px; text-align: center; color: #999;">Tidak ada data user yang ditemukan.</td>
-                </tr>
-                @endforelse
-            </tbody>
-        </table>
-
-        <div style="padding: 15px;">
+        <div class="bg-white shadow-xl rounded-lg overflow-hidden">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama & Email</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    @forelse ($users as $user)
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $user->id }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm font-medium text-gray-900">{{ $user->name }}</div>
+                                <div class="text-sm text-gray-500">{{ $user->email }}</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $user->role }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                    {{ $user->status === 'Aktif' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                    {{ $user->status }}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <!-- Tombol Update Status (GET) -->
+                                <a href="{{ route('admin.user.status', $user->id) }}" 
+                                   class="text-indigo-600 hover:text-indigo-900 mr-4 transition duration-150">
+                                    {{ $user->status === 'Aktif' ? 'Nonaktifkan' : 'Aktifkan' }}
+                                </a>
+                                
+                                <!-- Tombol Delete (DELETE Method, pakai form spoofing) -->
+                                <form action="{{ route('admin.user.delete', $user->id) }}" method="POST" class="inline-block" 
+                                      onsubmit="return confirm('Apakah Anda yakin ingin menghapus user ini? Aksi ini tidak dapat dibatalkan.');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-600 hover:text-red-900 transition duration-150">
+                                        Hapus
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="px-6 py-4 text-center text-gray-500">Tidak ada user ditemukan.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Pagination Links -->
+        <div class="mt-4">
             {{ $users->links() }}
         </div>
     </div>
 
-@endsection
+</body>
+</html>
