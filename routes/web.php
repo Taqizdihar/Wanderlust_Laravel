@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\EditProfilController;
@@ -20,6 +19,9 @@ use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\DestinasiController;  
 use App\Http\Controllers\PesanTiketController; 
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\AdminController;
+use Illuminate\Support\Facades\Route;
+
 
 
 //untuk autentikasi - umum
@@ -92,13 +94,17 @@ Route::middleware(['auth:wisatawan'])->group(function () {
 
 
 //untuk administrator ikaa canZ
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.admin');
-Route::get('/tempat-wisata', [TempatWisataController::class, 'index'])->name('tempat-wisata');
-Route::prefix('verifikasi-wisata')->group(function () {
-Route::get('/{id}/detail', [VerifikasiDetailController::class, 'showDetail'])->name('verifikasi.detail');
-Route::post('/{id}/update', [VerifikasiDetailController::class, 'updateStatus'])->name('verifikasi.update');
+
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    
+    Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::get('wisata', [AdminController::class, 'kelolaWisata'])->name('wisata.index');
+    Route::get('user', [AdminController::class, 'kelolaUser'])->name('user.index');
+    Route::get('keuangan', [AdminController::class, 'kelolaKeuangan'])->name('keuangan.index');
 
 });
+// ATAU lebih umum, kamu bisa menggunakan route index dan menangkap parameter keyword-nya di Controller
 // WISATAWAN
 Route::get('/penilaian', [ReviewController::class, 'index'])->name('reviews.index');
 Route::get('/penilaian/buat', [ReviewController::class, 'create'])->name('reviews.create');

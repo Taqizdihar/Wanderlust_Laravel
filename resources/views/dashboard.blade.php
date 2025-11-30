@@ -1,23 +1,31 @@
 @extends('layout')
 
-@section('title', 'Dashboard Admin')
+@section('title', 'Dashboard Utama')
 
 @section('content')
-  <h1>Selamat Datang,Admin</h1>
+    
+    <h2>Selamat Datang, Admin</h2>
 
+    <div class="metric-cards">
+        <div class="metric-card" style="border-bottom: 4px solid #3498db;">
+            <p class="title">Total Destinasi</p>
+            <p class="value">12</p>
+        </div>
 
-  <div class="card-container">
-    <div class="card">
-      <h3>Tempat Wisata</h3>
-      <p>Jumlah: 12</p>
+        <div class="metric-card" style="border-bottom: 4px solid #2ecc71;">
+            <p class="title">Pengguna Aktif</p>
+            <p class="value">245</p>
+        </div>
+
+        <div class="metric-card" style="border-bottom: 4px solid #f39c12;">
+            <p class="title">Transaksi Bulan Ini</p>
+            <p class="value">67</p>
+        </div>
+        
+        <div class="metric-card" style="border-bottom: 4px solid #e74c3c;">
+            <p class="title">Estimasi Pendapatan</p>
+            <p class="value">Rp 12.5M</p>
+        </div>
     </div>
-    <div class="card">
-      <h3>Pengguna</h3>
-      <p>Jumlah: 245</p>
-    </div>
-    <div class="card">
-      <h3>Transaksi</h3>
-      <p>Jumlah: 67</p>
-    </div>
-  </div>
-@endsection
+    
+    @endsection
