@@ -30,22 +30,23 @@
         <a href="{{ Auth::check() ? route('transaksi.riwayat') : route('login') }}">Pesan Tiket</a>
         <a href="{{ Auth::check() ? route('penilaian.index') : route('login') }}">Penilaian</a>
         <a href="{{ Auth::check() ? route('bookmark.index') : route('login') }}">Favorit</a>
-        
-        <a href="{{ Auth::check() ? route('profil') : route('login') }}">
-            <div class="profile-icon">
-                @if(Auth::check() && Auth::user()->foto_profil)
-                    <img src="{{ asset('images/profiles/' . Auth::user()->foto_profil) }}" alt="Foto Profil">
-                @else
-                    <i class="fas fa-user"></i>
-                @endif
-            </div>
-        </a>
+
+<a href="{{ Auth::check() ? route('profil') : route('login') }}">
+    <div class="profile-icon">
+        @if(Auth::check() && Auth::user()->foto_profil)
+            <img src="{{ asset('storage/images/profiles/' . Auth::user()->foto_profil) }}" alt="Foto Profil">
+        @else
+            <i class="fas fa-user"></i>
+        @endif
+    </div>
+</a>
+
     </div>
 </header>
 
 <div class="profile-form">
     <div class="sidebar">
-        <img src="{{ asset('images/profiles/' . ($user->foto_profil ?? 'default.png')) }}" alt="Foto Profil" class="profile-pic">
+        <img src="{{ asset('storage/images/profiles/' . ($user->foto_profil ?? 'default.png')) }}" alt="Foto Profil" class="profile-pic">
         
         <a href="{{ route('edit-profil') }}" class="edit-btn">Edit Profil</a>
         
@@ -60,7 +61,13 @@
 
     <div class="profile-card">
         <h2>{{ $user->nama ?? 'Nama Pengguna' }}</h2>
-        
+
+        @if (session('success'))
+            <div class="alert success-alert">
+                {{ session('success') }}
+            </div>
+        @endif
+
         <div class="form-grid">
             
             <div class="form-group">
