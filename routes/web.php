@@ -92,6 +92,7 @@ Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store
 Route::delete('/reviews/{id}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
 Route::get('/reviews/{id}/edit', [ReviewController::class, 'edit'])->name('reviews.edit');
 Route::put('/reviews/{id}', [ReviewController::class, 'update'])->name('reviews.update');
+Route::resource('reviews', ReviewController::class);
 
 
 

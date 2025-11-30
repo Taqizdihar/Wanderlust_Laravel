@@ -32,10 +32,11 @@
                 <td class="rating">⭐ {{ $review->rating }}</td>
                 <td>{{ $review->komentar }}</td>
                 <td>{{ $review->created_at->format('d M Y') }}</td>
-                <td>
+
+                <td class="actions">
                     <a class="btn-edit" href="{{ route('reviews.edit', $review->id) }}">Edit</a>
 
-                    <form action="{{ route('reviews.destroy', $review->id) }}" method="POST" class="form-delete">
+                    <form action="{{ route('reviews.destroy', $review->id) }}" method="POST" style="display:inline-block;">
                         @csrf
                         @method('DELETE')
                         <button class="btn-delete">Hapus</button>
