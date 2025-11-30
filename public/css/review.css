@@ -1,0 +1,70 @@
+body {
+    background: #f9f5ff;
+    font-family: 'Poppins', sans-serif;
+}
+
+.page-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #6a0dad;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.review-container {
+    width: 90%;
+    margin: auto;
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.review-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.review-table th {
+    background: #6a0dad;
+    color: white;
+    padding: 12px;
+    text-align: center;
+}
+
+.review-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.rating {
+    font-weight: bold;
+    color: #ffb300;
+}
+
+/* Tombol Edit */
+.btn-edit {
+    background: #ffcc00;
+    padding: 8px 12px;
+    color: black;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: 0.2s;
+}
+.btn-edit:hover {
+    background: #e6b800;
+}
+
+/* Tombol Delete */
+.btn-delete {
+    background: #ff4d4d;
+    padding: 8px 12px;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.btn-delete:hover {
+    background: #d93636;
+}

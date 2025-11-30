@@ -29,7 +29,8 @@ class LoginController extends Controller {
         ];
 
         // 3. Verifikasi Kredensial terhadap database (Auth::attempt)
-        if (Auth::guard('wisatawan')->attempt($lookup_credentials)) {
+     if (Auth::attempt($lookup_credentials)) {
+   
            // Login Berhasil
            $request->session()->regenerate();
     
