@@ -86,4 +86,8 @@ Route::get('/tempat-wisata', [TempatWisataController::class, 'index'])->name('te
 Route::prefix('verifikasi-wisata')->group(function () {
 Route::get('/{id}/detail', [VerifikasiDetailController::class, 'showDetail'])->name('verifikasi.detail');
 Route::post('/{id}/update', [VerifikasiDetailController::class, 'updateStatus'])->name('verifikasi.update');
+Route::middleware(['auth'])->group(function () {
+ Route::resource('reviews', App\Http\Controllers\ReviewController::class);
+});
+
 });
