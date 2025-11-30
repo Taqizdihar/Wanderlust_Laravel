@@ -78,6 +78,15 @@ Route::middleware(['auth:wisatawan'])->group(function () {
     // Route untuk Halaman Penilaian (Perlu dibuat)
     Route::get('/daftar-penilaian', [PenilaianController::class, 'index'])->name('penilaian.index');
 
+    Route::middleware(['auth:wisatawan'])->group(function () {
+
+    Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
+    Route::get('/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
+    Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+
+});
+
+
 });
 
 
@@ -88,12 +97,16 @@ Route::prefix('verifikasi-wisata')->group(function () {
 Route::get('/{id}/detail', [VerifikasiDetailController::class, 'showDetail'])->name('verifikasi.detail');
 Route::post('/{id}/update', [VerifikasiDetailController::class, 'updateStatus'])->name('verifikasi.update');
 
-Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
-Route::get('/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
-Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
-Route::get('/reviews/{id}/edit', [ReviewController::class, 'edit'])->name('reviews.edit');
-Route::put('/reviews/{id}', [ReviewController::class, 'update'])->name('reviews.update');
-Route::delete('/reviews/{id}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
+});
+// WISATAWAN
+Route::get('/penilaian', [ReviewController::class, 'index'])->name('reviews.index');
+Route::get('/penilaian/buat', [ReviewController::class, 'create'])->name('reviews.create');
+Route::post('/penilaian/store', [ReviewController::class, 'store'])->name('reviews.store');
 
-
+// ADMIN
+Route::prefix('admin')->group(function () {
+    Route::get('/reviews', [ReviewController::class, 'adminIndex'])->name('admin.reviews.index');
+    Route::get('/reviews/{id}/edit', [ReviewController::class, 'adminEdit'])->name('admin.reviews.edit');
+    Route::put('/reviews/{id}', [ReviewController::class, 'adminUpdate'])->name('admin.reviews.update');
+    Route::delete('/reviews/{id}', [ReviewController::class, 'adminDestroy'])->name('admin.reviews.destroy');
 });
