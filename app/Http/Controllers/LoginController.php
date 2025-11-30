@@ -6,11 +6,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User; 
 
 class LoginController extends Controller {
-
     public function showLoginForm() {
         return view('login');
     }
-
     public function authenticate(Request $request) {
         // 1. Validasi input menggunakan 'username' (sesuai nama input form Anda)
         // Menambahkan validasi 'email' karena input harus berformat email
