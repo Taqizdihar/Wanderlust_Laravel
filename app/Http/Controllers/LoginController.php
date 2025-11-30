@@ -35,7 +35,7 @@ class LoginController extends Controller {
            $request->session()->regenerate();
     
            $user = Auth::user(); // User yang sudah di-guard('wisatawan')
-
+        dd($user->role);
             // 4. Redirect berdasarkan Role
             switch ($user->role ?? 'tourist') { 
                 case 'admin':
