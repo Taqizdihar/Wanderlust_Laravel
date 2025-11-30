@@ -3,13 +3,16 @@
 @section('title', 'Daftar Penilaian')
 
 @section('content')
+
 <link rel="stylesheet" href="{{ asset('css/review.css') }}">
 
 <h1 class="page-title">Daftar Penilaian Pengguna</h1>
 
 @if(session('success'))
-    <div class="alert-success">{{ session('success') }}</div>
+<div class="alert-success">{{ session('success') }}</div>
 @endif
+
+<a class="btn-add" href="{{ route('reviews.create') }}">+ Tambah Review</a>
 
 <div class="review-container">
     <table class="review-table">
@@ -27,7 +30,7 @@
         <tbody>
             @foreach ($reviews as $review)
             <tr>
-                <td>{{ $review->user->name ?? '-' }}</td>
+                <td>{{ $review->user->nama ?? 'Anon' }}</td>
                 <td>{{ $review->destinasi->nama ?? '-' }}</td>
                 <td class="rating">⭐ {{ $review->rating }}</td>
                 <td>{{ $review->komentar }}</td>
@@ -36,15 +39,17 @@
                 <td class="actions">
                     <a class="btn-edit" href="{{ route('reviews.edit', $review->id) }}">Edit</a>
 
-                    <form action="{{ route('reviews.destroy', $review->id) }}" method="POST" style="display:inline-block;">
+                    <form action="{{ route('reviews.destroy', $review->id) }}" method="POST" class="form-delete">
                         @csrf
                         @method('DELETE')
                         <button class="btn-delete">Hapus</button>
                     </form>
                 </td>
+
             </tr>
             @endforeach
         </tbody>
     </table>
 </div>
+
 @endsection
