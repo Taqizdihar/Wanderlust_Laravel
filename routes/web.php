@@ -46,6 +46,7 @@ Route::get('/homeWisatawan', function () {
 Route::get('/pencarian', [PencarianController::class, 'index'])->name('pencarian');
 Route::get('/destinasi', [DestinasiController::class, 'index'])->name('destinasi.index'); 
 
+Route::get('/detail/{id_tempat}', [DestinasiController::class, 'show'])->name('destinasi.detail');
 
 // ----------------------------------------------------
 // ROUTE WISATAWAN (MEMERLUKAN LOGIN / AUTHENTICATION)

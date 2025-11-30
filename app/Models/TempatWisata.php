@@ -10,7 +10,6 @@ class TempatWisata extends Model {
 
     protected $table = 'tempat_wisatas';
     protected $primaryKey = 'id_tempat';
-    // Menghapus 'harga_tiket' yang tidak diperlukan karena harga diambil dari paket_wisatas
     protected $fillable = [
         'nama_tempat',
         'alamat_tempat',
@@ -38,5 +37,25 @@ class TempatWisata extends Model {
 
     public function bookmarks() {
         return $this->hasMany(Bookmark::class, 'id_tempat', 'id_tempat');
+    }
+    
+    // --- ACCESSOR/METHOD UNTUK FAVORIT VIEW ---
+
+    // Mendapatkan harga termurah dari tabel paket_wisatas
+    public function getHargaTermurahAttribute() {
+        return $this->paketWisatas()->min('harga'); 
+    }
+    
+    // Mendapatkan kuota tiket (diambil dari paket termurah/pertama, menggunakan kolom 'jumlah')
+    public function getKuotaTiketAttribute() {
+         // Kolom kuota di paket_wisatas bernama 'jumlah'
+         $paket = $this->paketWisatas()->orderBy('harga')->first();
+         return $paket ? $paket->jumlah : 0; 
+    }
+
+    // Mendapatkan rating rata-rata (Kolom rating di penilaians bernama 'penilaian')
+    public function getAverageRatingAttribute() {
+        // Hanya hitung rating dari penilaian yang sudah disetujui/diselesaikan
+        return $this->penilaians()->where('status_penilaian', 'disetujui')->avg('penilaian');
     }
 }

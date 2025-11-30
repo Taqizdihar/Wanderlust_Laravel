@@ -29,19 +29,19 @@
     </form>
 
     <div class="nav-links">
-        <a href="{{ Auth::check() ? route('transaksi.riwayat') : route('login') }}">Pesan Tiket</a>
-        <a href="{{ Auth::check() ? route('penilaian.index') : route('login') }}">Penilaian</a>
-        <a href="{{ Auth::check() ? route('bookmark.index') : route('login') }}">Favorit</a>
+       <a href="{{ Auth::guard('wisatawan')->check() ? route('transaksi.riwayat') : route('login') }}">Pesan Tiket</a>
+<a href="{{ Auth::guard('wisatawan')->check() ? route('penilaian.index') : route('login') }}">Penilaian</a>
+<a href="{{ Auth::guard('wisatawan')->check() ? route('bookmark.index') : route('login') }}">Favorit</a>
+<a href="{{ Auth::guard('wisatawan')->check() ? route('profil') : route('login') }}">
+    <div class="profile-icon">
         
-        <a href="{{ Auth::check() ? route('profil') : route('login') }}">
-            <div class="profile-icon">
-                @if(Auth::check() && Auth::user()->foto_profil)
-                    <img src="{{ asset('images/profiles/' . Auth::user()->foto_profil) }}" alt="Foto Profil">
-                @else
-                    <i class="fas fa-user"></i>
-                @endif
-            </div>
-        </a>
+        @if(Auth::guard('wisatawan')->check() && Auth::guard('wisatawan')->user()->foto_profil)
+            <img src="{{ asset('images/profiles/' . Auth::guard('wisatawan')->user()->foto_profil) }}" alt="Foto Profil">
+        @else
+            <i class="fas fa-user"></i>
+        @endif
+    </div>
+</a>
     </div>
 </header>
 
@@ -51,7 +51,7 @@
     <div class="cards-destination">
         <div class="card-images" style="{{ 'background-image: url(\'' . asset('images/Images') . '/' . $item['foto'] . '\')' }}">
             
-            <a href="{{ Auth::check() ? '#' : route('login') }}" 
+            <a href="{{ Auth::guard('wisatawan')->check() ? '#' : route('login') }}" 
                class="bookmark-icon bookmark-toggle" 
                data-id-tempat="{{ $item['id_tempat'] ?? '0' }}">
                 <i class="fas fa-bookmark {{ $item['is_bookmarked'] ?? false ? 'active' : '' }}"></i>
@@ -108,7 +108,7 @@
     <div class="cards-destination">
         <div class="card-images" style="{{ 'background-image: url(\'' . asset('images/Images') . '/' . $item['foto'] . '\')' }}">
             
-            <a href="{{ Auth::check() ? '#' : route('login') }}" 
+            <a href="{{ Auth::guard('wisatawan')->check() ? '#' : route('login') }}"
                class="bookmark-icon bookmark-toggle" 
                data-id-tempat="{{ $item['id_tempat'] ?? '0' }}">
                 <i class="fas fa-bookmark {{ $item['is_bookmarked'] ?? false ? 'active' : '' }}"></i>
@@ -194,9 +194,46 @@
     </div>
 </footer>
 
-@if(Auth::check())
+@if(Auth::guard('wisatawan')->check())
 <script>
+    // Memastikan CSRF token tersedia untuk Fetch request
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    
     document.querySelectorAll('.bookmark-toggle').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault(); 
+            
+            const idTempat = this.getAttribute('data-id-tempat');
+            const icon = this.querySelector('i');
+            
+            fetch("{{ url('/bookmark/toggle') }}/" + idTempat, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.success) {
+                    // Toggle status ikon (fas = terisi, far = kosong)
+                    if (data.action === 'added') {
+                        icon.classList.remove('far', 'fa-bookmark');
+                        icon.classList.add('fas', 'fa-bookmark', 'active'); // Tambahkan 'active' class untuk warna
+                    } else {
+                        icon.classList.remove('fas', 'fa-bookmark', 'active');
+                        icon.classList.add('far', 'fa-bookmark');
+                    }
+                    alert(data.message); // Tampilkan pesan feedback
+                } else {
+                    alert('Gagal: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan saat memproses favorit.');
+            });
+        });
     });
 </script>
 @endif
