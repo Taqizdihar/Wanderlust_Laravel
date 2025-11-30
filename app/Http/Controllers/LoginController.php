@@ -6,8 +6,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User; 
 
 class LoginController extends Controller {
-    
-    // Hapus array private $users yang berisi data hardcoded
 
     public function showLoginForm() {
         return view('login');
