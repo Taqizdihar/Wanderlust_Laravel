@@ -1,6 +1,5 @@
 <?php
 
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -8,16 +7,10 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void {
         Schema::create('administrators', function (Blueprint $table) {
-            $table->bigIncrements('id_admin'); 
-            $table->unsignedBigInteger('id_user'); // harus unsigned
-
+            $table->id(); // id otomatis
+            $table->foreignId('id_user')->constrained('users')->onDelete('cascade');
             $table->string('jabatan');
             $table->timestamps();
-
-            // FOREIGN KEY BENAR
-            $table->foreign('id_user')
-                ->references('id')->on('users')
-                ->onDelete('cascade');
         });
     }
 

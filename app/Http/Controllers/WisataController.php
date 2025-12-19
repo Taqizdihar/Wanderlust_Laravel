@@ -1,43 +1,70 @@
 <?php
-// app/Http/Controllers/WisataController.php
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request; // Diperlukan untuk menangkap input search
-use App\Models\Wisata; // Asumsikan Model kamu bernama Wisata
+use Illuminate\Http\Request;
+use App\Models\Wisata;
 
 class WisataController extends Controller
 {
-    /**
-     * Menampilkan semua data Wisata.
-     */
     public function index()
     {
-        // Logika untuk mengambil semua data (sebelum search)
-        $data_wisata = Wisata::all(); 
-
-        return view('kelola_wisata', [
-            'wisatas' => $data_wisata // Mengirim data ke view
-        ]);
+        $wisatas = Wisata::latest()->get();
+        return view('wisata_index', compact('wisatas'));
     }
 
-    /**
-     * Logika untuk memproses pencarian (search) data Wisata.
-     */
-    public function search(Request $request)
+    public function create()
     {
-        // 1. Ambil keyword dari input form (name="keyword" di HTML)
-        $keyword = $request->input('keyword'); 
+        return view('wisatacreate');
+    }
 
-        // 2. Lakukan query database menggunakan Model (LOGIKA PENTING)
-        $data_wisata = Wisata::where('nama', 'like', '%' . $keyword . '%')
-                               ->orWhere('lokasi', 'like', '%' . $keyword . '%')
-                               ->get();
-
-        // 3. Kembalikan view yang sama, tapi dengan hasil yang sudah difilter
-        return view('kelola_wisata', [
-            'wisatas' => $data_wisata,
-            'keyword' => $keyword // Mengirim keyword untuk ditampilkan kembali di input
+    public function store(Request $request)
+    {
+        $request->validate([
+            'nama' => 'required',
+            'deskripsi' => 'required',
+            'harga_tiket' => 'required|numeric',
+            'foto' => 'image|mimes:jpg,jpeg,png|max:2048'
         ]);
+
+        $data = $request->only(['nama', 'deskripsi', 'harga_tiket']);
+
+        if ($request->hasFile('foto')) {
+            $namaFile = time() . '_' . $request->foto->getClientOriginalName();
+            $request->foto->move('uploads/wisata', $namaFile);
+            $data['foto'] = $namaFile;
+        }
+
+        Wisata::create($data);
+
+        return redirect()->route('admin.wisata.index')
+            ->with('success', 'Wisata berhasil ditambahkan.');
+    }
+
+    public function show($id)
+    {
+        $wisata = Wisata::findOrFail($id);
+        return view('wisata_show', compact('wisata'));
+    }
+
+    public function verifikasi($id)
+    {
+        $wisata = Wisata::findOrFail($id);
+        $wisata->update(['status' => 'Selesai']);
+
+        return back()->with('success', 'Wisata berhasil diverifikasi.');
+    }
+
+    public function destroy($id)
+    {
+        $wisata = Wisata::findOrFail($id);
+
+        if ($wisata->foto) {
+            @unlink('uploads/wisata/' . $wisata->foto);
+        }
+
+        $wisata->delete();
+
+        return back()->with('success', 'Data berhasil dihapus.');
     }
 }

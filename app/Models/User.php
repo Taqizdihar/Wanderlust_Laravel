@@ -1,47 +1,38 @@
 <?php
 
-// app/Models/User.php (INI FILE YANG BENAR)
-
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+// PENTING: Jika kamu menggunakan nama file UserModel.php, maka class-nya harus UserModel
+// Jika kamu menggunakannya untuk Login/Auth, sebaiknya extend Authenticatable.
+
+class UserModel extends Authenticatable // Gunakan Authenticatable untuk fungsi login
 {
-    use HasFactory, Notifiable;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    use SoftDeletes;
+    
+    // PENTING: Karena nama Model bukan 'User', kita harus arahkan ke tabel 'users'
+    protected $table = 'users'; 
+    
+    // Kolom yang bisa diisi (sesuaikan dengan Migration dan Seeder kamu)
     protected $fillable = [
         'name',
         'email',
         'password',
-        'role', // Pastikan kolom role ada
-        'status', // Pastikan kolom status ada
+        'is_active',
     ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array
-     */
+    
+    // Kolom yang disembunyikan saat diakses (penting untuk keamanan)
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
+    // Tipe data kolom (penting untuk is_active sebagai boolean)
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_active' => 'boolean', // Pastikan kolom ini di-cast sebagai boolean
     ];
 }

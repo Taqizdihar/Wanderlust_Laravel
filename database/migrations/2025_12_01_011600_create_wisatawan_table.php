@@ -1,5 +1,7 @@
 <?php
 
+
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -7,17 +9,11 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void {
         Schema::create('wisatawan', function (Blueprint $table) {
-            $table->bigIncrements('id_wisatawan');
-
-            $table->unsignedBigInteger('id_user'); // WAJIB UNSIGNED
-
+            $table->id('id_wisatawan');
+            $table->foreignId('id_user')->constrained('users')->onDelete('cascade');
             $table->string('alamat');
             $table->string('no_telepon');
             $table->timestamps();
-
-            $table->foreign('id_user')
-                ->references('id')->on('users')
-                ->onDelete('cascade');
         });
     }
 

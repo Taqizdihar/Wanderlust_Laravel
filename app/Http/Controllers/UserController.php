@@ -1,64 +1,78 @@
 <?php
-// Pastikan UserModel sudah di-include/autoload di framework-mu
-include_once('app/models/UserModel.php');
+// app/Http/Controllers/UserController.php
 
-class UserController {
-    protected $userModel;
+namespace App\Http\Controllers;
 
-    public function __construct() {
-        $this->userModel = new UserModel();
+use App\Models\User; 
+use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator; // Digunakan untuk Pagination Data Dummy
+use Illuminate\Routing\Controller; // Pastikan ini ter-import atau di-extend dengan benar
+
+class UserController extends Controller
+{
+    /**
+     * Menampilkan daftar pengguna (Kelola User) dengan pagination.
+     * Menggunakan data database, atau fallback ke 20 list data dummy jika error DB.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function index()
+    {
+        try {
+            $users = User::orderBy('id', 'desc')->paginate(20);
+            
+        } catch (\Exception $e) {
+            $users = $this->generateDummyUsers();
+    
+        }
+
+        // 3. Kirim variabel $users ke View 'kelola_user'
+        return view('kelola_user', compact('users')); 
     }
 
-    // [R]ead - Menampilkan halaman Kelola User
-    public function index() {
-        $users = $this->userModel->getAllUsers();
-
-        // Di sini kita akan memuat View dan mengirimkan data $users
-        // Asumsi: View ada di app/views/user_management.php
-        $page_title = "Kelola User";
-        $total_user = count($users);
+    /**
+     * Menghapus user tertentu dari database (Soft Delete).
+     *
+     * @param int $id ID user yang akan dihapus.
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy($id)
+    {
+        // Cari user berdasarkan ID, jika tidak ketemu akan otomatis throw 404
+        $user = User::findOrFail($id);
         
-        // Memuat View. Di framework, ini biasanya fungsi render
-        include('app/views/user_management.php');
+        // Hapus user (Soft Delete, kolom deleted_at akan terisi)
+        $user->delete();
+
+        // Redirect kembali ke halaman Kelola User dengan pesan sukses
+        return redirect()->route('admin.user.index')->with('success', 'User berhasil dihapus.');
     }
 
-    // [U]pdate Status - Menangani permintaan ubah status
-    public function updateStatus() {
-        // Pastikan permintaan datang dari POST dan memiliki 'id' dan 'status'
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && isset($_POST['status'])) {
-            $userId = $_POST['id'];
-            $newStatus = $_POST['status'];
-            
-            // Panggil Model untuk update
-            $success = $this->userModel->updateStatus($userId, $newStatus);
-
-            if ($success) {
-                // Beri respon sukses dan redirect kembali ke halaman list
-                header('Location: index.php?page=kelola_user&message=status_updated');
-                exit();
-            }
+    /**
+     * Helper Function: Membuat 20 list data dummy (FALLBACK) untuk mencegah error pada View.
+     * Data ini hanya digunakan JIKA database gagal diakses.
+     *
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
+    private function generateDummyUsers()
+    {
+        $dummyData = [];
+        for ($i = 1; $i <= 20; $i++) {
+            // Menggunakan (object) agar data dummy memiliki properti seperti objek Model
+            $dummyData[] = (object) [
+                'id' => $i,
+                'name' => 'User Dummy ' . $i,
+                'is_active' => ($i % 3 != 0), // Status Aktif (true) atau Non Aktif (false)
+            ];
         }
-        // Redirect jika gagal atau request tidak valid
-        header('Location: index.php?page=kelola_user&error=update_failed');
+        
+        // Membuat Pagination manual untuk data dummy (selalu di halaman 1)
+        return new LengthAwarePaginator(
+            $dummyData, 
+            count($dummyData), 
+            20, // Per halaman
+            1,  // Halaman saat ini
+            ['path' => route('admin.user.index')]
+        );
     }
-
-    // [D]elete User - Menangani permintaan hapus user
-    public function delete() {
-        // Asumsi kita menggunakan GET request untuk demo, tapi idealnya pakai POST
-        if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
-            $userId = $_GET['id'];
-            
-            // Panggil Model untuk delete
-            $success = $this->userModel->deleteUser($userId);
-
-            if ($success) {
-                header('Location: index.php?page=kelola_user&message=user_deleted');
-                exit();
-            }
-        }
-        header('Location: index.php?page=kelola_user&error=delete_failed');
-    }
-
-    // Catatan: Di implementasi nyata, fungsi search() akan ada di sini
-    // Tapi karena kamu mau search client-side (JavaScript), maka logika search ada di View.
 }

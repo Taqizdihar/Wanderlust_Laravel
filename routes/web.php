@@ -26,6 +26,7 @@ use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\WisataController;
 
 
 
@@ -86,49 +87,47 @@ Route::middleware(['auth:wisatawan'])->group(function () {
     // Route untuk Halaman Penilaian (Perlu dibuat)
     Route::get('/daftar-penilaian', [PenilaianController::class, 'index'])->name('penilaian.index');
 
-    Route::middleware(['auth:wisatawan'])->group(function () {
 
-        Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
-        Route::get('/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
-        Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
-    });
+
+Route::get('/wisata/create', [WisataController::class, 'create'])->name('wisata.create');
+Route::post('/wisata/store', [WisataController::class, 'store'])->name('wisata.store');
+
 });
 
 
 //admin
-// routes/web.php
 
-
-// Group Route untuk Admin Panel
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
-    Route::get('wisata', [AdminController::class, 'kelolaWisata'])->name('wisata.index');
-    Route::get('user', [AdminUserController::class, 'index'])->name('user.index');
-    Route::get('user/status/{id}', [AdminUserController::class, 'status'])->name('user.status');
-    Route::delete('user/{id}', [AdminUserController::class, 'delete'])->name('user.delete');
-    Route::get('keuangan', [AdminController::class, 'kelolaKeuangan'])->name('keuangan.index');
-    Route::prefix('admin/user')->name('admin.user.')->group(function () {
-        Route::get('/', [\App\Http\Controllers\AdminUserController::class, 'index'])
-            ->name('index');
-        Route::get('/status/{id}', [\App\Http\Controllers\AdminUserController::class, 'updateStatus'])
-            ->name('status');
-        Route::delete('/delete/{id}', [\App\Http\Controllers\AdminUserController::class, 'destroy'])
-            ->name('delete');
-    });
-});
-   
 
 Route::prefix('admin')->name('admin.')->group(function () {
-    // ... Routes lain seperti dashboard, wisata, keuangan ...
+
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
-    Route::get('wisata', [AdminController::class, 'kelolaWisata'])->name('wisata.index');
-    Route::get('keuangan', [AdminController::class, 'kelolaKeuangan'])->name('keuangan.index');
 
-    
+    // USER
     Route::get('user', [AdminUserController::class, 'index'])->name('user.index');
-
     Route::get('user/status/{id}', [AdminUserController::class, 'updateStatus'])->name('user.status');
     Route::delete('user/delete/{id}', [AdminUserController::class, 'destroy'])->name('user.delete');
+    // routes/web.php
+
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'admin']], function () {
+    // ... Rute lainnya
+    
+    // Rute untuk Kelola User
+    Route::get('/users', [UserController::class, 'index'])->name('user.index');
+    Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+    // routes/web.php
+Route::get('/users', [UserController::class, 'index'])->name('user.index');
+});
+
+    // WISATA - INI YANG KAMU BUAT
+    Route::get('wisata', [WisataController::class, 'index'])->name('wisata.index');
+    Route::get('wisata/tambah', [WisataController::class, 'create'])->name('wisata.create');
+    Route::post('wisata/store', [WisataController::class, 'store'])->name('wisata.store');
+    Route::get('wisata/{id}', [WisataController::class, 'show'])->name('wisata.show');
+    Route::get('wisata/verifikasi/{id}', [WisataController::class, 'verifikasi'])->name('wisata.verifikasi');
+    Route::delete('wisata/hapus/{id}', [WisataController::class, 'destroy'])->name('wisata.destroy');
+
+    // Keuangan
+    Route::get('keuangan', [AdminController::class, 'kelolaKeuangan'])->name('keuangan.index');
 
 });
 
