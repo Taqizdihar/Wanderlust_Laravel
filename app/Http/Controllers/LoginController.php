@@ -21,6 +21,7 @@ class LoginController extends Controller {
         $lookup_credentials = [
             'email' => $credentials['username'],
             'password' => $credentials['password'],
+            ''
         ];
 
         // 3. Verifikasi Kredensial terhadap database (Auth::attempt)
